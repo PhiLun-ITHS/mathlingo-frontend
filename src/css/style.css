@@ -3,6 +3,50 @@
 body {
     background-color: #7FFA87;
 }
+.a-signUp{
+    font-size: 15px;
+    font-family: Forte;
+    color: white;
+}
+.a-signUp:hover{
+    color: black;
+}
+form{
+    text-align: center;
+    color: #CBFBCE;
+    display: inline-block;
+    background-color: #3E7A42;
+    border-radius: 20px;
+    margin: 20px;
+    width: 200px;
+    height: auto;
+    padding: 30px;
+
+}
+input[type=text], [type=password]{
+    width: auto;
+    height: 30px;
+    margin-bottom: 10px;
+    padding: 5px 15px;
+    background-color: #CBFBCE;
+    border: 5px black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.btn{
+    margin: 10px;
+    padding: 15px 60px;
+    background-color: #3E7A42;
+    color: #CBFBCE;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    border-radius: 5px;
+}
+.btn:hover{
+    background-color: black;
+}
 
 section {
     display: grid;
@@ -15,6 +59,7 @@ section {
     "footer";
     grid-gap: 15px;
 }
+
 
 header {
     grid-area: topHeader;
@@ -31,15 +76,20 @@ nav {
     flex-direction: column;
     text-align: center;
 }
-
-a {
+router-link{
+    font-size: 18px;
+    color: #CBFBCE;
+    text-decoration: none;
+    padding: 16px 32px;
+}
+.a {
     font-size: 18px;
     color: #CBFBCE;
     text-decoration: none;
     padding: 16px 32px;
 }
 
-a:hover {
+.a:hover {
     background-color: black;
     text-decoration: underline;
 }

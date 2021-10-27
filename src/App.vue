@@ -5,12 +5,12 @@
         <h1>Mathlingo</h1>
       </header>
       <nav>
-        <router-link to="/">Home</router-link>
-        <router-link to="/mypage">My Page</router-link>
-        <router-link to="/login">Login</router-link>
-        <router-link to="/signup">Signup</router-link>
-        <router-link to="/contact">Contact</router-link>
-        <router-link to="/about">About</router-link>
+        <router-link class="a" to="/">Home</router-link>
+        <router-link class="a" to="/mypage">My Page</router-link>
+        <router-link class="a" to="/login">Login</router-link>
+        <router-link class="a" to="/signup">Signup</router-link>
+        <router-link class="a" to="/contact">Contact</router-link>
+        <router-link class="a" to="/about">About</router-link>
       </nav>
     <router-view/>
     </section>
