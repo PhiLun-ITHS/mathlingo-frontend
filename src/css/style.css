@@ -1,6 +1,7 @@
 /* Mobile first */
+
 body {
-    margin: 20px;
+    background-color: #7FFA87;
 }
 
 section {
@@ -18,7 +19,6 @@ section {
 header {
     grid-area: topHeader;
     background-color: #3E7A42;
-    /*padding: 2px;*/
     color: white;
     text-align: center;
     font-size: 30px;
@@ -26,23 +26,21 @@ header {
 
 nav {
     grid-area: navigation;
-    background-color: #CBFBCE;
-}
-
-nav.nav_list {
-    padding: 5px;
-    margin-bottom: 10px;
-    /*background-color: #000000;*/
-    background-color: #CBFBCE;
+    background-color: #3E7A42;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
 a {
     font-size: 18px;
-    color: #000000;
+    color: white;
     text-decoration: none;
+    padding: 16px 32px;
 }
 
 a:hover {
+    background-color: black;
     text-decoration: underline;
 }
 
@@ -51,7 +49,6 @@ main {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 20px;
-    /*background-color: #9E1515;*/
     background-color: #CBFBCE;
 }
 
@@ -67,44 +64,13 @@ footer {
     background-color: #3E7A42;
 }
 
-form {
+/*form {
     background-color: white;
     padding: 16px;
     border: 3px solid #f1f1f1;
 }
+*/
 
-input[type=text], input[type=password], input[type=date] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-button {
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-}
-
-button:hover {
-    opacity: 0.4;
-}
-/*.warning{*/
-/*    color: red;*/
-/*}*/
-/*.imgcontainer {*/
-/*    background-color: white;*/
-/*    text-align: center;*/
-/*    margin: 24px 0 12px 0;*/
-/*}*/
-/*img.avatar {*/
-/*    width: 40%;*/
-/*    border-radius: 50%;*/
-/*}*/
 /*Tablet*/
 @media screen and (min-width: 768px) and (max-width: 1024px) {
 
@@ -113,6 +79,11 @@ button:hover {
     }
     body {
         background-color: #7FFA87;
+    }
+
+    nav {
+        flex-direction: row;
+        justify-content: center;
     }
 }
 
@@ -132,21 +103,10 @@ button:hover {
         grid-template-columns: 1fr 1fr;
     }
 
-    /*main#subPages {*/
-    /*    grid-template-columns: 1fr;*/
-    /*}*/
-
-    /*main#promoPages {*/
-    /*    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;*/
-    /*}*/
-
-    nav.nav_list {
-        text-align: center;
+    nav {
+        flex-direction: row;
+        justify-content: center;
     }
 
-    /*nav.nav_list ul li {*/
-    /*    display: inline;*/
-    /*    padding: 10px;*/
-    /*}*/
 }
 

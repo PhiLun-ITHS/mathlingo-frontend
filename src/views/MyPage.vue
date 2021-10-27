@@ -1,7 +1,7 @@
 <template>
-<div class="MyPage">
-
-</div>
+  <div class="MyPage">
+  <h1>my page test</h1>
+  </div>
 </template>
 
 <script>
