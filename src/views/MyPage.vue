@@ -1,7 +1,9 @@
 <template>
   <div class="MyPage">
     <section class="grid-container">
+      <main>
       <h1>my page test</h1>
+      </main>
       <footer>
         <h2>Mathlingo</h2>
         <hr>

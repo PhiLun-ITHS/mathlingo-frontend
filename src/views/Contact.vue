@@ -1,7 +1,9 @@
 <template>
   <div class="contact">
     <section class="grid-container">
+      <main>
       <h1>contact test</h1>
+      </main>
       <footer>
         <h2>Mathlingo</h2>
         <hr>
