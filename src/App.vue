@@ -1,42 +1,50 @@
 <template>
   <div id="app">
 
+    <section class="grid-container">
     <header>
       <h1>Mathlingo</h1>
     </header>
 
-      <div id="nav">
+
+      <nav id="nav_list">
         <router-link to="/">Home</router-link> |
         <router-link to="/mypage">My Page</router-link> |
         <router-link to="/login">Login</router-link> |
         <router-link to="/signup">Signup</router-link> |
         <router-link to="/contact">Contact</router-link> |
         <router-link to="/about">About</router-link>
-      </div>
+      </nav>
+      </section>
 
     <router-view/>
   </div>
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+@import 'css/style.css';
 </style>
+
+
+<!--<style>-->
+<!--#app {-->
+<!--  font-family: Avenir, Helvetica, Arial, sans-serif;-->
+<!--  -webkit-font-smoothing: antialiased;-->
+<!--  -moz-osx-font-smoothing: grayscale;-->
+<!--  text-align: center;-->
+<!--  color: #2c3e50;-->
+<!--}-->
+
+<!--/*#nav {*/-->
+<!--/*  padding: 30px;*/-->
+<!--/*}*/-->
+
+<!--/*#nav a {*/-->
+<!--/*  font-weight: bold;*/-->
+<!--/*  color: #2c3e50;*/-->
+<!--/*}*/-->
+
+<!--/*#nav a.router-link-exact-active {*/-->
+<!--/*  color: #42b983;*/-->
+<!--/*}*/-->
+<!--</style>-->
