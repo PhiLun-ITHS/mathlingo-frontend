@@ -1,0 +1,84 @@
+<template>
+  <div class="home">
+
+    <section class="grid-container">
+
+
+      <marquee>
+        <p id="para"></p>
+      </marquee>
+      <main>
+        <article>
+          <h1>Maldives</h1>
+          <p>The Maldives, officially the Republic of Maldives, are an Asian country, located in the Indian Ocean,
+            situated in the Arabian Sea. It has an area of 298 square km. Its official language is Maldivian
+            (Dhivehi) and its official currency is Maldivian rufiyaa (MVR). The beautiful Maldives, consisting of
+            many separate islands and atolls, is the lowest country in the world. Popular as a holiday destination
+            the Maldives features history, natural wonders, and many exciting things to do.</p>
+        </article>
+        <article>
+          <h1>Spain</h1>
+          <p>Spain is a country in Southwestern Europe with some pockets of territory in the Mediterranean Sea,
+            offshore in the Atlantic Ocean and across the Strait of Gibraltar. Its continental European territory is
+            situated on the Iberian Peninsula, and its insular territory includes the Balearic Islands in the
+            Mediterranean Sea, several small islands in the Alboran Sea and the Canary Islands in the Atlantic
+            Ocean. The Spanish territory also includes the African semi-exclaves of Ceuta, Melilla and Peñon de
+            Vélez across the Strait of Gibraltar. The country's mainland is bordered to the south and east by the
+            Mediterranean Sea; to the north by France, Andorra and the Bay of Biscay; and to the west by Portugal
+            and the Atlantic Ocean.</p>
+        </article>
+        <article>
+          <h1>Thailand</h1>
+          <p>Thailand (Thai: ประเทศไทย), known formerly as Siam and officially as the Kingdom of Thailand, is a
+            country in Southeast Asia. It is located at the centre of the Indochinese Peninsula, spanning 513,120
+            square kilometres (198,120 sq mi), with a population of almost 70 million people. Thailand is bordered
+            to the north by Myanmar and Laos, to the east by Laos and Cambodia, to the south by the Gulf of Thailand
+            and Malaysia, and to the west by the Andaman Sea and the southern extremity of Myanmar. It also shares
+            maritime borders with Vietnam in the Gulf of Thailand to the southeast, and Indonesia and India on the
+            Andaman Sea to the southwest. Bangkok is the nation's capital and largest city. Nominally, Thailand is a
+            constitutional monarchy and parliamentary democracy; however, in recent history, its government has
+            experienced multiple coups and periods of military dictatorships.</p>
+        </article>
+        <article>
+          <h1>Greece</h1>
+          <p>Greece, officially the Hellenic Republic, is a country located in Southeast Europe. Its population is
+            approximately 10.7 million as of 2018; Athens is its largest and capital city, followed by Thessaloniki.
+            Situated on the southern tip of the Balkans, Greece is located at the crossroads of Europe, Asia, and
+            Africa. It shares land borders with Albania to the northwest, North Macedonia and Bulgaria to the north,
+            and Turkey to the northeast. The Aegean Sea lies to the east of the mainland, the Ionian Sea to the
+            west, the Cretan Sea and the Mediterranean Sea to the south. Greece has the longest coastline on the
+            Mediterranean Basin and the 11th longest coastline in the world at 13,676 km (8,498 mi) in length,
+            featuring many islands, of which 227 are inhabited. Eighty percent of Greece is mountainous, with Mount
+            Olympus being the highest peak at 2,918 metres (9,573 ft). The country consists of nine traditional
+            geographic regions: Macedonia, Central Greece, the Peloponnese, Thessaly, Epirus, the Aegean Islands
+            (including the Dodecanese and Cyclades), Thrace, Crete, and the Ionian Islands.</p>
+        </article>
+      </main>
+      <footer>
+        <p>We want you to have the best weeks of the year when you travel with us. We travel to more than 80 countries.
+          You can also book flights around the world, and choose from thousands of quality-assured airlines. We offer
+          shorter city trips for you who just want to be away for a weekend, and you can always make real bargains
+          among our last minute trips. </p>
+        <h2>TravelWorld</h2>
+        <hr>
+        &copy; 2021 All rights reserved
+        <a style="float:right" href="tel:070-000-0000">070-000-0000</a>
+      </footer>
+    </section>
+
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'Home',
+  components: {
+
+  }
+}
+</script>
+<style>
+@import '../css/style.css';
+</style>
+
