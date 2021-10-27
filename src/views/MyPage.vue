@@ -1,6 +1,14 @@
 <template>
   <div class="MyPage">
-  <h1>my page test</h1>
+    <section class="grid-container">
+      <h1>my page test</h1>
+      <footer>
+        <h2>Mathlingo</h2>
+        <hr>
+        &copy; 2021 All rights reserved
+        <a style="float:right" href="tel:070-000-0000">070-000-0000</a>
+      </footer>
+    </section>
   </div>
 </template>
 
@@ -9,7 +17,3 @@ export default {
   name: "MyPage"
 }
 </script>
-
-<style scoped>
-
-</style>

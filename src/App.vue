@@ -1,11 +1,9 @@
 <template>
   <div id="app">
-
     <section class="grid-container">
-    <header>
-      <h1>Mathlingo</h1>
-    </header>
-
+      <header>
+        <h1>Mathlingo</h1>
+      </header>
       <nav>
         <router-link to="/">Home</router-link>
         <router-link to="/mypage">My Page</router-link>
@@ -14,9 +12,8 @@
         <router-link to="/contact">Contact</router-link>
         <router-link to="/about">About</router-link>
       </nav>
-      </section>
-
     <router-view/>
+    </section>
   </div>
 </template>
 
