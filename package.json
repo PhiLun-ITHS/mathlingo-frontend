@@ -2,22 +2,27 @@
   "name": "mathlingo",
   "version": "0.1.0",
   "private": true,
+  "description": "## Project setup ``` npm install ```",
+  "author": "Philip, Farrukh, Milan, Gustav",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "main": "babel.config.js",
   "dependencies": {
     "body-parser": "^1.19.0",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "sqlite3": "^5.0.2",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "^4.5.14",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
@@ -43,16 +48,13 @@
     "last 2 versions",
     "not dead"
   ],
-  "description": "## Project setup ``` npm install ```",
-  "main": "babel.config.js",
-  "author": "Philip, Farrukh, Milan, Gustav",
+  "bugs": {
+    "url": "https://github.com/intellijava/MathLingo/issues"
+  },
+  "homepage": "https://github.com/intellijava/MathLingo#readme",
   "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/intellijava/MathLingo.git"
-  },
-  "bugs": {
-    "url": "https://github.com/intellijava/MathLingo/issues"
-  },
-  "homepage": "https://github.com/intellijava/MathLingo#readme"
+  }
 }
