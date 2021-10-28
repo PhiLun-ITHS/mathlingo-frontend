@@ -4,62 +4,64 @@ body {
     background-color: white;
     margin: auto;
 }
+
 .a-signUp{
     font-size: 15px;
     font-family: Forte;
     color: white;
 }
 
+.a-signUp:hover{
+    color: black;
+}
+
+.a-login {
+    font-size: 15px;
+    font-family: Forte;
+    color: white;
+}
+
+.a-login:hover {
+    color: black;
+}
+
 p {
     text-align: center;
 }
 
-.a-signUp:hover{
-    color: black;
-}
-.a-login{
-     font-size: 15px;
-     font-family: Forte;
-     color: white;
- }
-.a-login:hover{
-    color: black;
-}
-form{
+h2 {
+    font-size: 26px;
     text-align: center;
-    color: #CBFBCE;
-    display: inline-block;
-    background-color: #3E7A42;
-    border-radius: 20px;
-    margin: 20px;
-    width: 200px;
-    height: auto;
-    padding: 30px;
-
 }
-input[type=text], [type=password]{
+
+form {
+    text-align: center;
+    width: 200px;
+}
+
+input[type=text], [type=password] {
     width: auto;
     height: 30px;
     margin-bottom: 10px;
-    padding: 5px 15px;
-    background-color: #CBFBCE;
     border: 5px black;
     border-radius: 10px;
-    text-align: center;
+    background-color: white;
+    padding: 18px 18px;
 }
 
 .btn{
-    margin: 10px;
-    padding: 15px 60px;
-    background-color: #3E7A42;
-    color: #CBFBCE;
+    margin-top: 25px;
+    padding: 18px 18px;
+    background-color: white;
+    color: black;
     border: none;
     outline: none;
     font-size: 20px;
     border-radius: 5px;
 }
+
 .btn:hover{
-    background-color: black;
+    background-color: rgba(50, 192, 49, 0.81);
 }
 
 section {
@@ -93,7 +95,7 @@ nav {
 }
 
 p {
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .a {
@@ -127,7 +129,7 @@ p {
 }
 
 .b:hover {
-    background-color: rgba(186,186,186,0.7);
+    background-color: rgba(14, 186, 125, 0.32);
 }
 
 main {
@@ -138,11 +140,7 @@ main {
     grid-gap: 30px;
     justify-items: center;
     background-color: rgba(14,186,125,0.7);
-    border-radius: 25px 25px 25px 25px;
-}
-
-#padding {
-    padding-top: 35px;
+    border-radius: 25px;
 }
 
 footer {
@@ -151,10 +149,7 @@ footer {
     border-top-style: solid;
     border-top-width: 1px;
     margin-top: 25px;
-    position: relative;
-
 }
-
 
 /*Tablet*/
 @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -169,6 +164,10 @@ footer {
         padding: 4% 10% 4% 10%;
     }
 
+    main#subPages {
+        grid-template-columns: 1fr;
+    }
+
     nav {
         flex-direction: row;
         justify-content: center;
@@ -181,11 +180,20 @@ footer {
         font-size: 16px;
         border-bottom-style: none;
     }
+
+    form {
+        width: 300px;
+    }
+
+    input[type=text], [type=password]{
+        width: 200px;
+        height: 20px;
+    }
+
 }
 
 /* Desktop */
 @media screen and (min-width: 1025px) {
-
 
     section.grid-container {
         width: 800px;
@@ -211,6 +219,15 @@ footer {
 
     .a {
         border-bottom-style: none;
+    }
+
+    form {
+        width: 300px;
+    }
+
+    input[type=text], [type=password]{
+        width: 200px;
+        height: 20px;
     }
 
 }

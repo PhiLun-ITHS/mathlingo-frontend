@@ -1,22 +1,25 @@
 <template style="align-content: center">
   <div class="login" >
+
+
+
     <section class="grid-container">
       <main id="subPages">
         <form>
-          <input type="submit" class ="btn" id="btn-save" value="Login">
+          <h2>Login to your account</h2>
           <label><input type="text" id='email' placeholder="Email"></label>
           <label><input type="password" id='psw' placeholder="Password"></label>
-          <p>No account? <router-link class=a-signUp to="/signup">Signup</router-link></p>
+          <input type="submit" class ="btn" id="btn-save" value="Login">
+          <p>No account? <router-link class=a-signUp style="color: blue; font-size: 18px" to="/signup">Signup</router-link></p>
         </form>
-        <p>This is a test text</p>
       </main>
-      <footer>
-        <h2>Mathlingo</h2>
-        <hr>
-        &copy; 2021 All rights reserved
-        <a style="float:right" href="tel:070-000-0000">070-000-0000</a>
-      </footer>
     </section>
+
+      <footer>
+        <p>Mathlingo &copy; 2021 All rights reserved.</p>
+        <p><router-link style="margin: 5px" to="/contact">Contact us</router-link>| <router-link to="/about">About</router-link></p>
+      </footer>
+
   </div>
 </template>
 
