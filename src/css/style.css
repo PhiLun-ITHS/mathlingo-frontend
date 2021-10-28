@@ -11,6 +11,14 @@ body {
 .a-signUp:hover{
     color: black;
 }
+.a-login{
+     font-size: 15px;
+     font-family: Forte;
+     color: white;
+ }
+.a-login:hover{
+    color: black;
+}
 form{
     text-align: center;
     color: #CBFBCE;
