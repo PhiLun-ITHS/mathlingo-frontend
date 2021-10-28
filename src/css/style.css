@@ -161,6 +161,10 @@ footer {
         grid-template-columns: 1fr 1fr;
     }
 
+    main#subPages {
+        grid-template-columns: 1fr;
+    }
+
     nav {
         flex-direction: row;
         justify-content: center;

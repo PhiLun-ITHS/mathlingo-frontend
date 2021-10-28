@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <section class="grid-container">
+<!--  <div id="app">-->
+    <section class="grid-container" id="app">
       <header>
         <h1>Mathlingo</h1>
       </header>
@@ -14,7 +14,7 @@
       </nav>
     <router-view/>
     </section>
-  </div>
+<!--  </div>-->
 </template>
 
 <style>

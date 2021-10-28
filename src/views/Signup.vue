@@ -1,7 +1,7 @@
 <template>
   <div class="signup">
     <section class="grid-container">
-      <main>
+      <main id="subPages">
           <form id="signUp"  method="post">
 
             <input type="submit" class ="btn" id="btn-signup" value="SignUp">

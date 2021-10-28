@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <section class="grid-container">
-      <main>
+      <main id="subPages">
         <h1>This is an about page</h1>
       </main>
       <footer>

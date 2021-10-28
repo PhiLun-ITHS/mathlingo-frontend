@@ -1,13 +1,14 @@
 <template style="align-content: center">
   <div class="login" >
     <section class="grid-container">
-      <main>
+      <main id="subPages">
         <form>
           <input type="submit" class ="btn" id="btn-save" value="Login">
           <label><input type="text" id='email' placeholder="Email"></label>
           <label><input type="password" id='psw' placeholder="Password"></label>
           <p>No account? <router-link class=a-signUp to="/signup">Signup</router-link></p>
         </form>
+        <p>This is a test text</p>
       </main>
       <footer>
         <h2>Mathlingo</h2>

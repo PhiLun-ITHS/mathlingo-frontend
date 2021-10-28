@@ -1,7 +1,7 @@
 <template>
   <div class="contact">
     <section class="grid-container">
-      <main>
+      <main id="subPages">
       <h1>contact test</h1>
       </main>
       <footer>
