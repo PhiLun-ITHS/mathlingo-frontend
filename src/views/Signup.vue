@@ -2,7 +2,20 @@
   <div class="signup">
     <section class="grid-container">
       <main>
-      <h1>signup test</h1>
+          <form id="signUp"  method="post">
+
+            <input type="submit" class ="btn" id="btn-signup" value="SignUp">
+
+            <input type="text" placeholder="Enter Username" name="uname" required id="userName">
+            <div id="userNameHint" class="warning"></div>
+
+            <input type="text" placeholder="Enter Email" name="email" required id="email">
+
+            <input type="password" placeholder="Enter Password" name="psw" required id="password">
+
+            <input type="password" placeholder="Confirm Password" name="psw" required id="rePassword">
+            <div id="passwordHint" class="warning"></div>
+          </form>
       </main>
       <footer>
         <h2>Mathlingo</h2>
