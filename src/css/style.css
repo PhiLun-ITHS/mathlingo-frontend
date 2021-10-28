@@ -107,8 +107,27 @@ p {
     border-bottom-width: 1px;
 }
 
+.b {
+    font-size: 18px;
+    font-family: sans-serif;
+    background-color: rgba(8,162,0,0.6);
+    color: black;
+    text-decoration: none;
+    padding: 16px 32px;
+    border-left: rgba(186,186,186,0.7);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right: rgba(186,186,186,0.7);
+    border-right-style: solid;
+    border-right-width: 1px;
+}
+
 .a:hover {
     background-color: rgba(14, 186, 125, 0.32);
+}
+
+.b:hover {
+    background-color: rgba(186,186,186,0.7);
 }
 
 main {
@@ -119,21 +138,23 @@ main {
     grid-gap: 30px;
     justify-items: center;
     background-color: rgba(14,186,125,0.7);
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 25px 25px 25px 25px;
 }
 
+#padding {
+    padding-top: 35px;
+}
 
 footer {
     font-family: sans-serif;
-    grid-area: footer;
-    padding: 50px;
+    border-top: rgba(186,186,186,0.7);
+    border-top-style: solid;
+    border-top-width: 1px;
+    margin-top: 25px;
+    position: relative;
+
 }
 
-h2 {
-    border-bottom: rgba(186,186,186,0.7);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-}
 
 /*Tablet*/
 @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -173,7 +194,7 @@ h2 {
 
     main {
         grid-template-columns: 1fr 1fr;
-        padding: 3% 15% 3% 15%;
+        padding: 2% 15% 5% 15%;
     }
 
     main#subPages {
