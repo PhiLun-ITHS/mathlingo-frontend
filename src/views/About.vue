@@ -1,11 +1,10 @@
 <template>
   <div class="about">
 
-    <p id="padding">About Mathlingo</p>
-
     <section class="grid-container">
       <main id="subPages">
-        <h1>"Counting without your fingers"</h1>
+        <h1>Mathlingo</h1>
+        <h2 style="margin-top: 1%">"Counting without your fingers"</h2>
         <p>
           Mathlingo är en hemsida för lågstadieelevers matteinlärning.
           Matematik uppfattas av många elever som svårt och kan ibland vara svårt att få hjälp med hemma.
@@ -18,7 +17,6 @@
 
       <footer>
         <p>Mathlingo &copy; 2021 All rights reserved.</p>
-        <p><router-link style="margin: 5px" to="/contact">Contact us</router-link>| <router-link to="/about">About</router-link></p>
       </footer>
   </div>
 </template>

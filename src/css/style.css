@@ -1,24 +1,25 @@
 /* Mobile first */
 
 body {
-    background-color: white;
-    margin: auto;
+    background-image: linear-gradient(-120DEG, #0BE0E3, #01FAB6, #01FAB6, #0BE36C);
+    background-repeat: no-repeat;
+    margin: auto
 }
 
 .a-signUp{
-    font-size: 15px;
-    font-family: Forte;
-    color: white;
+    font-size: 18px;
+    font-family: cursive;
+    color: blue;
 }
 
-.a-signUp:hover{
+.a-signUp:hover {
     color: black;
 }
 
 .a-login {
-    font-size: 15px;
-    font-family: Forte;
-    color: white;
+    font-size: 18px;
+    font-family: cursive;
+    color: blue;
 }
 
 .a-login:hover {
@@ -27,6 +28,8 @@ body {
 
 p {
     text-align: center;
+    font-family: cursive;
+    font-size: 18px;
 }
 
 h2 {
@@ -36,17 +39,17 @@ h2 {
 
 form {
     text-align: center;
-    width: 200px;
+    width: 300px;
 }
 
 input[type=text], [type=password] {
-    width: auto;
+    width: 200px;
     height: 30px;
     margin-bottom: 10px;
     border: 5px black;
     border-radius: 10px;
     background-color: white;
-    padding: 18px 18px;
+    padding: 14px 18px;
 }
 
 .btn{
@@ -82,46 +85,44 @@ header {
     color: black;
     text-align: center;
     font-size: 20px;
-    padding-bottom: 25px;
+}
+
+h1 {
+    font-family: cursive;
+    font-size: 26px;
+    text-align: center;
+}
+
+h2 {
+    font-family: cursive;
+    font-size: 20px;
 }
 
 nav {
     background-color: white;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-    text-align: center;
-    border-bottom-style: none;
-}
-
-p {
-    font-size: 18px;
-}
-
-.a {
-    font-size: 18px;
-    font-family: sans-serif;
-    color: black;
-    text-decoration: none;
-    padding: 16px 32px;
     border-bottom: rgba(186,186,186,0.7);
     border-bottom-style: solid;
     border-bottom-width: 1px;
 }
 
-.b {
-    font-size: 18px;
-    font-family: sans-serif;
-    background-color: rgba(8,162,0,0.6);
+#logo{
+    font-family: cursive;
+    font-size: 26px;
+    position: relative;
+    top: 5px;
+}
+
+.a {
+    font-size: 12px;
+    font-family: cursive;
     color: black;
     text-decoration: none;
-    padding: 16px 32px;
-    border-left: rgba(186,186,186,0.7);
-    border-left-style: solid;
-    border-left-width: 1px;
-    border-right: rgba(186,186,186,0.7);
-    border-right-style: solid;
-    border-right-width: 1px;
+    padding: 14px 8px;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .a:hover {
@@ -137,21 +138,20 @@ main {
     display: grid;
     grid-template-columns: 1fr;
     padding: 30px;
-    grid-gap: 30px;
+    grid-gap: 10px;
     justify-items: center;
-    background-color: rgba(14,186,125,0.7);
-    border-radius: 25px;
+    margin-bottom: 10px;
 }
 
 footer {
     font-family: sans-serif;
-    border-top: rgba(186,186,186,0.7);
+    border-top: rgba(0,0,0,0.6);
     border-top-style: solid;
     border-top-width: 1px;
-    margin-top: 25px;
+    padding-bottom: 125px;
 }
 
-/*Tablet*/
+/* Tablet */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
 
     section.grid-container {
@@ -169,16 +169,18 @@ footer {
     }
 
     nav {
-        flex-direction: row;
-        justify-content: center;
         border-bottom: rgba(186,186,186,0.7);
         border-bottom-style: solid;
         border-bottom-width: 1px;
     }
 
     .a {
-        font-size: 16px;
         border-bottom-style: none;
+        font-size: 20px;
+        margin-bottom: 25px;
+        padding: 14px 16px;
+        position: relative;
+        top: 20px;
     }
 
     form {
@@ -189,11 +191,10 @@ footer {
         width: 200px;
         height: 20px;
     }
-
 }
 
 /* Desktop */
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1025px){
 
     section.grid-container {
         width: 800px;
@@ -202,7 +203,7 @@ footer {
 
     main {
         grid-template-columns: 1fr 1fr;
-        padding: 2% 15% 5% 15%;
+        padding: 4% 10% 4% 10%;
     }
 
     main#subPages {
@@ -210,8 +211,6 @@ footer {
     }
 
     nav {
-        flex-direction: row;
-        justify-content: center;
         border-bottom: rgba(186,186,186,0.7);
         border-bottom-style: solid;
         border-bottom-width: 1px;
@@ -219,16 +218,31 @@ footer {
 
     .a {
         border-bottom-style: none;
+        font-size: 20px;
+        margin-bottom: 25px;
+        padding: 16px 24px;
+        position: relative;
+        top: 20px;
     }
 
     form {
-        width: 300px;
+        width: 350px;
     }
 
     input[type=text], [type=password]{
-        width: 200px;
-        height: 20px;
+        width: 250px;
+        height: 30px;
     }
 
-}
+    h1 {
+        font-size: 30px;
+    }
 
+    h2 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 20px;
+    }
+}
