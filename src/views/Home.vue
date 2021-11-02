@@ -8,22 +8,22 @@
       <main>
         <article>
           <h2>Addition</h2>
-          <router-link to="/"><img src="../assets/subtraction.png"/></router-link>
+          <router-link to="/quiz"><img src="../assets/subtraction.png"/></router-link>
         </article>
 
         <article>
           <h2>Subtraction</h2>
-          <router-link to="/"><img src="../assets/subtraction.png"/></router-link>
+          <router-link to="/quiz"><img src="../assets/subtraction.png"/></router-link>
         </article>
 
         <article>
           <h2>Multiplication</h2>
-          <router-link to="/"><img src="../assets/subtraction.png"/></router-link>
+          <router-link to="/quiz"><img src="../assets/subtraction.png"/></router-link>
         </article>
 
         <article>
           <h2>Division</h2>
-          <router-link to="/"><img src="../assets/subtraction.png"/></router-link>
+          <router-link to="/quiz"><img src="../assets/subtraction.png"/></router-link>
         </article>
       </main>
         </section>
@@ -37,9 +37,6 @@
 
 <script>
 export default {
-  name: 'Home',
-  components: {
-
-  }
+  name: 'Home'
 }
 </script>
