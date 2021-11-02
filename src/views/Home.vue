@@ -1,29 +1,52 @@
 <template>
 
       <div class="home">
+        <section class="grid-container">
+          <main id="subPages">
 
-          <h1 style="padding-top: 1%">QUIZ</h1>
-          <p>info om QUIZ?</p>
+          <h1>QUIZ MATEMATIK</h1>
+
+          <p>
+            Du möts nu av fyra spännande Quiz!<br>
+            När du har klarat alla fyra kommer du låsa upp ett slutquiz.<br>
+            Välj mellan addition, subtraktion, multiplikation eller division.</p>
+
+          <h2>Gör ett val nedan för att börja!</h2>
+
+          </main>
+        </section>
           <section class="grid-container">
       <main>
         <article>
           <h2>Addition</h2>
-          <router-link to="/quiz"><img src="../assets/subtraction.png"/></router-link>
+          <router-link to="/quiz">
+            <button class="home-btn">+</button>
+          </router-link>
+
         </article>
 
         <article>
-          <h2>Subtraction</h2>
-          <router-link to="/quiz"><img src="../assets/subtraction.png"/></router-link>
+          <h2>Subtraktion</h2>
+          <router-link to="/quiz">
+            <button class="home-btn">-</button>
+          </router-link>
+
         </article>
 
         <article>
-          <h2>Multiplication</h2>
-          <router-link to="/quiz"><img src="../assets/subtraction.png"/></router-link>
+          <h2>Multiplikation</h2>
+          <router-link to="/quiz">
+            <button class="home-btn">x</button>
+          </router-link>
+
         </article>
 
         <article>
           <h2>Division</h2>
-          <router-link to="/quiz"><img src="../assets/subtraction.png"/></router-link>
+          <router-link to="/quiz">
+            <button class="home-btn">÷</button>
+          </router-link>
+
         </article>
       </main>
         </section>

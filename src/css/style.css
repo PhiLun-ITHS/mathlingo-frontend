@@ -5,6 +5,14 @@ body {
     margin: auto;
 }
 
+.home-btn {
+    font-size: 42px;
+    height: 120px;
+    width: 200px;
+    border-radius: 25px;
+    background: white;
+}
+
 .a-signUp{
     font-size: 18px;
     font-family: cursive;
@@ -114,7 +122,7 @@ nav {
     justify-content: center;
     border-bottom: rgba(186,186,186,0.7);
     border-bottom-style: solid;
-    border-bottom-width: 1px;
+    border-bottom-width: 2px;
 }
 
 #logo{
@@ -155,7 +163,7 @@ main {
 footer {
     border-top: rgba(186,186,186,0.7);
     border-top-style: solid;
-    border-top-width: 1px;
+    border-top-width: 2px;
     text-align: center;
     background: white;
     width: 100%;
@@ -203,6 +211,14 @@ footer {
         margin: auto;
     }
 
+    .home-btn {
+        font-size: 50px;
+        height: 160px;
+        width: 240px;
+        border-radius: 25px;
+        background: white;
+    }
+
     main {
         grid-template-columns: 1fr 1fr;
         padding: 4% 10% 4% 10%;
@@ -215,7 +231,7 @@ footer {
     nav {
         border-bottom: rgba(186,186,186,0.7);
         border-bottom-style: solid;
-        border-bottom-width: 1px;
+        border-bottom-width: 2px;
     }
 
     .a {
@@ -270,6 +286,14 @@ footer {
         margin: auto;
     }
 
+    .home-btn {
+        font-size: 50px;
+        height: 160px;
+        width: 240px;
+        border-radius: 25px;
+        background: white;
+    }
+
     main {
         grid-template-columns: 1fr 1fr;
         padding: 4% 10% 4% 10%;
@@ -282,7 +306,7 @@ footer {
     nav {
         border-bottom: rgba(186,186,186,0.7);
         border-bottom-style: solid;
-        border-bottom-width: 1px;
+        border-bottom-width: 2px;
     }
 
     .a {
