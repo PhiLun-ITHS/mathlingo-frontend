@@ -48,7 +48,7 @@
       </div>
     </div>
 
-    <footer style="margin-top: 3%">
+    <footer>
       <p>Mathlingo &copy; 2021 All rights reserved.</p>
     </footer>
 

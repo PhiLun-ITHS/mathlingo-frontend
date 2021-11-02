@@ -1,13 +1,8 @@
 /* Mobile first */
 
 body {
-    /*background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%);*/
-    /*background-image: linear-gradient(-120DEG, #0BE0E3, #01FAB6, #01FAB6, #0BE36C);*/
-
-    background: rgb(11,225,226);
-    background: linear-gradient(120deg, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%);
-    background-repeat: no-repeat;
-    margin: auto
+    background: linear-gradient(to left top, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%) fixed;
+    margin: auto;
 }
 
 .a-signUp{
@@ -158,10 +153,14 @@ main {
 }
 
 footer {
-    border-top: rgba(0,0,0,0.6);
+    border-top: rgba(186,186,186,0.7);
     border-top-style: solid;
     border-top-width: 1px;
-    padding-bottom: 125px;
+    text-align: center;
+    background: white;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
 }
 
 #quizBackground {
