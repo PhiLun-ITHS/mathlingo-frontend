@@ -6,6 +6,7 @@
 
 
           <h1>Sign up for Mathlingo</h1>
+        <p id="answer"></p>
           <form v-on:submit.prevent="submitForm">
             <input type="text" placeholder="Enter Username" name="uname" required id="userName" v-model="form.name">
 
@@ -46,7 +47,8 @@ export default {
     submitForm(){
       let user = {name : this.form.name, email : this.form.email, password : this.form.password};
       console.log(user);
-      axios.post('http://localhost:4000/auth/signup', user).then(this.$router.push('/login'))
+      axios.post('http://localhost:4000/auth/signup', user);
+          document.getElementById('answer').innerHTML = "registration has been successfully completed " + this.form.name + "!";
     }
   }
 }
