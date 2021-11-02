@@ -13,7 +13,7 @@
 
         <article>
           <h2>Subtraction</h2>
-          <router-link to="/"><img src="../assets/subtraction.png"/></router-link>
+          <router-link to="/"><img src="../assets/Studio_Project.png"/></router-link>
         </article>
 
         <article>

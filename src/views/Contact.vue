@@ -47,17 +47,16 @@ export default {
   try {
   emailjs.sendForm("service_tvhngis","template_fhsa8jj", e.target,
   'user_bnBXIIaeuVCqOyhwxRJ5I', {
-  name: this.name,
-  email: this.email,
-  message: this.message
+  name: this.name, email: this.email, topic: this.topic, message: this.message
 })
 
 } catch(error) {
   console.log({error})
 }
-  this.name = ''
-  this.email = ''
-  this.message = ''
+    this.name = ''
+    this.email = ''
+    this.topic = ''
+    this.message = ''
 },
 }
 }
