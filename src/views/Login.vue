@@ -3,6 +3,7 @@
     <section class="grid-container">
       <main id="subPages">
 
+
         <h1>Login for Mathlingo</h1>
 
         <form id="login" v-on:submit.prevent="loginForm">
@@ -14,7 +15,7 @@
         </form>
 
         <p>This is a test text</p>
-
+        
       </main>
       <footer>
         <h2>Mathlingo</h2>
@@ -25,10 +26,11 @@
     </section>
   </div>
 </template>
-
 <script>
 
+
 import axios from "axios";
+
 
 export default {
   name: "Login",
@@ -52,5 +54,7 @@ export default {
     }
   }
 
+
 }
+
 </script>
