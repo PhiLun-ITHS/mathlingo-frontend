@@ -3,7 +3,7 @@
    <header>
 
      <!-- logo & text ska göras till en gemensam img  -->
-   <div id="logo"><img src="../src/assets/logo.png">Mathlingo</div>
+   <div id="logo"> <router-link to="/"><img src="../src/assets/logo.png"></router-link>Mathlingo</div>
 
    <nav>
      <router-link class="a" to="/">Home</router-link>
