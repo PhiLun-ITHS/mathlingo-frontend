@@ -1,48 +1,22 @@
 <template>
-
   <div class="quiz">
 
     <h1>QUIZ</h1>
 
     <div id="quizBackground">
-
-      <div v-if="currentQuestion">
-
-      <!--
-      <p v-if="loading" id="question">Loading...</p>
-      <p v-else v-html="questions[0].question" id="question"></p>-->
-
-      <p v-html="questions[index]" id="question"></p>
+      <div>
+        <h1 v-html="loading ? 'Loading...' : currentQuestion.question"></h1>
+        <h1 v-if="currentQuestion"></h1>
 
       <section class="button-container">
-        <!--
-        <button
-            v-for="answer in currentQuestion.answers"
-            :index="currentQuestion.key"
-            :key="answer"
-            v-html="answer"
-            @click.prevent="handleButtonClick"
-        ></button>-->
 
-       <button class="quiz-btn"
-               v-on:click="nextQuestion()">
-          <span v-html="this.choices[0]"></span>
-       </button>
-
-        <button class="quiz-btn"
-                v-on:click="nextQuestion()">
-          <span v-html="this.choices[1]"></span>
-        </button>
-
-        <button class="quiz-btn"
-                v-on:click="nextQuestion()">
-          <span v-html="this.choices[2]"></span>
-        </button>
-
-        <button class="quiz-btn"
-                v-on:click="nextQuestion()">
-          <span v-html="this.choices[3]"></span>
-        </button>
+            <button class="quiz-btn"
+                    v-for="answer in currentQuestion.answers"
+                    :index="currentQuestion.key"
+                    :key="answer"
+                    v-html="answer"
+                    @click.prevent="handleButtonClick"
+            ></button>
 
       </section>
       </div>
@@ -53,7 +27,6 @@
     </footer>
 
   </div>
-
 </template>
 
 <script>
@@ -61,10 +34,8 @@ export default {
   name: "Quiz",
   data() {
     return {
-      questions: ["Vad är 1+1?", "Vad är 2+2?", "Vad är 2+3?"],
-      choices: [1, 0, 3, 2],
-      //questions: [],
-      //loading: true,
+      questions: [],
+      loading: true,
       index: 0,
     };
   },
@@ -77,19 +48,6 @@ export default {
     }
   },
   methods: {
-
-    nextQuestion: function() {
-      this.next();
-      if (this.index === 1) {
-        return this.choices = [3, 5, 4 ,6];
-      } else if (this.index === 2) {
-        return this.choices = [7, 5, 4 ,6];
-      }
-},
-    next: function(){
-      return this.index++;
-    }
-    /*
     async fetchQuestions() {
       this.loading = true;
       let response = await fetch(
@@ -107,10 +65,9 @@ export default {
       this.questions = data;
       this.loading = false;
     }
-    */
   },
   mounted() {
-    //this.fetchQuestions();
+    this.fetchQuestions();
   }
 };
 </script>
