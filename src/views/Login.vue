@@ -44,17 +44,18 @@ export default {
   },
   methods:{
     loginForm(){
-      let user = {email : this.form.email, password : this.form.password};
-      console.log(user);
-      axios.post('http://localhost:4000/auth/login', user)
-         .then(res => console.log(res))
-         .then(this.$router.push('/mypage'  ));
-
-
+          let user = {email : this.form.email, password : this.form.password};
+          axios.post('http://localhost:4000/auth/login', user)
+          .then(response => {
+            if (response.data) {
+              localStorage.setItem('accessToken', JSON.stringify(response.data.accessToken))
+              localStorage.setItem('refreshToken', JSON.stringify(response.data.refreshToken))
+            }
+          })
+          .then(this.$router.push('/mypage'));
     }
   }
-
-
 }
+
 
 </script>
