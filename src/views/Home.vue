@@ -26,6 +26,7 @@
         </article>
 
         <article>
+
           <h2>Subtraktion</h2>
           <router-link to="/quiz">
             <button class="home-btn">-</button>
