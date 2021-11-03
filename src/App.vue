@@ -1,46 +1,23 @@
 <template>
-<!--  <div id="app">-->
-    <section class="grid-container" id="app">
-      <header>
-        <h1>Mathlingo</h1>
-      </header>
-      <nav>
-        <router-link class="a" to="/">Home</router-link>
-        <router-link class="a" to="/mypage">My Page</router-link>
-        <router-link class="a" to="/login">Login</router-link>
-        <router-link class="a" to="/signup">Signup</router-link>
-        <router-link class="a" to="/contact">Contact</router-link>
-        <router-link class="a" to="/about">About</router-link>
-      </nav>
+ <div id="app">
+   <header>
+
+     <!-- logo & text ska göras till en gemensam img  -->
+   <div id="logo"><img src="../src/assets/logo.png">Mathlingo</div>
+
+   <nav>
+     <router-link class="a" to="/">Home</router-link>
+     <router-link class="a" to="/mypage">My page</router-link>
+     <router-link class="a" to="/contact">Contact</router-link>
+     <router-link class="a" to="/about">About</router-link>
+     <router-link class="a" to="/signup">Sign up</router-link>
+     <router-link class="a" to="/login">Login</router-link>
+   </nav>
+   </header>
     <router-view/>
-    </section>
-<!--  </div>-->
+</div>
 </template>
 
 <style>
 @import 'css/style.css';
 </style>
-
-
-<!--<style>-->
-<!--#app {-->
-<!--  font-family: Avenir, Helvetica, Arial, sans-serif;-->
-<!--  -webkit-font-smoothing: antialiased;-->
-<!--  -moz-osx-font-smoothing: grayscale;-->
-<!--  text-align: center;-->
-<!--  color: #2c3e50;-->
-<!--}-->
-
-<!--/*#nav {*/-->
-<!--/*  padding: 30px;*/-->
-<!--/*}*/-->
-
-<!--/*#nav a {*/-->
-<!--/*  font-weight: bold;*/-->
-<!--/*  color: #2c3e50;*/-->
-<!--/*}*/-->
-
-<!--/*#nav a.router-link-exact-active {*/-->
-<!--/*  color: #42b983;*/-->
-<!--/*}*/-->
-<!--</style>-->

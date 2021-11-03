@@ -1,16 +1,18 @@
 <template>
   <div class="MyPage">
+
     <section class="grid-container">
       <main id="subPages">
-      <h1>my page test</h1>
+
+        <h1>My page</h1>
+
       </main>
-      <footer>
-        <h2>Mathlingo</h2>
-        <hr>
-        &copy; 2021 All rights reserved
-        <a style="float:right" href="tel:070-000-0000">070-000-0000</a>
-      </footer>
     </section>
+
+      <footer>
+        <p>Mathlingo &copy; 2021 All rights reserved.</p>
+      </footer>
+
   </div>
 </template>
 
