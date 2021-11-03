@@ -109,6 +109,8 @@ export default {
           question.correct_answer,
           ...question.incorrect_answers,
         ];
+
+        //shuffle answer
         for (let i = question.answers.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [question.answers[i], question.answers[j]] = [
