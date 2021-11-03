@@ -1,8 +1,8 @@
-<template style="align-content: center">
-  <div class="login" >
+<template>
+  <div class="login">
+
     <section class="grid-container">
       <main id="subPages">
-
 
         <h1>Login for Mathlingo</h1>
 
@@ -14,13 +14,12 @@
           <p>No account? <router-link class=a-signUp to="/signup">Signup</router-link></p>
         </form>
 
-        <p>This is a test text</p>
-        
       </main>
     </section>
-      <footer>
-        <p>Mathlingo &copy; 2021 All rights reserved.</p>
-      </footer>
+
+    <footer>
+      <p>Mathlingo &copy; 2021 All rights reserved.</p>
+    </footer>
 
   </div>
 </template>
