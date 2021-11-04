@@ -14,6 +14,7 @@
         <h1 v-if="complete">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
         <h1 v-else v-html="currentQuestion.question"></h1>
 
+      <div v-if="!complete">
       <section class="button-container">
 
             <button class="quiz-btn"
@@ -23,8 +24,8 @@
                     v-html="answer"
                     @click.prevent="handleButtonClick"
             ></button>
-
       </section>
+      </div>
 
       </div>
     </div>
@@ -58,7 +59,7 @@ export default {
   methods: {
     async fetchQuestions() {
       let response = await fetch(
-          "http://localhost:4000/auth/quiz");
+          "http://192.168.1.200:4000/auth/quiz");
 
       let jsonResponse = await response.json();
       let index = 0;
