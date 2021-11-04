@@ -58,15 +58,40 @@ export default {
   methods: {
     async fetchQuestions() {
       let response = await fetch(
-          "https://api.jsonbin.io/b/6182cf84aa02be1d4463734f");
+          "http://localhost:4000/auth/quiz");
 
       let jsonResponse = await response.json();
       let index = 0;
       let data = jsonResponse.results.map((question) => {
 
+        let incorrect1;
+        let incorrect2;
+        let incorrect3;
+
+        let max = Number.parseInt(question.correct_answer) + 3;
+        let min = Number.parseInt(question.correct_answer) - 1;
+
+        incorrect1 = Math.floor(Math.random() * (max - min) + min);
+        while(incorrect1 === Number.parseInt(question.correct_answer)) {
+          incorrect1 = Math.floor(Math.random() * (max - min) + min);
+        }
+
+        incorrect2 = Math.floor(Math.random() * (max - min) + min);
+        while((incorrect2 === Number.parseInt(question.correct_answer) || incorrect2 === incorrect1)) {
+          incorrect2 = Math.floor(Math.random() * (max - min) + min);
+        }
+
+        incorrect3 = Math.floor(Math.random() * (max - min) + min);
+        while((incorrect3 === Number.parseInt(question.correct_answer) || incorrect3 === incorrect1 || incorrect2 === incorrect3)) {
+          incorrect3 = Math.floor(Math.random() * (max - min) + min);
+        }
+
         question.answers = [
           question.correct_answer,
-          ...question.incorrect_answers,
+            incorrect1,
+            incorrect2,
+            incorrect3
+          //...question.incorrect_answers,
         ];
 
         for (let i = question.answers.length - 1; i > 0; i--) {
