@@ -1,5 +1,6 @@
 <template>
   <div class="quiz">
+    <div id="content">
 
     <h1>QUIZ</h1>
 
@@ -34,6 +35,7 @@
       <p>Mathlingo &copy; 2021 All rights reserved.</p>
     </footer>
 
+    </div>
   </div>
 </template>
 

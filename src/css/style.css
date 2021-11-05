@@ -5,6 +5,11 @@ body {
     margin: auto;
 }
 
+#content {
+    min-height: 100%;
+    padding-bottom: 60px;
+}
+
 .home-btn {
     font-size: 42px;
     height: 120px;
@@ -93,7 +98,7 @@ section {
 }
 
 section.grid-container {
-    width: 350px;
+    width: auto;
     margin: auto;
 }
 

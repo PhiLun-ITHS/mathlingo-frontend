@@ -1,5 +1,6 @@
 <template>
   <div class="signup">
+    <div id="content">
 
     <section class="grid-container">
       <main id="subPages">
@@ -30,6 +31,8 @@
     <footer>
       <p>Mathlingo &copy; 2021 All rights reserved.</p>
     </footer>
+
+    </div>
   </div>
 </template>
 
