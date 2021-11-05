@@ -13,7 +13,7 @@
       <div>
         <!--<h1 v-html="loading ? 'Loading...' : currentQuestion.question"></h1>-->
         <h1 v-if="complete">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
-        <h1 v-else v-html="currentQuestion.question"></h1>
+        <h1 v-else v-html="'Vad är ' + currentQuestion.question"></h1>
 
       <div v-if="!complete">
       <section class="button-container">

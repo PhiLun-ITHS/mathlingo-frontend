@@ -7,8 +7,6 @@
    <nav>
      <router-link class="a" to="/">Home</router-link>
      <router-link class="a" to="/mypage">My page</router-link>
-     <router-link class="a" to="/contact">Contact</router-link>
-     <router-link class="a" to="/about">About</router-link>
      <router-link class="a" to="/signup">Sign up</router-link>
      <router-link class="a" to="/login">Login</router-link>
    </nav>
@@ -16,7 +14,11 @@
     <router-view/>
 
    <footer>
-     <p id="copyright">Mathlingo &copy; 2021 All rights reserved.</p>
+     <p id="copyright">
+       <router-link class="" to="/contact">Contact</router-link> /
+       <router-link class="" to="/about">About</router-link><br>
+       Mathlingo &copy; 2021 All rights reserved.
+     </p>
    </footer>
 
 </div>

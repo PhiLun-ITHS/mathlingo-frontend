@@ -7,15 +7,7 @@ body {
 
 #content {
     min-height: 100%;
-    padding-bottom: 60px;
-}
-
-.home-btn {
-    font-size: 42px;
-    height: 120px;
-    width: 200px;
-    border-radius: 25px;
-    background: white;
+    padding-bottom: 100px;
 }
 
 #copyright {
@@ -132,7 +124,10 @@ nav {
     justify-content: center;
     border-bottom: rgba(186,186,186,0.7);
     border-bottom-style: solid;
-    border-bottom-width: 2px;
+    border-bottom-width: 1px;
+    border-top: rgba(186,186,186,0.7);
+    border-top-style: solid;
+    border-top-width: 1px;
 }
 
 #logo{
@@ -140,16 +135,15 @@ nav {
     font-size: 26px;
     position: relative;
     top: 5px;
+    padding-bottom: 10px;
 }
 
 .a {
-    font-size: 12px;
+    font-size: 20px;
     font-family: cursive;
     color: black;
     text-decoration: none;
     padding: 14px 8px;
-    margin-top: 10px;
-    margin-bottom: 5px;
 }
 
 .a:hover {
@@ -164,16 +158,32 @@ main {
     grid-area: main-content;
     display: grid;
     grid-template-columns: 1fr;
-    padding: 30px;
     grid-gap: 10px;
     justify-items: center;
-    margin-bottom: 10px;
+}
+
+#homeBackground {
+    background: white;
+    height: auto;
+    margin: auto;
+    width: 80%;
+    border-radius: 25px 25px;
+    border: solid 2px rgba(186,186,186,0.9);
+    padding-bottom: 25px;
+}
+
+.home-btn {
+    font-size: 50px;
+    height: 110px;
+    width: 185px;
+    border-radius: 25px;
+    background: linear-gradient(120deg, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%);
 }
 
 footer {
     border-top: rgba(186,186,186,0.7);
     border-top-style: solid;
-    border-top-width: 2px;
+    border-top-width: 1px;
     text-align: center;
     background: white;
     width: 100%;
@@ -220,14 +230,6 @@ footer {
         margin: auto;
     }
 
-    .home-btn {
-        font-size: 50px;
-        height: 160px;
-        width: 240px;
-        border-radius: 25px;
-        background: white;
-    }
-
     main {
         grid-template-columns: 1fr 1fr;
         padding: 4% 10% 4% 10%;
@@ -237,19 +239,9 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    nav {
-        border-bottom: rgba(186,186,186,0.7);
-        border-bottom-style: solid;
-        border-bottom-width: 2px;
-    }
-
     .a {
-        border-bottom-style: none;
         font-size: 20px;
-        margin-bottom: 25px;
         padding: 14px 16px;
-        position: relative;
-        top: 20px;
     }
 
     form {
@@ -291,40 +283,22 @@ footer {
 @media screen and (min-width: 1025px){
 
     section.grid-container {
-        width: 800px;
+        width: 700px;
         margin: auto;
-    }
-
-    .home-btn {
-        font-size: 50px;
-        height: 160px;
-        width: 240px;
-        border-radius: 25px;
-        background: white;
     }
 
     main {
         grid-template-columns: 1fr 1fr;
-        padding: 4% 10% 4% 10%;
+        padding: 1% 10% 3% 10%;
     }
 
     main#subPages {
         grid-template-columns: 1fr;
     }
 
-    nav {
-        border-bottom: rgba(186,186,186,0.7);
-        border-bottom-style: solid;
-        border-bottom-width: 2px;
-    }
-
     .a {
-        border-bottom-style: none;
-        font-size: 20px;
-        margin-bottom: 25px;
+        font-size: 18px;
         padding: 16px 24px;
-        position: relative;
-        top: 20px;
     }
 
     form {
@@ -342,15 +316,15 @@ footer {
     }
 
     h1 {
-        font-size: 30px;
+        font-size: 26px;
     }
 
     h2 {
-        font-size: 24px;
+        font-size: 20px;
     }
 
     p {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     #quizBackground {
