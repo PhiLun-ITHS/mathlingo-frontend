@@ -18,6 +18,11 @@ body {
     background: white;
 }
 
+#copyright {
+    font-family: Arial;
+    font-size: 14px;
+}
+
 .a-signUp{
     font-size: 18px;
     font-family: cursive;

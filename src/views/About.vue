@@ -16,10 +16,6 @@
       </main>
       </section>
 
-      <footer>
-        <p>Mathlingo &copy; 2021 All rights reserved.</p>
-      </footer>
-
     </div>
   </div>
 </template>

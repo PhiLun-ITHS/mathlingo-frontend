@@ -1,10 +1,9 @@
 <template>
  <div id="app">
-   <header>
 
+   <header>
      <!-- logo & text ska göras till en gemensam img  -->
    <div id="logo"> <router-link to="/"><img src="../src/assets/logo.png"></router-link>Mathlingo</div>
-
    <nav>
      <router-link class="a" to="/">Home</router-link>
      <router-link class="a" to="/mypage">My page</router-link>
@@ -15,6 +14,11 @@
    </nav>
    </header>
     <router-view/>
+
+   <footer>
+     <p id="copyright">Mathlingo &copy; 2021 All rights reserved.</p>
+   </footer>
+
 </div>
 </template>
 
