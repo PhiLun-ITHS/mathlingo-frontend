@@ -2,8 +2,7 @@
  <div id="app">
 
    <header>
-     <!-- logo & text ska göras till en gemensam img  -->
-   <div id="logo"> <router-link to="/"><img src="../src/assets/logo.png"></router-link>Mathlingo</div>
+   <div><router-link to="/"><img src="../src/assets/logo.png"></router-link></div>
    <nav>
      <router-link class="a" to="/">Home</router-link>
      <router-link class="a" to="/mypage">My page</router-link>
@@ -15,9 +14,9 @@
 
    <footer>
      <p id="copyright">
-       <router-link class="" to="/contact">Contact</router-link> /
-       <router-link class="" to="/about">About</router-link><br>
-       Mathlingo &copy; 2021 All rights reserved.
+       <router-link to="/contact" style="margin-right: 3px">Contact</router-link>
+       <router-link to="/about" style="margin-left: 3px">About</router-link><br>
+       &copy; 2021 Mathlingo
      </p>
    </footer>
 
