@@ -6,16 +6,12 @@
 
     <div id="quizBackground">
 
-      <div class="questionTrack">
-        <p style="font-size: 16px;">Question {{ index + 1 }} / {{ questions.length }}</p>
-      </div>
+      <p style="font-size: 16px;">Question {{ index + 1 }} / {{ questions.length }}</p>
 
-      <div>
-        <!--<h1 v-html="loading ? 'Loading...' : currentQuestion.question"></h1>-->
-        <h1 v-if="complete">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
-        <h1 v-else v-html="'Vad är ' + currentQuestion.question"></h1>
+      <h1 v-if="complete">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
+      <h1 v-else v-html="loading ? 'Loading...' : 'Vad är ' + currentQuestion.question"></h1>
 
-      <div v-if="!complete">
+      <div v-if="!complete && !loading">
       <section class="button-container">
 
             <button class="quiz-btn"
@@ -25,10 +21,10 @@
                     v-html="answer"
                     @click.prevent="handleButtonClick"
             ></button>
+
       </section>
       </div>
 
-      </div>
     </div>
 
     </div>
@@ -44,6 +40,7 @@ export default {
       index: 0,
       complete: false,
       userCorrect: 0,
+      loading: true,
     };
   },
   computed: {
@@ -56,6 +53,7 @@ export default {
   },
   methods: {
     async fetchQuestions() {
+      this.loading = true;
       let response = await fetch(
           "http://192.168.1.200:4000/auth/quiz");
 
@@ -105,6 +103,7 @@ export default {
         return question;
       });
       this.questions = data;
+      this.loading = false;
     },
     handleButtonClick: function(event) {
 
