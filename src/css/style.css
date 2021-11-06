@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@600&display=swap");
+
 /* Mobile first */
 
 body {
@@ -11,13 +13,13 @@ body {
 }
 
 #copyright {
-    font-family: Arial;
+    font-family: "Red Hat Display", serif;
     font-size: 14px;
 }
 
 .a-signUp{
     font-size: 18px;
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     color: blue;
 }
 
@@ -27,7 +29,7 @@ body {
 
 .a-login {
     font-size: 18px;
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     color: blue;
 }
 
@@ -37,7 +39,7 @@ body {
 
 p {
     text-align: center;
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     font-size: 16px;
 }
 
@@ -107,13 +109,13 @@ header {
 }
 
 h1 {
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     font-size: 26px;
     text-align: center;
 }
 
 h2 {
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     font-size: 20px;
 }
 
@@ -132,7 +134,7 @@ nav {
 
 .a {
     font-size: 20px;
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     color: black;
     text-decoration: none;
     padding: 14px 8px;
@@ -185,7 +187,8 @@ footer {
 
 #quizBackground {
     background: white;
-    width: 320px;
+    width: 90%;
+    max-width: 350px;
     height: 320px;
     border-radius: 25px 25px;
     border: solid 2px rgba(186,186,186,0.9);
@@ -208,7 +211,7 @@ footer {
     font-size: 20px;
     padding: 30px;
     color: black;
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     font-weight: bold;
     border-radius: 25px;
     background: linear-gradient(120deg, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%);
@@ -252,6 +255,7 @@ footer {
 
     #quizBackground {
         width: 420px;
+        max-width: 420px;
         height: 380px;
     }
 
@@ -268,6 +272,10 @@ footer {
 
     .quiz-btn {
         font-size: 26px;
+    }
+
+    #copyright {
+        font-size: 16px;
     }
 }
 
@@ -321,6 +329,7 @@ footer {
 
     #quizBackground {
         width: 600px;
+        max-width: 600px;
         height: 420px;
     }
 
@@ -336,5 +345,9 @@ footer {
 
     .quiz-btn {
         font-size: 30px;
+    }
+
+    #copyright {
+        font-size: 16px;
     }
 }
