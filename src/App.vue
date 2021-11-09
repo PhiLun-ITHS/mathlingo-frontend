@@ -7,17 +7,45 @@
 
    <nav>
      <router-link class="a" to="/">Home</router-link>
-     <router-link class="a" to="/mypage">My page</router-link>
+     <router-link class="a" to="/mypage" v-if="isLoggedIn">My page</router-link>
      <router-link class="a" to="/contact">Contact</router-link>
      <router-link class="a" to="/about">About</router-link>
-     <router-link class="a" to="/signup">Sign up</router-link>
-     <router-link class="a" to="/login">Login</router-link>
+     <router-link class="a" to="/signup" v-if="isLoggedIn===null">Sign up</router-link>
+     <router-link class="a" to="/login" v-if="isLoggedIn===null">Login</router-link>
+     <router-link class="a" to="/login" v-if="isLoggedIn"><span v-on:click="logout">Logout</span></router-link>
+
+
    </nav>
    </header>
     <router-view/>
 </div>
 </template>
+<script>
 
+
+export default {
+  name: 'app',
+  data(){
+    return{
+      isLoggedIn: localStorage.getItem('accessToken'),
+
+    }
+  },
+  methods:{
+    logout(){
+     window.localStorage.clear();
+      location.reload();
+      this.$router.push('/login');
+
+
+    }
+  }
+
+
+
+}
+
+</script>
 <style>
 @import 'css/style.css';
 </style>
