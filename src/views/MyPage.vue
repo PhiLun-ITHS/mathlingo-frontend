@@ -14,8 +14,8 @@
 
         <article>
           <h2 style="text-decoration: underline">Settings</h2>
-          <p @click="changePass=true; removeAcc=false">Change password</p>
-          <p @click="removeAcc=true; changePass=false">Remove Account</p>
+          <p style="cursor: pointer;" @click="changePass=true; removeAcc=false">Change password</p>
+          <p style="cursor: pointer;" @click="removeAcc=true; changePass=false">Remove Account</p>
         </article>
       </section>
 
