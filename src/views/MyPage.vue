@@ -3,7 +3,7 @@
 
     <section class="grid-container">
       <main id="subPages">
-
+        <button v-on:click="logout">logout</button>
         <h1>My page</h1>
 
       </main>
@@ -18,6 +18,18 @@
 
 <script>
 export default {
-  name: "MyPage"
+  name: "MyPage",
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+    logout(){
+      window.localStorage.clear();
+      this.$router.push('/login');
+
+    }
+  }
 }
 </script>

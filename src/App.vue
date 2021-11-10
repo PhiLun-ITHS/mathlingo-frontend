@@ -12,7 +12,8 @@
      <router-link class="a" to="/about">About</router-link>
      <router-link class="a" to="/signup" v-if="isLoggedIn===null">Sign up</router-link>
      <router-link class="a" to="/login" v-if="isLoggedIn===null">Login</router-link>
-     <router-link class="a" to="/login" v-if="isLoggedIn"><span v-on:click="logout">Logout</span></router-link>
+     <router-link class="a" to="/login" v-if="isLoggedIn" v-on:click="logout">Logout</router-link>
+
 
 
    </nav>
@@ -33,11 +34,8 @@ export default {
   },
   methods:{
     logout(){
-     window.localStorage.clear();
-      location.reload();
+      window.localStorage.clear();
       this.$router.push('/login');
-
-
     }
   }
 
