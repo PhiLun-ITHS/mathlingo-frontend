@@ -45,9 +45,11 @@ export default {
             if (response.data) {
               localStorage.setItem('accessToken', JSON.stringify(response.data.accessToken))
               localStorage.setItem('refreshToken', JSON.stringify(response.data.refreshToken))
+              location.reload();
             }
           })
           .then(this.$router.push('/mypage'));
+
     }
   }
 }

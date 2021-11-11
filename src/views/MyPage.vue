@@ -21,6 +21,9 @@
 
       <section class="grid-container">
       <main id="subPages">
+
+        <!--<span class="logout-btn" v-on:click="logout"><a></a></span>-->
+
         <div v-if="changePass">
           <form>
           <h1 style="text-decoration: underline">Change password</h1>
@@ -137,6 +140,17 @@ export default {
         this.changePass = false;
       }
       this.removeAcc = this.removeAcc !== true;
+    },
+    logout(){
+      let token = window.localStorage.getItem('refreshToken')
+      let token1 = window.localStorage.getItem('accessToken')
+      console.log(token1);
+      console.log(token);
+
+      //   axios.post('http://localhost:4000/auth/logout', token)
+      window.localStorage.clear()
+      this.$router.push('/home')
+          .then(location.reload());
     }
   },
 }
