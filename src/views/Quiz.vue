@@ -3,7 +3,47 @@
     <div id="content">
 
     <h1>QUIZ</h1>
+      <div v-if="showCategoryButtons">
 
+        <p>
+          Du möts nu av fyra spännande Quiz!<br>
+          När du har klarat alla fyra kommer du låsa upp ett slutquiz.<br>
+          Välj mellan addition, subtraktion, multiplikation eller division.</p>
+
+        <h2>Gör ett val nedan för att börja!</h2>
+      <section class="grid-container">
+        <div id="homeBackground">
+          <main>
+
+            <article>
+              <h2>Addition</h2>
+                <button class="home-btn"
+                @click="changeCategory('Addition')">+</button>
+            </article>
+
+            <article>
+              <h2>Subtraktion</h2>
+                <button class="home-btn"
+                @click="changeCategory('Subtraktion')">-</button>
+            </article>
+
+            <article>
+              <h2>Multiplikation</h2>
+                <button class="home-btn"
+                @click="changeCategory('Multiplikation')">x</button>
+            </article>
+
+            <article>
+              <h2>Division</h2>
+                <button class="home-btn"
+                @click="changeCategory('Division')">÷</button>
+            </article>
+
+          </main>
+        </div>
+      </section>
+        </div>
+    <div v-if="showQuiz">
     <div id="quizBackground">
 
       <p style="font-size: 16px;">Question {{ index + 1 }} / {{ questions.length }}</p>
@@ -26,6 +66,7 @@
       </div>
 
     </div>
+    </div>
 
     </div>
   </div>
@@ -41,6 +82,9 @@ export default {
       complete: false,
       userCorrect: 0,
       loading: true,
+      category: '',
+      showCategoryButtons: true,
+      showQuiz: false,
     };
   },
   computed: {
@@ -52,10 +96,21 @@ export default {
     },
   },
   methods: {
+    changeCategory(category) {
+      this.category = category;
+      console.log(this.category);
+      this.showCategoryButtons = false;
+      this.fetchQuestions();
+      this.showQuiz = true;
+    },
     async fetchQuestions() {
       this.loading = true;
       let response = await fetch(
           "http://192.168.1.200:4000/auth/quiz");
+
+
+      // SORTERA QUIZ UTIFRÅN CATEGORY
+      // this.category
 
       let jsonResponse = await response.json();
       let index = 0;
@@ -132,9 +187,6 @@ export default {
         }
       }
     },
-  },
-  mounted() {
-    this.fetchQuestions();
   },
 };
 </script>

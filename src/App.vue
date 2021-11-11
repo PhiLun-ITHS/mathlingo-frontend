@@ -5,6 +5,7 @@
    <div><router-link to="/"><img src="../src/assets/logo.png"></router-link></div>
    <nav>
      <router-link class="a" to="/">Home</router-link>
+     <router-link class="a" to="/quiz">Quiz</router-link>
      <router-link class="a" to="/mypage" v-if="isLoggedIn">My page</router-link>
      <router-link class="a" to="/signup" v-if="isLoggedIn===null">Sign up</router-link>
      <router-link class="a" to="/login" v-if="isLoggedIn===null">Login</router-link>
