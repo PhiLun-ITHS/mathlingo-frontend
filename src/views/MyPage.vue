@@ -3,9 +3,8 @@
 
     <section class="grid-container">
       <main id="subPages">
-     <h1><span class="logout-btn" v-on:click="logout"><a></a></span></h1>
 
-
+     <span class="logout-btn" v-on:click="logout"><a></a></span>
       </main>
     </section>
 
@@ -17,7 +16,7 @@
 </template>
 
 <script>
-import axios from "axios";
+
 
 export default {
   name: "MyPage",
@@ -28,11 +27,21 @@ export default {
   },
   methods:{
     logout(){
-     let token = window.localStorage.getItem('accessToken')
-      axios.post('http://localhost:4000/auth/logout', token);
-      window.localStorage.clear();
-      this.$router.push('/contact');
-      location.reload();
+     let token = window.localStorage.getItem('refreshToken')
+      let token1 = window.localStorage.getItem('accessToken')
+      console.log(token1);
+      console.log(token);
+
+  //   axios.post('http://localhost:4000/auth/logout', token)
+  window.localStorage.clear()
+this.$router.push('/home')
+      .then(location.reload());
+
+
+
+
+
+
 
 
 

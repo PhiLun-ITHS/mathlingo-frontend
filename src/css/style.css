@@ -9,14 +9,14 @@ body {
 .logout-btn {
     position: relative;
     display: inline-flex;
-    width: 180px;
-    height: 55px;
-    perspective: 1000px;
+    width: 140px;
+    height: 50px;
+    perspective: 100000px;
 }
 .logout-btn a{
-    font-size: 15px;
+    font-size: 25px;
     transform-style: preserve-3d;
-    transform: translateZ(-20px);
+    transform: translateZ(-25px);
     transition: transform .30s;
     font-family: cursive;
 
@@ -25,8 +25,8 @@ body {
 .logout-btn a:after{
     position: absolute;
     content: "My page";
-    height: 40px;
-    width: 100px;
+    height: 55px;
+    width: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,20 +35,20 @@ body {
 .logout-btn a:before{
 
     color: white;
-    font-size: 15px;
+    font-size: 22px;
     background: black;
-    transform: translateZ(20px);
+    transform: translateZ(25px);
 }
 .logout-btn a:after{
-    font-size: 15px;
+    font-size: 22px;
     border: none;
     color: black;
     background: linear-gradient(to left top, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%) fixed;
     content: 'Logout';
-    transform: rotateX(90deg) translateZ(20px);
+    transform: rotateX(90deg) translateZ(25px);
 }
 .logout-btn a:hover{
-    transform: translateZ(-20px) rotateX(-90deg);
+    transform: translateZ(-25px) rotateX(-90deg);
 }
 
 
