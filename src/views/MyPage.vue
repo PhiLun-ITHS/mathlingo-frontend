@@ -117,6 +117,10 @@ export default {
       accountName: 'testProp',
       accountEmail: 'testProp@gmail.com',
       accountCompletion: '50',
+
+      //statistik från databas ska in i dessa arrays
+      //statisticAnswers: [],
+      //statisticQuestions: [],
       statisticAnswers: [1, 3, 5, 5, 0, 2, 3, 4, 5, 2],
       statisticQuestions: [5, 5, 5, 5, 10, 5, 5, 5, 5, 10],
     }
