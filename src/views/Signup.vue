@@ -45,9 +45,16 @@ export default {
   },
   methods: {
     submitForm(){
-      let user = {name : this.form.name, email : this.form.email, password : this.form.password};
-      axios.post('http://localhost:4000/auth/signup', user);
-          document.getElementById('answer').innerHTML = "registration has been successfully completed " + this.form.name + "!";
+
+        let user = {name: this.form.name, email: this.form.email, password: this.form.password};
+        axios.post('http://localhost:4000/auth/signup', user)
+       .catch((error) => this.handle(error))
+        document.getElementById('answer').innerHTML = "already exist!"
+
+
+
+
+
     }
   }
 }

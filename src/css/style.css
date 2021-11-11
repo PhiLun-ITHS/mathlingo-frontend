@@ -24,14 +24,14 @@ body {
     display: inline-flex;
     width: 140px;
     height: 50px;
-    perspective: 100000px;
+    perspective: 10000px;
 }
 
 .logout-btn a {
     font-size: 25px;
     transform-style: preserve-3d;
     transform: translateZ(-25px);
-    transition: transform .30s;
+    transition: transform .500s;
     font-family: cursive;
 }
 
@@ -47,9 +47,9 @@ body {
 }
 
 .logout-btn a:before {
-    color: white;
+    color: BLACK;
     font-size: 22px;
-    background: black;
+    background: linear-gradient(to left top, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%) fixed;
     transform: translateZ(25px);
 }
 
@@ -58,7 +58,7 @@ body {
     border: none;
     color: black;
     background: linear-gradient(to left top, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%) fixed;
-    content: 'Logout';
+    content: 'Log out';
     transform: rotateX(90deg) translateZ(25px);
 }
 

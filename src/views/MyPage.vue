@@ -1,9 +1,9 @@
 <template>
-  <div class="MyPage">
+  <div v-if="auth" class="MyPage">
     <div id="content">
 
 <!--      <h1 class="myPage-title" style="border: none">My page</h1>-->
-     <h1><span class="logout-btn" v-on:click="logout"><a></a></span></h1>
+     <h1><span class="logout-btn" v-on:click="logout"><a></a></span></h1><h1>logout button above</h1>
       <section class="MyPage">
 
         <article>
@@ -36,7 +36,7 @@
         </div>
 
         <div v-if="removeAcc">
-          <form>
+          <form >
           <h1 style="text-decoration: underline">Remove account</h1>
           <p class="account-info">Enter your password to confirm</p>
           <input type="password" id='psw' placeholder="Password">
@@ -109,6 +109,13 @@
 
     </div>
   </div>
+  <div v-else>
+    <section>
+    <button class="btn" @click.prevent="notAuth" >No access to this page, try to login!</button>
+    </section>
+  </div>
+
+
 </template>
 
 <script>
@@ -119,6 +126,7 @@ export default {
   name: "MyPage",
   data() {
     return {
+      auth: localStorage.getItem('accessToken'),
       changePass: false,
       removeAcc: false,
       accountName: 'testProp',
@@ -133,6 +141,10 @@ export default {
     }
   },
   methods: {
+    notAuth(){
+      this.$router.push('/login');
+    },
+
     clickPasswordChange() {
       if (this.removeAcc === true) {
         this.removeAcc = false;
@@ -140,25 +152,33 @@ export default {
       this.changePass = this.changePass !== true;
     },
     clickRemoveAccount() {
-     //  let data = {accessToken : localStorage.getItem('accessToken'), refreshToken : localStorage.getItem('refreshToken')};
-     // let answer = axios.post('http://localhost:4000/auth/removeAccount', data)
-     //  console.log(answer);
       if (this.changePass === true) {
         this.changePass = false;
       }
       this.removeAcc = this.removeAcc !== true;
+
+      let data = {
+        accessToken: localStorage.getItem('accessToken'),
+        refreshToken: localStorage.getItem('refreshToken')
+      };
+      axios.post('http://localhost:4000/auth/removeAccount', data)
+
+      localStorage.clear();
+      location.reload();
+
+
+
     },
     logout(){
       let data = {accessToken : localStorage.getItem('accessToken'), refreshToken : localStorage.getItem('refreshToken')};
-     let user = axios.post('http://localhost:4000/auth/logout',data)
+      axios.post('http://localhost:4000/auth/logout',data)
           .then(response => {
             if (response.data) {
-              console.log(user);
               localStorage.clear();
               location.reload();
             }
           })
-          .then(this.$router.push('/login'));
+          .then(this.$router.push('/'));
     }
   },
 }
