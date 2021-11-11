@@ -85,7 +85,8 @@ textarea {
 }
 
 .btn:hover{
-    background-color: rgba(50, 192, 49, 0.81);
+    background-color: rgba(186,186,186,0.9);
+    cursor: pointer;
 }
 
 section {
@@ -109,12 +110,13 @@ section.grid-container {
     width: 800px;
 }
 
-.Statistic-container {
+.statistic-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     margin: auto;
     justify-items: center;
     width: 800px;
+    border-bottom: solid 1px black;
 }
 
 .statistic {
@@ -127,6 +129,43 @@ section.grid-container {
     vertical-align: middle;
     text-align: center;
     line-height: 100px;
+}
+
+.statistic-text {
+    font-family: "Red Hat Display", serif;
+    font-size: 16px;
+}
+
+.statistic-title {
+    font-size: 26px;
+}
+
+.myPage-title {
+    font-size: 32px;
+    border-bottom: solid 1px black;
+}
+
+.settings {
+    cursor: pointer;
+    font-family: "Red Hat Display", serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    width: 200px;
+    background: white;
+    text-align: center;
+    border: solid 2px rgba(186,186,186,0.9);
+    border-radius: 25px;
+}
+
+.settings:hover {
+    background-color: rgba(186,186,186,0.9);
+    cursor: pointer;
+}
+
+.account-info {
+    font-family: "Red Hat Display", serif;
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
 header {
