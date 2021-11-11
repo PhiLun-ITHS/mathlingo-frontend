@@ -2,7 +2,8 @@
   <div class="MyPage">
     <div id="content">
 
-      <h1 class="myPage-title" style="border: none">My page</h1>
+<!--      <h1 class="myPage-title" style="border: none">My page</h1>-->
+     <h1><span class="logout-btn" v-on:click="logout"><a></a></span></h1>
       <section class="MyPage">
 
         <article>
@@ -22,7 +23,7 @@
       <section class="grid-container">
       <main id="subPages">
 
-        <!--<span class="logout-btn" v-on:click="logout"><a></a></span>-->
+
 
         <div v-if="changePass">
           <form>
@@ -111,6 +112,9 @@
 </template>
 
 <script>
+
+ import axios from "axios";
+
 export default {
   name: "MyPage",
   data() {
@@ -136,21 +140,25 @@ export default {
       this.changePass = this.changePass !== true;
     },
     clickRemoveAccount() {
+     //  let data = {accessToken : localStorage.getItem('accessToken'), refreshToken : localStorage.getItem('refreshToken')};
+     // let answer = axios.post('http://localhost:4000/auth/removeAccount', data)
+     //  console.log(answer);
       if (this.changePass === true) {
         this.changePass = false;
       }
       this.removeAcc = this.removeAcc !== true;
     },
     logout(){
-      let token = window.localStorage.getItem('refreshToken')
-      let token1 = window.localStorage.getItem('accessToken')
-      console.log(token1);
-      console.log(token);
-
-      //   axios.post('http://localhost:4000/auth/logout', token)
-      window.localStorage.clear()
-      this.$router.push('/home')
-          .then(location.reload());
+      let data = {accessToken : localStorage.getItem('accessToken'), refreshToken : localStorage.getItem('refreshToken')};
+     let user = axios.post('http://localhost:4000/auth/logout',data)
+          .then(response => {
+            if (response.data) {
+              console.log(user);
+              localStorage.clear();
+              location.reload();
+            }
+          })
+          .then(this.$router.push('/login'));
     }
   },
 }

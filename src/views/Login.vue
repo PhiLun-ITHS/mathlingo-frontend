@@ -43,8 +43,8 @@ export default {
           axios.post('http://localhost:4000/auth/login', user)
           .then(response => {
             if (response.data) {
-              localStorage.setItem('accessToken', JSON.stringify(response.data.accessToken))
-              localStorage.setItem('refreshToken', JSON.stringify(response.data.refreshToken))
+              localStorage.setItem('accessToken', response.data.accessToken)
+              localStorage.setItem('refreshToken', response.data.refreshToken)
               location.reload();
             }
           })
