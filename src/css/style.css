@@ -17,7 +17,62 @@ body {
     font-size: 14px;
 }
 
-.a-signUp{
+.logout-btn {
+    position: relative;
+    display: inline-flex;
+    width: 140px;
+    height: 50px;
+    perspective: 100000px;
+}
+
+.logout-btn a {
+    font-size: 25px;
+    transform-style: preserve-3d;
+    transform: translateZ(-25px);
+    transition: transform .30s;
+    font-family: cursive;
+}
+
+.logout-btn a:before,
+.logout-btn a:after {
+    position: absolute;
+    content: "My page";
+    height: 55px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-btn a:before {
+    color: white;
+    font-size: 22px;
+    background: black;
+    transform: translateZ(25px);
+}
+
+.logout-btn a:after {
+    font-size: 22px;
+    border: none;
+    color: black;
+    background: linear-gradient(to left top, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%) fixed;
+    content: 'Logout';
+    transform: rotateX(90deg) translateZ(25px);
+}
+
+.logout-btn a:hover {
+    transform: translateZ(-25px) rotateX(-90deg);
+}
+
+.home-btn {
+    font-size: 42px;
+    height: 120px;
+    width: 200px;
+    border-radius: 25px;
+    background: white;
+}
+
+.a-signUp {
     font-size: 18px;
     font-family: "Red Hat Display", serif;
     color: blue;

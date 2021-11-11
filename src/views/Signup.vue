@@ -5,8 +5,6 @@
     <section class="grid-container">
       <main id="subPages">
 
-
-
           <h1>Sign up for Mathlingo</h1>
         <p id="answer"></p>
           <form v-on:submit.prevent="submitForm">
