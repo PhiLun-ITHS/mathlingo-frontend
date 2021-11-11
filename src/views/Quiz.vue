@@ -1,20 +1,17 @@
 <template>
   <div class="quiz">
+    <div id="content">
 
     <h1>QUIZ</h1>
 
     <div id="quizBackground">
 
-      <div class="questionTrack">
-        <p style="font-size: 16px;">Question {{ index + 1 }} / {{ questions.length }}</p>
-      </div>
+      <p style="font-size: 16px;">Question {{ index + 1 }} / {{ questions.length }}</p>
 
-      <div>
-        <!--<h1 v-html="loading ? 'Loading...' : currentQuestion.question"></h1>-->
-        <h1 v-if="complete">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
-        <h1 v-else v-html="currentQuestion.question"></h1>
+      <h1 v-if="complete">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
+      <h1 v-else v-html="loading ? 'Loading...' : 'Vad är ' + currentQuestion.question"></h1>
 
-      <div v-if="!complete">
+      <div v-if="!complete && !loading">
       <section class="button-container">
 
             <button class="quiz-btn"
@@ -24,16 +21,13 @@
                     v-html="answer"
                     @click.prevent="handleButtonClick"
             ></button>
+
       </section>
       </div>
 
-      </div>
     </div>
 
-    <footer>
-      <p>Mathlingo &copy; 2021 All rights reserved.</p>
-    </footer>
-
+    </div>
   </div>
 </template>
 
@@ -46,6 +40,7 @@ export default {
       index: 0,
       complete: false,
       userCorrect: 0,
+      loading: true,
     };
   },
   computed: {
@@ -58,6 +53,7 @@ export default {
   },
   methods: {
     async fetchQuestions() {
+      this.loading = true;
       let response = await fetch(
           "http://192.168.1.200:4000/auth/quiz");
 
@@ -107,6 +103,7 @@ export default {
         return question;
       });
       this.questions = data;
+      this.loading = false;
     },
     handleButtonClick: function(event) {
 

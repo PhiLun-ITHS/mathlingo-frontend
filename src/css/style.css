@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@600&display=swap");
+
 /* Mobile first */
 
 body {
@@ -5,17 +7,19 @@ body {
     margin: auto;
 }
 
-.home-btn {
-    font-size: 42px;
-    height: 120px;
-    width: 200px;
-    border-radius: 25px;
-    background: white;
+#content {
+    min-height: 100%;
+    padding-bottom: 100px;
+}
+
+#copyright {
+    font-family: "Red Hat Display", serif;
+    font-size: 14px;
 }
 
 .a-signUp{
     font-size: 18px;
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     color: blue;
 }
 
@@ -25,7 +29,7 @@ body {
 
 .a-login {
     font-size: 18px;
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     color: blue;
 }
 
@@ -35,7 +39,7 @@ body {
 
 p {
     text-align: center;
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     font-size: 16px;
 }
 
@@ -81,7 +85,8 @@ textarea {
 }
 
 .btn:hover{
-    background-color: rgba(50, 192, 49, 0.81);
+    background-color: rgba(186,186,186,0.9);
+    cursor: pointer;
 }
 
 section {
@@ -89,13 +94,78 @@ section {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     grid-template-areas:
-    "main-content";
+    "main-content"
 }
 
 section.grid-container {
-    width: 350px;
+    width: auto;
     margin: auto;
-    padding-bottom: 100px;
+}
+
+.MyPage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
+    justify-items: center;
+    width: 800px;
+}
+
+.statistic-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    margin: auto;
+    justify-items: center;
+    width: 800px;
+    border-bottom: solid 1px black;
+}
+
+.statistic {
+    background: white;
+    border: solid 2px rgba(186,186,186,0.9);
+    border-radius: 25px;
+    width: 100px;
+    height: 100px;
+    font-size: 42px;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 100px;
+}
+
+.statistic-text {
+    font-family: "Red Hat Display", serif;
+    font-size: 16px;
+}
+
+.statistic-title {
+    font-size: 26px;
+}
+
+.myPage-title {
+    font-size: 32px;
+    border-bottom: solid 1px black;
+}
+
+.settings {
+    cursor: pointer;
+    font-family: "Red Hat Display", serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    width: 200px;
+    background: white;
+    text-align: center;
+    border: solid 2px rgba(186,186,186,0.9);
+    border-radius: 25px;
+}
+
+.settings:hover {
+    background-color: rgba(186,186,186,0.9);
+    cursor: pointer;
+}
+
+.account-info {
+    font-family: "Red Hat Display", serif;
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
 header {
@@ -106,13 +176,13 @@ header {
 }
 
 h1 {
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     font-size: 26px;
     text-align: center;
 }
 
 h2 {
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     font-size: 20px;
 }
 
@@ -123,24 +193,18 @@ nav {
     justify-content: center;
     border-bottom: rgba(186,186,186,0.7);
     border-bottom-style: solid;
-    border-bottom-width: 2px;
-}
-
-#logo{
-    font-family: cursive;
-    font-size: 26px;
-    position: relative;
-    top: 5px;
+    border-bottom-width: 1px;
+    border-top: rgba(186,186,186,0.7);
+    border-top-style: solid;
+    border-top-width: 1px;
 }
 
 .a {
-    font-size: 12px;
-    font-family: cursive;
+    font-size: 20px;
+    font-family: "Red Hat Display", serif;
     color: black;
     text-decoration: none;
     padding: 14px 8px;
-    margin-top: 10px;
-    margin-bottom: 5px;
 }
 
 .a:hover {
@@ -155,16 +219,32 @@ main {
     grid-area: main-content;
     display: grid;
     grid-template-columns: 1fr;
-    padding: 30px;
     grid-gap: 10px;
     justify-items: center;
-    margin-bottom: 10px;
+}
+
+#homeBackground {
+    background: white;
+    height: auto;
+    margin: auto;
+    width: 80%;
+    border-radius: 25px 25px;
+    border: solid 2px rgba(186,186,186,0.9);
+    padding-bottom: 25px;
+}
+
+.home-btn {
+    font-size: 50px;
+    height: 110px;
+    width: 185px;
+    border-radius: 25px;
+    background: linear-gradient(120deg, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%);
 }
 
 footer {
     border-top: rgba(186,186,186,0.7);
     border-top-style: solid;
-    border-top-width: 2px;
+    border-top-width: 1px;
     text-align: center;
     background: white;
     width: 100%;
@@ -174,7 +254,8 @@ footer {
 
 #quizBackground {
     background: white;
-    width: 320px;
+    width: 90%;
+    max-width: 350px;
     height: 320px;
     border-radius: 25px 25px;
     border: solid 2px rgba(186,186,186,0.9);
@@ -197,7 +278,7 @@ footer {
     font-size: 20px;
     padding: 30px;
     color: black;
-    font-family: cursive;
+    font-family: "Red Hat Display", serif;
     font-weight: bold;
     border-radius: 25px;
     background: linear-gradient(120deg, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%);
@@ -211,14 +292,6 @@ footer {
         margin: auto;
     }
 
-    .home-btn {
-        font-size: 50px;
-        height: 160px;
-        width: 240px;
-        border-radius: 25px;
-        background: white;
-    }
-
     main {
         grid-template-columns: 1fr 1fr;
         padding: 4% 10% 4% 10%;
@@ -228,19 +301,9 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    nav {
-        border-bottom: rgba(186,186,186,0.7);
-        border-bottom-style: solid;
-        border-bottom-width: 2px;
-    }
-
     .a {
-        border-bottom-style: none;
         font-size: 20px;
-        margin-bottom: 25px;
         padding: 14px 16px;
-        position: relative;
-        top: 20px;
     }
 
     form {
@@ -259,6 +322,7 @@ footer {
 
     #quizBackground {
         width: 420px;
+        max-width: 420px;
         height: 380px;
     }
 
@@ -276,46 +340,32 @@ footer {
     .quiz-btn {
         font-size: 26px;
     }
+
+    #copyright {
+        font-size: 16px;
+    }
 }
 
 /* Desktop */
 @media screen and (min-width: 1025px){
 
     section.grid-container {
-        width: 800px;
+        width: 700px;
         margin: auto;
-    }
-
-    .home-btn {
-        font-size: 50px;
-        height: 160px;
-        width: 240px;
-        border-radius: 25px;
-        background: white;
     }
 
     main {
         grid-template-columns: 1fr 1fr;
-        padding: 4% 10% 4% 10%;
+        padding: 1% 10% 3% 10%;
     }
 
     main#subPages {
         grid-template-columns: 1fr;
     }
 
-    nav {
-        border-bottom: rgba(186,186,186,0.7);
-        border-bottom-style: solid;
-        border-bottom-width: 2px;
-    }
-
     .a {
-        border-bottom-style: none;
-        font-size: 20px;
-        margin-bottom: 25px;
+        font-size: 18px;
         padding: 16px 24px;
-        position: relative;
-        top: 20px;
     }
 
     form {
@@ -333,19 +383,20 @@ footer {
     }
 
     h1 {
-        font-size: 30px;
+        font-size: 26px;
     }
 
     h2 {
-        font-size: 24px;
+        font-size: 20px;
     }
 
     p {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     #quizBackground {
         width: 600px;
+        max-width: 600px;
         height: 420px;
     }
 
@@ -361,5 +412,9 @@ footer {
 
     .quiz-btn {
         font-size: 30px;
+    }
+
+    #copyright {
+        font-size: 16px;
     }
 }

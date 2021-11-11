@@ -1,5 +1,6 @@
 <template>
   <div class="signup">
+    <div id="content">
 
     <section class="grid-container">
       <main id="subPages">
@@ -25,14 +26,9 @@
           <p>Already have an account? <router-link class=a-signUp to="/login">Login</router-link></p>
 
       </main>
-
     </section>
 
-    <footer>
-      <p>Mathlingo &copy; 2021 All rights reserved.</p>
-    </footer>
-
-
+    </div>
   </div>
 </template>
 
