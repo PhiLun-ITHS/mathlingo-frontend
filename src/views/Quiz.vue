@@ -8,35 +8,14 @@
         <p>
           Du möts nu av fyra spännande Quiz!<br>
           När du har klarat alla fyra kommer du låsa upp ett slutquiz.<br>
-          Välj mellan addition, subtraktion, multiplikation eller division.</p>
-
-        <h2>Gör ett val nedan för att börja!</h2>
+        </p>
       <section class="grid-container">
         <div id="homeBackground">
-          <main>
+          <main id="subPages">
 
             <article>
-              <h2>Addition</h2>
-                <button class="home-btn"
-                @click="changeCategory('Addition')">+</button>
-            </article>
-
-            <article>
-              <h2>Subtraktion</h2>
-                <button class="home-btn"
-                @click="changeCategory('Subtraktion')">-</button>
-            </article>
-
-            <article>
-              <h2>Multiplikation</h2>
-                <button class="home-btn"
-                @click="changeCategory('Multiplikation')">x</button>
-            </article>
-
-            <article>
-              <h2>Division</h2>
-                <button class="home-btn"
-                @click="changeCategory('Division')">÷</button>
+                <button class="quiz-btn"
+                @click="changeCategory('Addition')">START QUIZ -></button>
             </article>
 
           </main>
@@ -50,6 +29,12 @@
 
       <h1 v-if="complete">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
       <h1 v-else v-html="loading ? 'Loading...' : 'Vad är ' + currentQuestion.question"></h1>
+
+      <div v-if="complete && !finalComplete">
+        <button class="home-btn"
+                @click="nextQuiz"
+        >Next</button>
+      </div>
 
       <div v-if="!complete && !loading">
       <section class="button-container">
@@ -80,11 +65,17 @@ export default {
       questions: [],
       index: 0,
       complete: false,
+      finalComplete: false,
       userCorrect: 0,
       loading: true,
       category: '',
       showCategoryButtons: true,
       showQuiz: false,
+      additionEasy: false,
+      subtraktionEasy: false,
+      multiplikationEasy: false,
+      divisionEasy: false,
+      finalEasy: false,
       //difficulty: 'hard'
     };
   },
@@ -97,9 +88,28 @@ export default {
     },
   },
   methods: {
+    nextQuiz() {
+      if (this.additionEasy) {
+        this.category = 'Subtraktion';
+      }
+      if (this.additionEasy && this.subtraktionEasy) {
+        this.category = 'Multiplikation';
+      }
+      if (this.additionEasy && this.subtraktionEasy && this.multiplikationEasy) {
+        this.category = 'Division';
+      }
+      if (this.additionEasy && this.subtraktionEasy && this.multiplikationEasy && this.divisionEasy) {
+        this.category = '';
+      }
+      if (this.category != null) {
+        this.complete = false;
+        this.userCorrect = 0;
+        this.index = 0;
+        this.fetchQuestions();
+      }
+    },
     changeCategory(category) {
       this.category = category;
-      console.log(this.category);
       this.showCategoryButtons = false;
       this.fetchQuestions();
       this.showQuiz = true;
@@ -111,7 +121,7 @@ export default {
 
       let jsonResponse = await response.json();
 
-      //sorting by user choice
+      //sorting by category
       jsonResponse = jsonResponse.quiz.filter(el => el.category.includes(this.category));
       //jsonResponse = jsonResponse.filter(el => el.difficulty.includes(this.difficulty));
 
@@ -183,9 +193,21 @@ export default {
         if (this.index < this.questions.length - 1) {
           setTimeout(function() {
                 this.index += 1;
-          }.bind(this), 100);
+          }.bind(this), 200);
         } else {
+          if (this.category === 'Addition') {
+            this.additionEasy = true;
+          } else if (this.category === 'Subtraktion') {
+            this.subtraktionEasy = true;
+          } else if (this.category === 'Multiplikation') {
+            this.multiplikationEasy = true;
+          } else if (this.category === 'Division') {
+            this.divisionEasy = true;
+          }
           this.complete = true;
+          if (this.additionEasy && this.subtraktionEasy && this.multiplikationEasy && this.divisionEasy) {
+            this.finalComplete = true;
+          }
         }
       }
     },
