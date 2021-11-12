@@ -85,6 +85,7 @@ export default {
       category: '',
       showCategoryButtons: true,
       showQuiz: false,
+      //difficulty: 'hard'
     };
   },
   computed: {
@@ -108,13 +109,14 @@ export default {
       let response = await fetch(
           "http://192.168.1.200:4000/auth/quiz");
 
-
-      // SORTERA QUIZ UTIFRÅN CATEGORY
-      // this.category
-
       let jsonResponse = await response.json();
+
+      //sorting by user choice
+      jsonResponse = jsonResponse.quiz.filter(el => el.category.includes(this.category));
+      //jsonResponse = jsonResponse.filter(el => el.difficulty.includes(this.difficulty));
+
       let index = 0;
-      let data = jsonResponse.results.map((question) => {
+      let data = jsonResponse.map((question) => {
 
         let incorrect1;
         let incorrect2;
@@ -173,7 +175,7 @@ export default {
     checkAnswer: function(event, index) {
       let question = this.questions[index];
 
-      if(question.userAnswer == question.correct_answer) {
+      if(question.userAnswer === question.correct_answer) {
         this.userCorrect++;
       }
 
