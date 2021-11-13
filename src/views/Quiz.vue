@@ -3,7 +3,7 @@
     <div id="content">
 
     <h1>QUIZ</h1>
-      <div v-if="showCategoryButtons">
+      <div v-if="showStart">
 
         <p>
           Du möts nu av fyra spännande Quiz!<br>
@@ -14,8 +14,9 @@
           <main id="subPages">
 
             <article>
-                <button class="quiz-btn"
-                @click="changeCategory('Addition')">START QUIZ -></button>
+              <button class="quiz-btn"
+              @click="startQuiz">START QUIZ ->
+              </button>
             </article>
 
           </main>
@@ -25,10 +26,24 @@
     <div v-if="showQuiz">
     <div id="quizBackground">
 
-      <p style="font-size: 16px;">Question {{ index + 1 }} / {{ questions.length }}</p>
+      <p v-if="!finalComplete" style="font-size: 16px;">Question {{ index + 1 }} / {{ questions.length }}</p>
+      <h1 v-if="complete && !finalComplete">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
+      <h1 v-else-if="!finalComplete && !loading">Vad är {{currentQuestion.question}}</h1>
+      <h1 v-if="finalComplete">
+        EASY<br>
+        Quiz Addition: {{this.quizEasyScore[0]}} / 5<br>
+        Quiz Subtraktion: {{this.quizEasyScore[1]}} / 5<br>
+        Quiz Multiplikation: {{this.quizEasyScore[2]}} / 5<br>
+        Quiz Division: {{this.quizEasyScore[3]}} / 5<br>
+        Quiz Final: {{this.quizEasyFinalScore}} / 10<br>
+        HARD<br>
+        Quiz Addition: {{this.quizHardScore[0]}} / 5<br>
+        Quiz Subtraktion: {{this.quizHardScore[0]}} / 5<br>
+        Quiz Multiplikation: {{this.quizHardScore[0]}} / 5<br>
+        Quiz Division: {{this.quizHardScore[0]}} / 5<br>
+        Quiz Final: {{this.quizHardFinalScore}} / 10<br>
+      </h1>
 
-      <h1 v-if="complete">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
-      <h1 v-else v-html="loading ? 'Loading...' : 'Vad är ' + currentQuestion.question"></h1>
 
       <div v-if="complete && !finalComplete">
         <button class="home-btn"
@@ -69,14 +84,21 @@ export default {
       userCorrect: 0,
       loading: true,
       category: '',
-      showCategoryButtons: true,
+      showStart: true,
+      difficulty: 'easy',
       showQuiz: false,
-      additionEasy: false,
-      subtraktionEasy: false,
-      multiplikationEasy: false,
-      divisionEasy: false,
-      finalEasy: false,
-      //difficulty: 'hard'
+      quizCategory: ['Addition', 'Subtraktion', 'Multiplikation', 'Division'],
+      quizCategoryIndex: 0,
+      quizEasyProgress: [false, false, false, false],
+      quizEasyScore: [0, 0, 0, 0],
+      quizEasyFinalScore: 0,
+      finalEasyProgress: false,
+      quizHardProgress: [false, false, false, false],
+      quizHardScore: [0, 0, 0, 0],
+      quizHardFinalScore: 0,
+      finalHardProgress: false,
+      showScore: false,
+      scoreIndex: 0,
     };
   },
   computed: {
@@ -88,19 +110,34 @@ export default {
     },
   },
   methods: {
+    initializeCategory() {
+      if (this.quizCategoryIndex < 4) {
+        this.category = this.quizCategory[this.quizCategoryIndex];
+      }
+    },
     nextQuiz() {
-      if (this.additionEasy) {
-        this.category = 'Subtraktion';
+      this.initializeCategory();
+      if (this.finalEasyProgress && !this.quizHardProgress) {
+        this.difficulty = 'hard';
       }
-      if (this.additionEasy && this.subtraktionEasy) {
-        this.category = 'Multiplikation';
+      let checkProgress;
+      if (this.difficulty === 'easy') {
+        checkProgress = this.quizEasyProgress.every(v => v === true);
+          if (checkProgress) {
+            this.category = 'Final';
+            this.difficulty = 'finalEasy';
+            this.quizCategoryIndex = 0;
+          }
+      } else if (this.difficulty === 'hard') {
+        checkProgress = this.quizHardProgress.every(v => v === true);
+          if (checkProgress) {
+            this.category = 'Final';
+            this.difficulty = 'finalHard';
+            this.quizCategoryIndex = 0;
+          }
       }
-      if (this.additionEasy && this.subtraktionEasy && this.multiplikationEasy) {
-        this.category = 'Division';
-      }
-      if (this.additionEasy && this.subtraktionEasy && this.multiplikationEasy && this.divisionEasy) {
-        this.category = '';
-      }
+      console.log('Category ' + this.category);
+      console.log('Difficulty ' + this.difficulty);
       if (this.category != null) {
         this.complete = false;
         this.userCorrect = 0;
@@ -108,11 +145,13 @@ export default {
         this.fetchQuestions();
       }
     },
-    changeCategory(category) {
-      this.category = category;
-      this.showCategoryButtons = false;
+    startQuiz() {
+      this.showStart = false;
+      this.initializeCategory();
       this.fetchQuestions();
       this.showQuiz = true;
+      console.log('Category ' + this.category);
+      console.log('Difficulty ' + this.difficulty);
     },
     async fetchQuestions() {
       this.loading = true;
@@ -123,7 +162,7 @@ export default {
 
       //sorting by category
       jsonResponse = jsonResponse.quiz.filter(el => el.category.includes(this.category));
-      //jsonResponse = jsonResponse.filter(el => el.difficulty.includes(this.difficulty));
+      jsonResponse = jsonResponse.filter(el => el.difficulty.includes(this.difficulty));
 
       let index = 0;
       let data = jsonResponse.map((question) => {
@@ -155,7 +194,6 @@ export default {
             incorrect1,
             incorrect2,
             incorrect3
-          //...question.incorrect_answers,
         ];
 
         for (let i = question.answers.length - 1; i > 0; i--) {
@@ -179,7 +217,6 @@ export default {
       let userAnswer = pollutedUserAnswer.replace(/'/, "&#039;");
 
       this.questions[index].userAnswer = userAnswer;
-
       this.checkAnswer(event, index);
     },
     checkAnswer: function(event, index) {
@@ -194,20 +231,42 @@ export default {
           setTimeout(function() {
                 this.index += 1;
           }.bind(this), 200);
-        } else {
-          if (this.category === 'Addition') {
-            this.additionEasy = true;
-          } else if (this.category === 'Subtraktion') {
-            this.subtraktionEasy = true;
-          } else if (this.category === 'Multiplikation') {
-            this.multiplikationEasy = true;
-          } else if (this.category === 'Division') {
-            this.divisionEasy = true;
-          }
+        }
+        else {
           this.complete = true;
-          if (this.additionEasy && this.subtraktionEasy && this.multiplikationEasy && this.divisionEasy) {
-            this.finalComplete = true;
+          let passedQuiz = false;
+          if (this.userCorrect / this.questions.length >= 0) {
+            passedQuiz = true;
           }
+          if (this.difficulty === 'easy') {
+            this.quizEasyProgress[this.quizCategoryIndex] = passedQuiz;
+            this.quizEasyScore[this.quizCategoryIndex] = this.userCorrect;
+            this.quizCategoryIndex++;
+          } else if (this.difficulty === 'finalEasy') {
+            this.finalEasyProgress = passedQuiz;
+            this.quizEasyFinalScore = this.userCorrect;
+            if (passedQuiz) {
+              this.difficulty = 'hard';
+              this.initializeCategory();
+            }
+          } else if (this.difficulty === 'hard') {
+            this.quizHardProgress[this.quizCategoryIndex] = passedQuiz;
+            this.quizHardScore[this.quizCategoryIndex] = this.userCorrect;
+            this.quizCategoryIndex++;
+          } else if (this.difficulty === 'finalHard') {
+            this.finalHardProgress = passedQuiz;
+            this.quizHardFinalScore = this.userCorrect;
+            if (passedQuiz) {
+              this.category = '';
+              this.finalComplete = true;
+              this.showScore = true;
+            }
+          }
+          console.log(this.quizEasyProgress);
+          console.log(this.finalEasyProgress);
+          console.log(this.quizHardProgress);
+          console.log(this.finalHardProgress);
+          console.log('-----------------------------------------------------');
         }
       }
     },
