@@ -6,7 +6,7 @@
       <main id="subPages">
 
           <h1>Sign up for Mathlingo</h1>
-        <p id="answer"></p>
+        <!--<p id="answer"></p>-->
           <form v-on:submit.prevent="submitForm">
             <input type="text" placeholder="Enter Username" name="uname" required id="userName" v-model="form.name">
 

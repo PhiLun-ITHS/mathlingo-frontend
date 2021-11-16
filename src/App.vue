@@ -14,11 +14,11 @@
     <router-view/>
 
    <footer>
-     <p id="copyright">
+     <div id="copyright">
        <router-link to="/contact" style="margin-right: 3px">Contact</router-link>
        <router-link to="/about" style="margin-left: 3px">About</router-link><br>
        &copy; 2021 Mathlingo
-     </p>
+     </div>
    </footer>
 
 </div>
