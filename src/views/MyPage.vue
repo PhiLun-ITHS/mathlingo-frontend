@@ -16,7 +16,7 @@
         <article>
           <h1 style="text-decoration: underline">Settings</h1>
           <div class="settings" @click="clickPasswordChange">Change password</div>
-          <div class="settings" @click="clickRemoveAccount">Remove Account</div>
+          <div class="settings"  @click.prevent="removeAccount">Remove Account</div>
         </article>
       </section>
 
@@ -35,14 +35,7 @@
           </form>
         </div>
 
-        <div v-if="removeAcc">
-          <form >
-          <h1 style="text-decoration: underline">Remove account</h1>
-          <p class="account-info">Enter your password to confirm</p>
-          <input type="password" id='psw' placeholder="Password">
-          <input type="submit" class ="btn" value="Remove account" @click="removeAcc=false">
-          </form>
-        </div>
+
       </main>
       </section>
       <h1 class="myPage-title">Statistik</h1>
@@ -120,6 +113,7 @@
 
 <script>
 
+import swal from 'sweetalert2';
  import axios from "axios";
 
 export default {
@@ -128,11 +122,10 @@ export default {
     return {
       auth: localStorage.getItem('accessToken'),
       changePass: false,
-      removeAcc: false,
       accountName: 'testProp',
       accountEmail: 'testProp@gmail.com',
       accountCompletion: '50',
-
+      remove: false,
       //statistik från databas ska in i dessa arrays
       //statisticAnswers: [],
       //statisticQuestions: [],
@@ -140,23 +133,54 @@ export default {
       statisticQuestions: [5, 5, 5, 5, 10, 5, 5, 5, 5, 10],
     }
   },
+
+
+
   methods: {
-    notAuth(){
-      this.$router.push('/login');
+    removeAccount(){
+      swal.fire({
+        title: "Remove this account?",
+        text: "Are you sure? You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Yes, Delete it!",
+        closeOnConfirm: true
+      }, () => {
+
+        this.clickRemoveAccount()
+
+      })
     },
+
+
+
+
+
 
     clickPasswordChange() {
-      if (this.removeAcc === true) {
-        this.removeAcc = false;
-      }
-      this.changePass = this.changePass !== true;
-    },
-    clickRemoveAccount() {
-      if (this.changePass === true) {
-        this.changePass = false;
-      }
-      this.removeAcc = this.removeAcc !== true;
+      let data = {
+        accessToken: localStorage.getItem('accessToken'),
+        refreshToken: localStorage.getItem('refreshToken')
+      };
 
+      axios.put('http://localhost:4000/auth/updateUser', data);
+
+    },
+
+
+
+
+
+
+    clickRemoveAccount() {
+
+      if(swal ({
+        text: 'Are you sure you want to remove account?',
+        buttons: true
+      })){
+        return;
+      }
       let data = {
         accessToken: localStorage.getItem('accessToken'),
         refreshToken: localStorage.getItem('refreshToken')
@@ -165,9 +189,6 @@ export default {
 
       localStorage.clear();
       location.reload();
-
-
-
     },
     logout(){
       let data = {accessToken : localStorage.getItem('accessToken'), refreshToken : localStorage.getItem('refreshToken')};
