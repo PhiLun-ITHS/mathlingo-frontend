@@ -23,8 +23,6 @@
       <section class="grid-container">
       <main id="subPages">
 
-
-
         <div v-if="changePass">
           <form>
           <h1 style="text-decoration: underline">Change password</h1>
@@ -51,27 +49,27 @@
     <section class="statistic-container">
 
       <article>
-        <div class="statistic">{{statisticAnswers[0]}}/{{statisticQuestions[0]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[0]}">{{statisticAnswers[0]}}/{{statisticQuestions[0]}}</div>
         <p class="statistic-text">Addition</p>
       </article>
 
       <article>
-        <div class="statistic">{{statisticAnswers[1]}}/{{statisticQuestions[1]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[1]}">{{statisticAnswers[1]}}/{{statisticQuestions[1]}}</div>
         <p class="statistic-text">Subtraction</p>
       </article>
 
       <article>
-        <div class="statistic">{{statisticAnswers[2]}}/{{statisticQuestions[2]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[2]}">{{statisticAnswers[2]}}/{{statisticQuestions[2]}}</div>
         <p class="statistic-text">Multiplication</p>
       </article>
 
       <article>
-        <div class="statistic">{{statisticAnswers[3]}}/{{statisticQuestions[3]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[3]}">{{statisticAnswers[3]}}/{{statisticQuestions[3]}}</div>
         <p class="statistic-text">Division</p>
       </article>
 
       <article>
-        <div class="statistic">{{statisticAnswers[4]}}/{{statisticQuestions[4]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[4]}">{{statisticAnswers[4]}}/{{statisticQuestions[4]}}</div>
         <p class="statistic-text">Final</p>
       </article>
 
@@ -81,27 +79,27 @@
     <section class="statistic-container">
 
       <article>
-        <div class="statistic">{{statisticAnswers[5]}}/{{statisticQuestions[5]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[5]}">{{statisticAnswers[5]}}/{{statisticQuestions[5]}}</div>
         <p class="statistic-text">Addition</p>
       </article>
 
       <article>
-        <div class="statistic">{{statisticAnswers[6]}}/{{statisticQuestions[6]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[6]}">{{statisticAnswers[6]}}/{{statisticQuestions[6]}}</div>
         <p class="statistic-text">Subtraction</p>
       </article>
 
       <article>
-        <div class="statistic">{{statisticAnswers[7]}}/{{statisticQuestions[7]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[7]}">{{statisticAnswers[7]}}/{{statisticQuestions[7]}}</div>
         <p class="statistic-text">Multiplication</p>
       </article>
 
       <article>
-        <div class="statistic">{{statisticAnswers[8]}}/{{statisticQuestions[8]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[8]}">{{statisticAnswers[8]}}/{{statisticQuestions[8]}}</div>
         <p class="statistic-text">Division</p>
       </article>
 
       <article>
-        <div class="statistic" >{{statisticAnswers[9]}}/{{statisticQuestions[9]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[9]}">{{statisticAnswers[9]}}/{{statisticQuestions[9]}}</div>
         <p class="statistic-text">Final</p>
       </article>
 
@@ -116,6 +114,17 @@
  import axios from "axios";
 
 export default {
+  beforeMount() {
+    for (let i = 0; i < this.statisticBoxColor.length; i++) {
+      if (this.statisticAnswers[i] === this.statisticQuestions[i]) {
+        this.statisticBoxColor[i] = 'green';
+      } else if (this.statisticAnswers[i] >= 1 && this.statisticAnswers[i] < this.statisticQuestions[i]) {
+        this.statisticBoxColor[i] = 'red';
+      } else {
+        this.statisticBoxColor[i] = 'white';
+      }
+    }
+  },
   name: "MyPage",
   data() {
     return {
@@ -124,12 +133,12 @@ export default {
       accountName: 'testProp',
       accountEmail: 'testProp@gmail.com',
       accountCompletion: '50',
-
       //statistik från databas ska in i dessa arrays
       //statisticAnswers: [],
       //statisticQuestions: [],
       statisticAnswers: [1, 3, 5, 5, 0, 2, 3, 4, 5, 2],
       statisticQuestions: [5, 5, 5, 5, 10, 5, 5, 5, 5, 10],
+      statisticBoxColor: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
     }
   },
   methods: {
@@ -159,7 +168,7 @@ export default {
             }
           })
           .then(this.$router.push('/login'));
-    }
+    },
   },
 }
 </script>
