@@ -58,9 +58,8 @@ export default {
 
                   }
                 })
-
-          .catch((error) => this.handle(error,
-              document.getElementById('answer').innerHTML = "No such account!"));
+        //  .catch((error) => this.handle(error,
+          //    document.getElementById('answer').innerHTML = "No such account!"));
 
 
 

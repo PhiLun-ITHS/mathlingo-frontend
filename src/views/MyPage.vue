@@ -28,10 +28,9 @@
         <div v-if="changePass">
           <form>
           <h1 style="text-decoration: underline">Change password</h1>
-          <input type="password" id='oldPsw' placeholder="Old password">
-          <input type="password" placeholder="New Password" name="psw" required id="password">
-          <input type="password" placeholder="Confirm Password" name="psw" required id="rePassword">
-          <input type="submit" class ="btn" value="Change password" @click="changePass=false">
+          <input type="password" placeholder="New Password"  name="psw" required id="newPassword" v-model="newPassword">
+          <input type="password" placeholder="Confirm Password"  name="psw" required id="reNewPassword" v-model="confirmNewPassword">
+          <input type="submit" class ="btn" value="Change password" @click="passwordChange">
           </form>
         </div>
 
@@ -104,7 +103,7 @@
   </div>
   <div v-else>
     <section>
-    <button class="btn" @click.prevent="notAuth" >No access to this page, try to login!</button>
+    <button class="btn" @click.prevent="notAuth" >You are not logged in, try to login!</button>
     </section>
   </div>
 
@@ -121,87 +120,115 @@ export default {
   data() {
     return {
       auth: localStorage.getItem('accessToken'),
+      newPassword: '',
+      confirmNewPassword: '',
       changePass: false,
       accountName: 'testProp',
       accountEmail: 'testProp@gmail.com',
       accountCompletion: '50',
-      remove: false,
+      remove: localStorage.getItem('accessToken'),
       //statistik från databas ska in i dessa arrays
-      //statisticAnswers: [],
+     //statisticAnswers: [],
       //statisticQuestions: [],
       statisticAnswers: [1, 3, 5, 5, 0, 2, 3, 4, 5, 2],
       statisticQuestions: [5, 5, 5, 5, 10, 5, 5, 5, 5, 10],
+
     }
   },
 
 
-
   methods: {
-    removeAccount(){
-      swal.fire({
-        title: "Remove this account?",
-        text: "Are you sure? You won't be able to revert this!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "Yes, Delete it!",
-        closeOnConfirm: true
-      }, () => {
 
-        this.clickRemoveAccount()
+    removeAccount(){
+
+      swal.fire({
+        title: 'Are you sure you want to remove account?',
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        cancelButtonColor: 'red',
+        showCancelButton: true
+      }).then((result) => {
+        if (result['isConfirmed']) {
+          let data = {
+            accessToken: localStorage.getItem('accessToken'),
+            refreshToken: localStorage.getItem('refreshToken')
+          };
+          console.log(data);
+          axios.post('http://localhost:4000/auth/removeAccount', data);
+          localStorage.clear();
+          location.reload();
+
+        } else{
+            swal.fire('Cancelled');
+          }
+
 
       })
+      this.$router.push('/login');
     },
 
+    passwordChange(){
+      if(this.newPassword === this.confirmNewPassword) {
+        let data = {
+          accessToken: localStorage.getItem('accessToken'),
+          refreshToken: localStorage.getItem('refreshToken'),
+          newPassword: this.newPassword
+        };
 
+        axios.put('http://localhost:4000/auth/updateUser', data);
 
+        localStorage.clear();
+        this.$router.push('/login');
+      }else
+        alert('Password didnt match!')
 
-
-
+    },
     clickPasswordChange() {
-      let data = {
-        accessToken: localStorage.getItem('accessToken'),
-        refreshToken: localStorage.getItem('refreshToken')
-      };
+      if(this.changePass === false)
+        this.changePass = true;
+      else
+        this.changePass = false;
 
-      axios.put('http://localhost:4000/auth/updateUser', data);
 
     },
 
-
-
-
-
-
-    clickRemoveAccount() {
-
-      if(swal ({
-        text: 'Are you sure you want to remove account?',
-        buttons: true
-      })){
-        return;
-      }
-      let data = {
-        accessToken: localStorage.getItem('accessToken'),
-        refreshToken: localStorage.getItem('refreshToken')
-      };
-      axios.post('http://localhost:4000/auth/removeAccount', data)
-
-      localStorage.clear();
-      location.reload();
+    notAuth(){
+      this.$router.push('/login');
     },
+
     logout(){
-      let data = {accessToken : localStorage.getItem('accessToken'), refreshToken : localStorage.getItem('refreshToken')};
-      axios.post('http://localhost:4000/auth/logout',data)
-          .then(response => {
-            if (response.data) {
+        swal.fire({
+          title: 'Are you sure you want to logout?',
+          confirmButtonText: 'logout',
+          cancelButtonText: 'Stay quizzing',
+          showCancelButton: true,
+          confirmButtonColor: 'dark red',
+          cancelButtonColor: 'dark green',
+        }).then ((result)=>{
+        if(result['isConfirmed']){
+          let data = {
+            accessToken: localStorage.getItem('accessToken'),
+            refreshToken: localStorage.getItem('refreshToken')
+          };
+          axios.post('http://localhost:4000/auth/logout',data)
+          .then(response=>{
+            if(response.data){
               localStorage.clear();
               location.reload();
             }
           })
-          .then(this.$router.push('/'));
+        }else{
+swal.fire('cancelled')
+        }
+        })
+
+      this.$router.push('/login')
+      }
+
     }
-  },
+
+
+
 }
 </script>
 

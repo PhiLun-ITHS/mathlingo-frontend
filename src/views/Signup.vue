@@ -48,8 +48,17 @@ export default {
 
         let user = {name: this.form.name, email: this.form.email, password: this.form.password};
         axios.post('http://localhost:4000/auth/signup', user)
-       .catch((error) => this.handle(error))
-        document.getElementById('answer').innerHTML = "already exist!"
+            .then(response => {
+              if(response.data === 403) {
+                console.log(response);
+                document.getElementById('answer').innerHTML = "Account already exists";
+              }else{
+                console.log(response);
+                document.getElementById('answer').innerHTML = "Account created";
+              }
+            })
+
+
 
 
 
