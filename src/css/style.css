@@ -17,8 +17,6 @@ body {
     font-size: 14px;
 }
 
-
-
 .logout-btn {
     position: center;
     display: inline-flex;
@@ -161,24 +159,22 @@ section.grid-container {
 
 .MyPage {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     margin: auto;
     justify-items: center;
-    width: 800px;
 }
 
 .statistic-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     margin: auto;
     justify-items: center;
-    width: 800px;
     border-bottom: solid 1px black;
 }
 
 .statistic {
     background: white;
-    border: solid 2px rgba(186,186,186,0.9);
+    border: solid 1px black;
     border-radius: 25px;
     width: 100px;
     height: 100px;
@@ -207,10 +203,13 @@ section.grid-container {
     font-family: "Red Hat Display", serif;
     font-size: 20px;
     margin-bottom: 10px;
-    width: 200px;
+    width: 250px;
+    height: 35px;
+    vertical-align: middle;
+    line-height: 35px;
     background: white;
     text-align: center;
-    border: solid 2px rgba(186,186,186,0.9);
+    border: solid 1px black;
     border-radius: 25px;
 }
 
@@ -345,8 +344,17 @@ footer {
 @media screen and (min-width: 768px) and (max-width: 1024px) {
 
     section.grid-container {
-        width: 750px;
+        width: 600px;
         margin: auto;
+    }
+
+    .statistic-container {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        width: 600px;
+    }
+
+    .MyPage {
+        width: 600px;
     }
 
     main {
@@ -409,6 +417,16 @@ footer {
     section.grid-container {
         width: 700px;
         margin: auto;
+    }
+
+    .MyPage {
+        grid-template-columns: 1fr 1fr;
+        width: 800px;
+    }
+
+    .statistic-container {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        width: 800px;
     }
 
     main {
