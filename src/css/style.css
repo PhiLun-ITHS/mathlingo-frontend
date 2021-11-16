@@ -280,17 +280,16 @@ main {
     grid-gap: 10px;
     justify-items: center;
 }
+
 #homeBackground {
     background: white;
-    width: 600px;
-    max-width: 600px;
-    height: 420px;
+    width: 90%;
+    max-width: 350px;
+    height: 320px;
     border-radius: 25px 25px;
-    border: solid 2px rgba(186, 186, 186, 0.9);
+    border: solid 2px rgba(186,186,186,0.9);
     margin: auto;
 }
-
-
 
 /*
 #homeBackground {
@@ -413,6 +412,12 @@ footer {
         height: 380px;
     }
 
+    #homeBackground {
+        width: 420px;
+        max-width: 420px;
+        height: 380px;
+    }
+
     .button-container {
         grid-template-columns: 1fr 1fr;
         grid-gap: 25px 45px;
@@ -492,6 +497,12 @@ footer {
     }
 
     #quizBackground {
+        width: 600px;
+        max-width: 600px;
+        height: 420px;
+    }
+
+    #homeBackground {
         width: 600px;
         max-width: 600px;
         height: 420px;

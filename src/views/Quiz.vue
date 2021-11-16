@@ -10,13 +10,10 @@
         <div id="homeBackground">
           <main id="subPages">
 
-            <div v-if="showStart">
-
-              <p>
+            <p v-if="showStart">
                 Du möts nu av fyra spännande Quiz!<br>
                 När du har klarat alla fyra kommer du låsa upp ett slutquiz.<br><br>
-              </p>
-            </div>
+            </p>
 
             <article v-if="showStart">
               <button class="quiz-btn"
