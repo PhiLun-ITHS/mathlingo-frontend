@@ -115,6 +115,17 @@
 
 export default {
   beforeMount() {
+    //completion
+    let totalQuest = 60;
+    let totalAnswer = 0;
+    for (let i = 0; i < this.statisticQuestions.length; i++) {
+      totalAnswer = totalAnswer + this.statisticAnswers[i];
+    }
+    let percentage = totalAnswer * 100 / totalQuest;
+    percentage = Math.round((percentage + Number.EPSILON));
+    this.accountCompletion = percentage;
+
+    //box colors
     for (let i = 0; i < this.statisticBoxColor.length; i++) {
       if (this.statisticAnswers[i] === this.statisticQuestions[i]) {
         this.statisticBoxColor[i] = '#0CFA34';
@@ -133,7 +144,8 @@ export default {
       removeAcc: false,
       accountName: 'testProp',
       accountEmail: 'testProp@gmail.com',
-      accountCompletion: '50',
+      accountCompletion: '',
+      completionCalculate: [],
       //statistik från databas ska in i dessa arrays
       //statisticAnswers: [],
       //statisticQuestions: [],
