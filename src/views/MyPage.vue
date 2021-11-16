@@ -117,12 +117,13 @@ export default {
   beforeMount() {
     for (let i = 0; i < this.statisticBoxColor.length; i++) {
       if (this.statisticAnswers[i] === this.statisticQuestions[i]) {
-        this.statisticBoxColor[i] = 'green';
+        this.statisticBoxColor[i] = '#0CFA34';
       } else if (this.statisticAnswers[i] >= 1 && this.statisticAnswers[i] < this.statisticQuestions[i]) {
-        this.statisticBoxColor[i] = 'red';
+        this.statisticBoxColor[i] = '#FA8F19';
       } else {
         this.statisticBoxColor[i] = 'white';
       }
+      // #FA1947   röd
     }
   },
   name: "MyPage",
@@ -136,9 +137,9 @@ export default {
       //statistik från databas ska in i dessa arrays
       //statisticAnswers: [],
       //statisticQuestions: [],
-      statisticAnswers: [1, 3, 5, 5, 0, 2, 3, 4, 5, 2],
+      statisticAnswers: [1, 3, 5, 5, 0, 2, 3, 4, 5, 0],
       statisticQuestions: [5, 5, 5, 5, 10, 5, 5, 5, 5, 10],
-      statisticBoxColor: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+      statisticBoxColor: ['', '', '', '', '', '', '', '', '', ''],
     }
   },
   methods: {
