@@ -38,9 +38,9 @@
         Quiz Final: {{this.quizEasyFinalScore}} / 10<br>
         HARD<br>
         Quiz Addition: {{this.quizHardScore[0]}} / 5<br>
-        Quiz Subtraktion: {{this.quizHardScore[0]}} / 5<br>
-        Quiz Multiplikation: {{this.quizHardScore[0]}} / 5<br>
-        Quiz Division: {{this.quizHardScore[0]}} / 5<br>
+        Quiz Subtraktion: {{this.quizHardScore[1]}} / 5<br>
+        Quiz Multiplikation: {{this.quizHardScore[2]}} / 5<br>
+        Quiz Division: {{this.quizHardScore[3]}} / 5<br>
         Quiz Final: {{this.quizHardFinalScore}} / 10<br>
       </h1>
 
@@ -160,42 +160,35 @@ export default {
 
       let jsonResponse = await response.json();
 
-      //sorting by category
+      //sorting by category & difficulty
       jsonResponse = jsonResponse.quiz.filter(el => el.category.includes(this.category));
       jsonResponse = jsonResponse.filter(el => el.difficulty.includes(this.difficulty));
 
       let index = 0;
       let data = jsonResponse.map((question) => {
 
-        let incorrect1;
-        let incorrect2;
-        let incorrect3;
-
         let max = Number.parseInt(question.correct_answer) + 3;
         let min = Number.parseInt(question.correct_answer) - 1;
 
-        incorrect1 = Math.floor(Math.random() * (max - min) + min);
+        let incorrect1 = Math.floor(Math.random() * (max - min) + min);
         while(incorrect1 === Number.parseInt(question.correct_answer)) {
           incorrect1 = Math.floor(Math.random() * (max - min) + min);
         }
 
-        incorrect2 = Math.floor(Math.random() * (max - min) + min);
+        let incorrect2 = Math.floor(Math.random() * (max - min) + min);
         while((incorrect2 === Number.parseInt(question.correct_answer) || incorrect2 === incorrect1)) {
           incorrect2 = Math.floor(Math.random() * (max - min) + min);
         }
 
-        incorrect3 = Math.floor(Math.random() * (max - min) + min);
+        let incorrect3 = Math.floor(Math.random() * (max - min) + min);
         while((incorrect3 === Number.parseInt(question.correct_answer) || incorrect3 === incorrect1 || incorrect2 === incorrect3)) {
           incorrect3 = Math.floor(Math.random() * (max - min) + min);
         }
 
-        question.answers = [
-          question.correct_answer,
-            incorrect1,
-            incorrect2,
-            incorrect3
-        ];
+        // correct & incorrect answer linked to each question
+        question.answers = [question.correct_answer, incorrect1, incorrect2, incorrect3];
 
+        //answer shuffle
         for (let i = question.answers.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [question.answers[i], question.answers[j]] = [
@@ -211,7 +204,7 @@ export default {
       this.loading = false;
     },
     handleButtonClick: function(event) {
-
+      // user input
       let index = event.target.getAttribute("index");
       let pollutedUserAnswer = event.target.innerHTML;
       let userAnswer = pollutedUserAnswer.replace(/'/, "&#039;");
@@ -221,7 +214,6 @@ export default {
     },
     checkAnswer: function(event, index) {
       let question = this.questions[index];
-
       if(question.userAnswer === question.correct_answer) {
         this.userCorrect++;
       }
