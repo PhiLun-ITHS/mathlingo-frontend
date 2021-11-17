@@ -89,9 +89,9 @@ export default {
       loading: true,
       category: '',
       showStart: true,
-      difficulty: 'easy',
+      difficulty: 'Easy',
       showQuiz: false,
-      quizCategory: ['Addition', 'Subtraktion', 'Multiplikation', 'Division'],
+      quizCategory: ['Addition', 'Subtraction', 'Multiplication', 'Division'],
       quizCategoryIndex: 0,
       quizEasyProgress: [false, false, false, false],
       quizEasyScore: [0, 0, 0, 0],
@@ -136,21 +136,21 @@ export default {
       if (this.passed) {
         this.initializeCategory();
         if (this.finalEasyProgress && !this.quizHardProgress) {
-          this.difficulty = 'hard';
+          this.difficulty = 'Hard';
         }
         let checkProgress;
-        if (this.difficulty === 'easy') {
+        if (this.difficulty === 'Easy') {
           checkProgress = this.quizEasyProgress.every(v => v === true);
           if (checkProgress) {
             this.category = 'Final';
-            this.difficulty = 'finalEasy';
+            this.difficulty = 'Final_Easy';
             this.quizCategoryIndex = 0;
           }
-        } else if (this.difficulty === 'hard') {
+        } else if (this.difficulty === 'Hard') {
           checkProgress = this.quizHardProgress.every(v => v === true);
           if (checkProgress) {
             this.category = 'Final';
-            this.difficulty = 'finalHard';
+            this.difficulty = 'Final_Hard';
             this.quizCategoryIndex = 0;
           }
         }
@@ -251,22 +251,25 @@ export default {
           this.quizFeedback(passedQuiz);
 
           if(passedQuiz) {
-            if (this.difficulty === 'easy') {
+
+            console.log(this.userCorrect);
+
+            if (this.difficulty === 'Easy') {
               this.quizEasyProgress[this.quizCategoryIndex] = passedQuiz;
               this.quizEasyScore[this.quizCategoryIndex] = this.userCorrect;
               this.quizCategoryIndex++;
-            } else if (this.difficulty === 'finalEasy') {
+            } else if (this.difficulty === 'Final_Easy') {
               this.finalEasyProgress = passedQuiz;
               this.quizEasyFinalScore = this.userCorrect;
               if (passedQuiz) {
-                this.difficulty = 'hard';
+                this.difficulty = 'Hard';
                 this.initializeCategory();
               }
-            } else if (this.difficulty === 'hard') {
+            } else if (this.difficulty === 'Hard') {
               this.quizHardProgress[this.quizCategoryIndex] = passedQuiz;
               this.quizHardScore[this.quizCategoryIndex] = this.userCorrect;
               this.quizCategoryIndex++;
-            } else if (this.difficulty === 'finalHard') {
+            } else if (this.difficulty === 'Final_Hard') {
               this.finalHardProgress = passedQuiz;
               this.quizHardFinalScore = this.userCorrect;
               if (passedQuiz) {
@@ -278,11 +281,6 @@ export default {
               }
             }
           }
-          console.log(this.quizEasyProgress);
-          console.log(this.finalEasyProgress);
-          console.log(this.quizHardProgress);
-          console.log(this.finalHardProgress);
-          console.log('-----------------------------------------------------');
         }
       }
     },
