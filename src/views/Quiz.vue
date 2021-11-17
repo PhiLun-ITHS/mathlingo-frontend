@@ -35,13 +35,13 @@
               Quiz Subtraktion: {{this.quizEasyScore[1]}} / 5<br>
               Quiz Multiplikation: {{this.quizEasyScore[2]}} / 5<br>
               Quiz Division: {{this.quizEasyScore[3]}} / 5<br>
-              Quiz Final: {{this.quizEasyFinalScore}} / 10<br>
+              Quiz Final: {{this.quizFinalScore [0]}} / 10<br>
               HARD<br>
               Quiz Addition: {{this.quizHardScore[0]}} / 5<br>
               Quiz Subtraktion: {{this.quizHardScore[1]}} / 5<br>
               Quiz Multiplikation: {{this.quizHardScore[2]}} / 5<br>
               Quiz Division: {{this.quizHardScore[3]}} / 5<br>
-              Quiz Final: {{this.quizHardFinalScore}} / 10<br>
+              Quiz Final: {{this.quizFinalScore [1]}} / 10<br>
             </h1>
 
           </main>
@@ -87,20 +87,18 @@ export default {
       finalComplete: false,
       userCorrect: 0,
       loading: true,
-      category: '',
       showStart: true,
-      difficulty: 'Easy',
       showQuiz: false,
+      category: '',
+      difficulty: 'Easy',
       quizCategory: ['Addition', 'Subtraction', 'Multiplication', 'Division'],
       quizCategoryIndex: 0,
       quizEasyProgress: [false, false, false, false],
-      quizEasyScore: [0, 0, 0, 0],
-      quizEasyFinalScore: 0,
-      finalEasyProgress: false,
       quizHardProgress: [false, false, false, false],
+      quizFinalProgress: [false, false],
+      quizEasyScore: [0, 0, 0, 0],
       quizHardScore: [0, 0, 0, 0],
-      quizHardFinalScore: 0,
-      finalHardProgress: false,
+      quizFinalScore: [0, 0],
       showScore: false,
       scoreIndex: 0,
       feedback: '',
@@ -135,7 +133,7 @@ export default {
     nextQuiz() {
       if (this.passed) {
         this.initializeCategory();
-        if (this.finalEasyProgress && !this.quizHardProgress) {
+        if (this.quizFinalProgress[0] && !this.quizHardProgress) {
           this.difficulty = 'Hard';
         }
         let checkProgress;
@@ -252,15 +250,16 @@ export default {
 
           if(passedQuiz) {
 
-            console.log(this.userCorrect);
-
             if (this.difficulty === 'Easy') {
               this.quizEasyProgress[this.quizCategoryIndex] = passedQuiz;
               this.quizEasyScore[this.quizCategoryIndex] = this.userCorrect;
               this.quizCategoryIndex++;
             } else if (this.difficulty === 'Final_Easy') {
-              this.finalEasyProgress = passedQuiz;
-              this.quizEasyFinalScore = this.userCorrect;
+              this.quizFinalProgress[0] = passedQuiz;
+              this.quizFinalScore[0] = this.userCorrect;
+
+              //skicka final easy resutlat här
+
               if (passedQuiz) {
                 this.difficulty = 'Hard';
                 this.initializeCategory();
@@ -270,13 +269,16 @@ export default {
               this.quizHardScore[this.quizCategoryIndex] = this.userCorrect;
               this.quizCategoryIndex++;
             } else if (this.difficulty === 'Final_Hard') {
-              this.finalHardProgress = passedQuiz;
-              this.quizHardFinalScore = this.userCorrect;
+              this.quizFinalProgress[1] = passedQuiz;
+              this.quizFinalScore[1] = this.userCorrect;
+
+              // skicka final hard resultat här
+
+              //all quiz done
               if (passedQuiz) {
                 this.category = '';
                 this.finalComplete = true;
                 this.showQuiz = false;
-
                 this.showScore = true;
               }
             }
