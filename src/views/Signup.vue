@@ -8,14 +8,14 @@
           <h1>Sign up for Mathlingo</h1>
         <!--<p id="answer"></p>-->
           <form v-on:submit.prevent="submitForm">
-            <input type="text" placeholder="Enter Username" name="uname" required id="userName" v-model="form.name">
+            <input type="text" placeholder="Enter Name" name="uname" required id="userName" v-model="name">
 
-            <input type="text" placeholder="Enter Email" name="email" required id="email" v-model="form.email">
+            <input type="text" placeholder="Enter Email" name="email" required id="email" v-model="email">
 
 
-            <input type="password" placeholder="Enter Password" name="psw" required id="password" v-model="form.password">
+            <input type="password" placeholder="Enter Password" name="psw" required id="password" v-model="password">
 
-            <input type="password" placeholder="Confirm Password" name="psw" required id="rePassword">
+            <input type="password" placeholder="Confirm Password" name="psw" required id="rePassword" v-model="rePassword">
 
             <input type="submit" class ="btn" id="btn-signup" value="Register">
 
@@ -36,16 +36,27 @@ export default {
   name: "Signup",
   data() {
     return{
-      form: {
-        name:'',
-        email:'',
-        password:''
-      }
+      name:'',
+      email:'',
+      password:'',
+      rePassword:'',
+      formFilled: false,
+      matchingPass: false,
     }
+  },
+  watch: {
+    name: this.formFilled = this.checkForm(),
+    email: this.formFilled = this.checkForm(),
+    password: function () {
+      this.matchingPass = (this.password === this.rePassword);
+      this.formFilled = this.checkForm(),
+    },
+    
+    
+    
   },
   methods: {
     submitForm(){
-
         let user = {name: this.form.name, email: this.form.email, password: this.form.password};
         axios.post('http://localhost:4000/auth/signup', user)
             .then(response => {
@@ -57,13 +68,20 @@ export default {
                 document.getElementById('answer').innerHTML = "Account created";
               }
             })
-
-
-
-
-
-
-
+    },
+    checkForm() {
+      if (this.name == '') {
+        return false;
+      }
+      else if (!(/\S+@\S+\.\S+/.test(this.email))) {
+        return false;
+      }
+      else if (this.password == '' || this.matchingPass == false) {
+        return false;
+      }
+    },
+    checkPassMatch(password, rePassword) {
+      if 
     }
   }
 }
