@@ -1,5 +1,5 @@
 <template>
-  <div class="MyPage">
+  <div v-if="auth" class="MyPage">
     <div id="content">
 
 <!--      <h1 class="myPage-title" style="border: none">My page</h1>-->
@@ -16,7 +16,7 @@
         <article>
           <h1 style="text-decoration: underline">Settings</h1>
           <div class="settings" @click="clickPasswordChange">Change password</div>
-          <div class="settings" @click="clickRemoveAccount">Remove Account</div>
+          <div class="settings"  @click.prevent="removeAccount">Remove Account</div>
         </article>
       </section>
 
@@ -26,10 +26,9 @@
         <div v-if="changePass">
           <form>
           <h1 style="text-decoration: underline">Change password</h1>
-          <input type="password" id='oldPsw' placeholder="Old password">
-          <input type="password" placeholder="New Password" name="psw" required id="password">
-          <input type="password" placeholder="Confirm Password" name="psw" required id="rePassword">
-          <input type="submit" class ="btn" value="Change password" @click="changePass=false">
+            <input type="password" placeholder="New Password"  name="psw" required id="newPassword" v-model="newPassword">
+            <input type="password" placeholder="Confirm Password"  name="psw" required id="reNewPassword" v-model="confirmNewPassword">
+            <input type="submit" class ="btn" value="Change password" @click="passwordChange">
           </form>
         </div>
 
@@ -107,11 +106,20 @@
 
     </div>
   </div>
+  <div v-else>
+    <section>
+    <button class="btn" @click.prevent="notAuth" >You are not logged in, try to login!</button>
+    </section>
+  </div>
+
+
 </template>
 
 <script>
 
- import axios from "axios";
+import swal from 'sweetalert2';
+import axios from "axios";
+import jwt_decode from 'jwt-decode';
 
 export default {
   beforeMount() {
@@ -139,13 +147,19 @@ export default {
   },
   name: "MyPage",
   data() {
+    let token_info = jwt_decode(localStorage.getItem('accessToken'));
+    let name = token_info.name;
+    let email = token_info.email;
     return {
+      auth: localStorage.getItem('accessToken'),
+      newPassword: '',
+      confirmNewPassword: '',
       changePass: false,
       removeAcc: false,
-      accountName: 'testProp',
-      accountEmail: 'testProp@gmail.com',
+      accountName: name,
+      accountEmail: email,
       accountCompletion: '',
-      completionCalculate: [],
+      remove: localStorage.getItem('accessToken'),
       //statistik från databas ska in i dessa arrays
       //statisticAnswers: [],
       //statisticQuestions: [],
@@ -155,6 +169,51 @@ export default {
     }
   },
   methods: {
+
+    removeAccount(){
+
+      swal.fire({
+        title: 'Are you sure you want to remove account?',
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        cancelButtonColor: 'red',
+        showCancelButton: true
+      }).then((result) => {
+        if (result['isConfirmed']) {
+          let data = {
+            accessToken: localStorage.getItem('accessToken'),
+            refreshToken: localStorage.getItem('refreshToken')
+          };
+          console.log(data);
+          axios.post('http://localhost:4000/auth/removeAccount', data);
+          localStorage.clear();
+          location.reload();
+
+        } else{
+            swal.fire('Cancelled');
+          }
+
+
+      })
+      this.$router.push('/login');
+    },
+
+    passwordChange(){
+      if(this.newPassword === this.confirmNewPassword) {
+        let data = {
+          accessToken: localStorage.getItem('accessToken'),
+          refreshToken: localStorage.getItem('refreshToken'),
+          newPassword: this.newPassword
+        };
+
+        axios.put('http://localhost:4000/auth/updateUser', data);
+
+        localStorage.clear();
+        this.$router.push('/login');
+      }else
+        alert('Password didnt match!')
+
+    },
     clickPasswordChange() {
       if (this.removeAcc === true) {
         this.removeAcc = false;
@@ -170,19 +229,47 @@ export default {
       }
       this.removeAcc = this.removeAcc !== true;
     },
+
+    notAuth(){
+      this.$router.push('/login');
+    },
+
     logout(){
-      let data = {accessToken : localStorage.getItem('accessToken'), refreshToken : localStorage.getItem('refreshToken')};
-     let user = axios.post('http://localhost:4000/auth/logout',data)
-          .then(response => {
-            if (response.data) {
-              console.log(user);
-              localStorage.clear();
-              location.reload();
-            }
-          })
-          .then(this.$router.push('/login'));
+        swal.fire({
+          title: 'Are you sure you want to logout?',
+          confirmButtonText: 'logout',
+          cancelButtonText: 'Stay quizzing',
+          showCancelButton: true,
+          confirmButtonColor: 'dark red',
+          cancelButtonColor: 'dark green',
+        }).then ((result)=>{
+        if(result['isConfirmed']) {
+          let data = {
+            accessToken: localStorage.getItem('accessToken'),
+            refreshToken: localStorage.getItem('refreshToken')
+          };
+          axios.post('http://localhost:4000/auth/logout', data)
+              .then(response => {
+                if (response.data) {
+                  localStorage.clear();
+                  location.reload();
+                }
+              })
+              .then(this.$router.push('/login'));
     },
   },
+        }else{
+          swal.fire('cancelled')
+        }
+      })
+
+      this.$router.push('/login')
+    }
+
+    }
+
+
+
 }
 </script>
 
