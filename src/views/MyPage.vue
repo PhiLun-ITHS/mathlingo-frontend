@@ -255,21 +255,13 @@ export default {
                   location.reload();
                 }
               })
-              .then(this.$router.push('/login'));
-    },
-  },
         }else{
           swal.fire('cancelled')
         }
       })
-
-      this.$router.push('/login')
+      this.$router.push('/login');
     }
-
-    }
-
-
-
+  }
 }
 </script>
 
