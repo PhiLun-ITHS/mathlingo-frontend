@@ -49,7 +49,7 @@ export default {
         }).then ((result)=>{
         if(result['isConfirmed']){
           let data = {
-            token: localStorage.getItem('accessToken')            
+            accessToken: localStorage.getItem('accessToken')            
           };
           if (data.token == null) {
               localStorage.clear();
