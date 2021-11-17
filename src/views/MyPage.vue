@@ -3,7 +3,6 @@
     <div id="content">
 
 <!--      <h1 class="myPage-title" style="border: none">My page</h1>-->
-     <h1><span class="logout-btn" v-on:click="logout"><a></a></span></h1><h1>logout button above</h1>
       <section class="MyPage">
 
         <article>
@@ -113,18 +112,22 @@
 <script>
 
 import swal from 'sweetalert2';
- import axios from "axios";
+import axios from "axios";
+import jwt_decode from 'jwt-decode';
 
 export default {
   name: "MyPage",
   data() {
+    let token_info = jwt_decode(localStorage.getItem('accessToken'));
+    let name = token_info.name;
+    let email = token_info.email;
     return {
       auth: localStorage.getItem('accessToken'),
       newPassword: '',
       confirmNewPassword: '',
       changePass: false,
-      accountName: 'testProp',
-      accountEmail: 'testProp@gmail.com',
+      accountName: name,
+      accountEmail: email,
       accountCompletion: '50',
       remove: localStorage.getItem('accessToken'),
       //statistik från databas ska in i dessa arrays
@@ -218,12 +221,12 @@ export default {
             }
           })
         }else{
-swal.fire('cancelled')
+          swal.fire('cancelled')
         }
-        })
+      })
 
       this.$router.push('/login')
-      }
+    }
 
     }
 

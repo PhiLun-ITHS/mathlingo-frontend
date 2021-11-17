@@ -256,6 +256,7 @@ nav {
     border-top-width: 1px;
 }
 
+
 .a {
     font-size: 20px;
     font-family: "Red Hat Display", serif;
@@ -263,6 +264,11 @@ nav {
     text-decoration: none;
     padding: 14px 8px;
 }
+
+#logout {
+    cursor: pointer;
+}
+
 
 .a:hover {
     background-color: rgba(14, 186, 125, 0.32);
