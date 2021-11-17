@@ -12,7 +12,6 @@
 
             <input type="text" placeholder="Enter Email" name="email" required id="email" v-model="email">
 
-
             <input type="password" placeholder="Enter Password" name="psw" required id="password" v-model="password">
 
             <input type="password" placeholder="Confirm Password" name="psw" required id="rePassword" v-model="rePassword">
@@ -32,6 +31,7 @@
 
 <script>
 import axios from 'axios';
+import swal from 'sweetalert2';
 export default {
   name: "Signup",
   data() {
@@ -40,48 +40,70 @@ export default {
       email:'',
       password:'',
       rePassword:'',
-      formFilled: false,
-      matchingPass: false,
+      matchingPass: null,
+      validName: false,
+      validEmail: null,
+      validForm: false,
+      emailAvailable: false,
     }
   },
   watch: {
-    name: this.formFilled = this.checkForm(),
-    email: this.formFilled = this.checkForm(),
-    password: function () {
-      this.matchingPass = (this.password === this.rePassword);
-      this.formFilled = this.checkForm(),
+    changeFormData() {
+      if (this.password == this.rePassword && this.password != '') {
+        this.matchingPass = true;
+      }
+      else this.matchingPass = false;
+
+      if (this.email != '' && (/\S+@\S+\.\S+/.test(this.email))) {
+        this.validEmail = true;
+      }
+      else this.validEmail = false;
+
+      if (this.name.length >= 3) {
+        this.validName = true;
+      }
+      else this.validName = false;
+
+      if (this.matchingPass == this.validName == this.validEmail == true) {
+        this.validForm = true;
+      } else {
+        this.validForm = false;
+      }
+
     },
-    
-    
-    
+    deep: true
   },
   methods: {
     submitForm(){
-        let user = {name: this.form.name, email: this.form.email, password: this.form.password};
-        axios.post('http://localhost:4000/auth/signup', user)
-            .then(response => {
-              if(response.data === 403) {
-                console.log(response);
-                document.getElementById('answer').innerHTML = "Account already exists";
-              }else{
-                console.log(response);
-                document.getElementById('answer').innerHTML = "Account created";
-              }
-            })
-    },
-    checkForm() {
-      if (this.name == '') {
-        return false;
-      }
-      else if (!(/\S+@\S+\.\S+/.test(this.email))) {
-        return false;
-      }
-      else if (this.password == '' || this.matchingPass == false) {
-        return false;
+      if (this.validForm) {
+        let jsonEmail = {email: this.email};
+        axios.post('http://localhost:4000/auth/available', jsonEmail)
+          .then(response => {
+            this.emailAvailable = response.data;
+            if (this.emailAvailable) {
+              let user = {name: this.name, email: this.email, password: this.password};
+              console.log(user);
+              axios.post('http://localhost:4000/auth/signup', user)
+              .then(() => {
+                swal.fire({
+                  title: "Account Created Successfully!",
+                  confirmButtonText: 'Proceed',
+                  confirmButtonColor: 'blue'
+                })
+              })
+            }
+          })
       }
     },
-    checkPassMatch(password, rePassword) {
-      if 
+  },
+  computed: {
+    changeFormData() {
+      this.password;
+      this.rePassword;
+      this.email;
+      this.name;
+
+      return Date.now()
     }
   }
 }
