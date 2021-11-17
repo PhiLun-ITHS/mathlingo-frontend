@@ -2,8 +2,6 @@
   <div v-if="auth" class="MyPage">
     <div id="content">
 
-<!--      <h1 class="myPage-title" style="border: none">My page</h1>-->
-     <h1><span class="logout-btn" v-on:click="logout"><a></a></span></h1>
       <section class="MyPage">
 
         <article>
