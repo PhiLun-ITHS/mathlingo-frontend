@@ -46,20 +46,17 @@ export default {
   },
   methods:{
     loginForm(){
-          let user = {email : this.form.email, password : this.form.password};
-            axios.post('http://localhost:4000/auth/login', user)
-                .then(response => {
-                  if (response.data) {
-                    localStorage.setItem('accessToken', response.data.accessToken)
-                    localStorage.setItem('refreshToken', response.data.refreshToken)
-                    location.reload();
-
-
-
-                  }
-                })
-        //  .catch((error) => this.handle(error,
-          //    document.getElementById('answer').innerHTML = "No such account!"));
+      let user = {email : this.form.email, password : this.form.password};
+      axios.post('http://localhost:4000/auth/login', user)
+          .then(response => {
+            if (response.data) {
+              localStorage.setItem('accessToken', response.data.accessToken)
+              localStorage.setItem('refreshToken', response.data.refreshToken)
+              location.reload();
+            }
+          })
+    //  .catch((error) => this.handle(error,
+    //    document.getElementById('answer').innerHTML = "No such account!"));
 
 
 

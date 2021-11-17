@@ -49,20 +49,20 @@ export default {
         }).then ((result)=>{
         if(result['isConfirmed']){
           let data = {
-            token: localStorage.getItem('accessToken')            
+            accessToken: localStorage.getItem('accessToken')            
           };
-          if (data.token == null) {
+          if (data.accessToken == null) {
               localStorage.clear();
               location.reload();
           }
           else {
             axios.post('http://localhost:4000/auth/logout',data)
             .then(() => {
+              console.log("POSTED");
               localStorage.clear();
               location.reload();
             })
           }
-          
           this.$router.push('/')
         }
         else
@@ -74,7 +74,7 @@ export default {
   },
   beforeCreated() {
     let data = {
-      token: localStorage.getItem('accessToken')            
+      accessToken: localStorage.getItem('accessToken')            
     };
     axios.post('http://localhost:4000/auth/logout',data)
       .catch(function (error) {
