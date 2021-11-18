@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class="signup">
     <div id="content">
 
@@ -96,6 +96,14 @@ export default {
                   }
                   else this.resetForm();
                 })
+              })
+            }else{
+              swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Email already exists. Try another one...'
+              }).then(()=>{
+                this.email = '';
               })
             }
           })
