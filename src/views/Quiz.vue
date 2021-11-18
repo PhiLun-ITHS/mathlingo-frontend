@@ -77,6 +77,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Quiz",
   data() {
@@ -169,7 +171,7 @@ export default {
     async fetchQuestions() {
       this.loading = true;
       let response = await fetch(
-          "http://192.168.1.200:4000/auth/quiz");
+          "http://localhost:4000/auth/quiz");
 
       let jsonResponse = await response.json();
 
@@ -242,7 +244,7 @@ export default {
           this.complete = true;
           this.showQuiz = false;
           let passedQuiz = false;
-          if (this.userCorrect / this.questions.length >= 0.8) {
+          if (this.userCorrect / this.questions.length >= 0) {
             passedQuiz = true;
             this.passed = true;
           }
@@ -253,12 +255,15 @@ export default {
             if (this.difficulty === 'Easy') {
               this.quizEasyProgress[this.quizCategoryIndex] = passedQuiz;
               this.quizEasyScore[this.quizCategoryIndex] = this.userCorrect;
+
+              // skicka easy resultat
+              this.storeUserScore(this.quizEasyScore[this.quizCategoryIndex]);
               this.quizCategoryIndex++;
             } else if (this.difficulty === 'Final_Easy') {
               this.quizFinalProgress[0] = passedQuiz;
               this.quizFinalScore[0] = this.userCorrect;
-
               //skicka final easy resutlat här
+              this.storeUserScore(this.quizFinalScore[0]);
 
               if (passedQuiz) {
                 this.difficulty = 'Hard';
@@ -267,12 +272,14 @@ export default {
             } else if (this.difficulty === 'Hard') {
               this.quizHardProgress[this.quizCategoryIndex] = passedQuiz;
               this.quizHardScore[this.quizCategoryIndex] = this.userCorrect;
+              // skicka hard resultat
+              this.storeUserScore(this.quizHardScore[this.quizCategoryIndex]);
               this.quizCategoryIndex++;
             } else if (this.difficulty === 'Final_Hard') {
               this.quizFinalProgress[1] = passedQuiz;
               this.quizFinalScore[1] = this.userCorrect;
-
               // skicka final hard resultat här
+              this.storeUserScore(this.quizFinalScore[1]);
 
               //all quiz done
               if (passedQuiz) {
@@ -286,6 +293,21 @@ export default {
         }
       }
     },
+    storeUserScore(score) {
+
+      let token = localStorage.getItem('accessToken');
+
+      let results_easy = {
+        "addition": score,
+        "subtraction": score,
+        "multiplication": score,
+        "division": score,
+        "accessToken": token};
+
+      console.log(results_easy);
+
+      axios.post('http://localhost:4000/auth/results_easy', results_easy);
+    }
   },
 };
 </script>

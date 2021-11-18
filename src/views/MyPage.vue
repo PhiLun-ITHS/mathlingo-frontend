@@ -38,8 +38,10 @@
           <input type="submit" class ="btn" value="Remove account" @click="removeAcc=false">
           </form>
         </div>
+
       </main>
       </section>
+
       <h1 class="myPage-title">Statistik</h1>
       <h1 class="statistic-title">Easy</h1>
 
@@ -102,6 +104,7 @@
 
     </section>
 
+
     </div>
   </div>
   <div v-else>
@@ -120,35 +123,16 @@ import axios from "axios";
 import jwt_decode from 'jwt-decode';
 
 export default {
-  beforeMount() {
-    //completion
-    let totalQuest = 60;
-    let totalAnswer = 0;
-    for (let i = 0; i < this.statisticQuestions.length; i++) {
-      totalAnswer = totalAnswer + this.statisticAnswers[i];
-    }
-    let percentage = totalAnswer * 100 / totalQuest;
-    percentage = Math.round((percentage + Number.EPSILON));
-    this.accountCompletion = percentage;
-
-    //box colors
-    for (let i = 0; i < this.statisticBoxColor.length; i++) {
-      if (this.statisticAnswers[i] === this.statisticQuestions[i]) {
-        this.statisticBoxColor[i] = '#0CFA34';
-      } else if (this.statisticAnswers[i] >= 1 && this.statisticAnswers[i] < this.statisticQuestions[i]) {
-        this.statisticBoxColor[i] = '#FA8F19';
-      } else {
-        this.statisticBoxColor[i] = 'white';
-      }
-      // #FA1947   röd
-    }
-  },
+  // beforeMount() {
+  //
+  // },
   name: "MyPage",
   data() {
     let token_info = jwt_decode(localStorage.getItem('accessToken'));
     let name = token_info.name;
     let email = token_info.email;
     return {
+      easyScore: [],
       auth: localStorage.getItem('accessToken'),
       newPassword: '',
       confirmNewPassword: '',
@@ -158,15 +142,46 @@ export default {
       accountEmail: email,
       accountCompletion: '',
       remove: localStorage.getItem('accessToken'),
-      //statistik från databas ska in i dessa arrays
-      //statisticAnswers: [],
-      //statisticQuestions: [],
-      statisticAnswers: [1, 3, 5, 5, 0, 2, 3, 4, 5, 0],
+      statisticAnswers: [],
       statisticQuestions: [5, 5, 5, 5, 10, 5, 5, 5, 5, 10],
       statisticBoxColor: ['', '', '', '', '', '', '', '', '', ''],
     }
   },
+  beforeMount() {
+    let token = localStorage.getItem('accessToken');
+    let url = `http://localhost:4000/auth/results_easy_token/${token}`;
+    let statistics = [];
+    axios.get(url)
+        .then(response => {
+          statistics.push(response.data.addition, response.data.subtraction, response.data.multiplication, response.data.division);
+        });
+    // this.calculateUserPercentage();
+    this.statisticAnswers = statistics;
+
+    /// FUNKAR EJ MED GET !!!!
+    for (let i = 0; i < statistics.length; i++) {
+      console.log(statistics);
+      if (statistics[i] === this.statisticQuestions[i]) {
+        this.statisticBoxColor[i] = '#0CFA34';
+      } else if (statistics[i] >= 1 && statistics[i] < this.statisticQuestions[i]) {
+        this.statisticBoxColor[i] = '#FA8F19';
+      } else {
+        this.statisticBoxColor[i] = 'white';
+      }
+      // #FA1947   röd
+    }
+  },
   methods: {
+    // calculateUserPercentage() {
+    //   let totalQuest = 60;
+    //   let totalAnswer = 0;
+    //   for (let i = 0; i < this.statisticQuestions.length; i++) {
+    //     totalAnswer = totalAnswer + this.statisticAnswers[i];
+    //   }
+    //   let percentage = totalAnswer * 100 / totalQuest;
+    //   percentage = Math.round((percentage + Number.EPSILON));
+    //   this.accountCompletion = percentage;
+    // },
 
     removeAccount(){
 
