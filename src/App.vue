@@ -48,8 +48,8 @@ export default {
         confirmButtonText: 'Logout',
         cancelButtonText: 'Stay Quizzing',
         showCancelButton: true,
-        confirmButtonColor: 'dark red',
-        cancelButtonColor: 'dark green',
+        confirmButtonColor: 'red',
+        cancelButtonColor: 'green',
       }).then ((result)=>{
       if(result['isConfirmed']){
         let data = {

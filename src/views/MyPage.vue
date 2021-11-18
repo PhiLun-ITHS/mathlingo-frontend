@@ -1,9 +1,6 @@
 <template>
   <div v-if="auth" class="MyPage">
     <div id="content">
-
-<!--      <h1 class="myPage-title" style="border: none">My page</h1>-->
-     <h1><span class="logout-btn" v-on:click="logout"><a></a></span></h1>
       <section class="MyPage">
 
         <article>
@@ -24,11 +21,11 @@
       <main id="subPages">
 
         <div v-if="changePass">
-          <form>
+          <form v-on:submit.prevent="passwordChange">
           <h1 style="text-decoration: underline">Change password</h1>
             <input type="password" placeholder="New Password"  name="psw" required id="newPassword" v-model="newPassword">
             <input type="password" placeholder="Confirm Password"  name="psw" required id="reNewPassword" v-model="confirmNewPassword">
-            <input type="submit" class ="btn" value="Change password" @click="passwordChange">
+            <input type="submit" class ="btn" value="Change password">
           </form>
         </div>
 
@@ -176,7 +173,8 @@ export default {
         title: 'Are you sure you want to remove account?',
         confirmButtonText: "Yes, delete it!",
         cancelButtonText: "No, cancel!",
-        cancelButtonColor: 'red',
+        cancelButtonColor: 'green',
+        confirmButtonColor: 'red',
         showCancelButton: true
       }).then((result) => {
         if (result['isConfirmed']) {
@@ -184,18 +182,11 @@ export default {
             accessToken: localStorage.getItem('accessToken'),
             refreshToken: localStorage.getItem('refreshToken')
           };
-          console.log(data);
           axios.post('http://localhost:4000/auth/removeAccount', data);
           localStorage.clear();
-          location.reload();
-
-        } else{
-            swal.fire('Cancelled');
-          }
-
-
+          window.location = ("/");
+        } 
       })
-      this.$router.push('/login');
     },
 
     passwordChange(){
@@ -207,12 +198,19 @@ export default {
         };
 
         axios.put('http://localhost:4000/auth/updateUser', data);
-
         localStorage.clear();
         this.$router.push('/login');
-      }else
-        alert('Password didnt match!')
-
+      }
+      else {
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'The passwords do not seem to match. Try again!'
+        }).then(() => {
+          this.newPassword = '';
+          this.confirmNewPassword = '';
+        })
+      }
     },
     clickPasswordChange() {
       if (this.removeAcc === true) {
