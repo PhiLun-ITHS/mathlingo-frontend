@@ -184,9 +184,20 @@ export default {
           };
           axios.post('http://localhost:4000/auth/removeAccount', data);
           localStorage.clear();
-          window.location = ("/");
+          swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your account have been successfully removed.',
+            showConfirmButton: false,
+            timer: 1000,
+          }) .then(() => {
+            window.location = ("/");
+          })
+
+
         } 
       })
+
     },
 
     passwordChange(){
