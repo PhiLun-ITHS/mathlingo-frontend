@@ -47,7 +47,7 @@ export default {
                 icon: 'success',
                 title: 'Your have been signed in!',
                 showConfirmButton: false,
-                timer: 1000
+                timer: 800
               })
               .then(() => {
                 window.location = ("/");

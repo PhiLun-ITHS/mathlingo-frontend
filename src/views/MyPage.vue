@@ -197,9 +197,41 @@ export default {
           newPassword: this.newPassword
         };
 
-        axios.put('http://localhost:4000/auth/updateUser', data);
-        localStorage.clear();
-        this.$router.push('/login');
+        let email = jwt_decode(localStorage.getItem('accessToken')).email;
+
+        axios.put('http://localhost:4000/auth/updateUser', data)
+        .then(() => {
+          let user = {email : email, password : this.newPassword};
+          console.log("USER:");
+          console.log(user);
+          axios.post('http://localhost:4000/auth/login', user)
+          .then((response) => {
+          //if  (response.data) {
+              localStorage.setItem('accessToken', response.data.accessToken)
+              localStorage.setItem('refreshToken', response.data.refreshToken)
+              swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Your have successfully changed the password!',
+                showConfirmButton: false,
+                timer: 800
+              })
+            //}
+          })
+          .catch((error) => {
+            if (error.response) {
+              swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: "Something went wrong",
+                text: "Refresh the website and try again."
+              }).then(() => {
+                this.password = '';
+                this.newPassword = '';
+              });
+            }
+          })
+        })
       }
       else {
         swal.fire({
