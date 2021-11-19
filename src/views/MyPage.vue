@@ -1,5 +1,5 @@
 <template>
-  <div v-if="auth" class="MyPage">
+  <div v-if="auth && statisticAnswers.length" class="MyPage">
     <div id="content">
 
       <section class="MyPage">
@@ -154,22 +154,24 @@ export default {
     axios.get(url)
         .then(response => {
           statistics.push(response.data.addition, response.data.subtraction, response.data.multiplication, response.data.division);
+          console.log(statistics.length);
+          this.statisticAnswers = statistics;
+
+          for (let i = 0; i < statistics.length; i++) {
+            console.log(this.statisticAnswers);
+            if (statistics[i] === this.statisticQuestions[i]) {
+              this.statisticBoxColor[i] = '#0CFA34';
+            } else if (statistics[i] >= 1 && statistics[i] < this.statisticQuestions[i]) {
+              this.statisticBoxColor[i] = '#FA8F19';
+            } else {
+              this.statisticBoxColor[i] = 'white';
+            }
+            // #FA1947   röd
+          }
         });
     // this.calculateUserPercentage();
-    this.statisticAnswers = statistics;
 
-    /// FUNKAR EJ MED GET !!!!
-    for (let i = 0; i < statistics.length; i++) {
-      console.log(statistics);
-      if (statistics[i] === this.statisticQuestions[i]) {
-        this.statisticBoxColor[i] = '#0CFA34';
-      } else if (statistics[i] >= 1 && statistics[i] < this.statisticQuestions[i]) {
-        this.statisticBoxColor[i] = '#FA8F19';
-      } else {
-        this.statisticBoxColor[i] = 'white';
-      }
-      // #FA1947   röd
-    }
+
   },
   methods: {
     // calculateUserPercentage() {
