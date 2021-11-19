@@ -29,20 +29,12 @@
               >Next</button>
             </article>
 
-            <h1 v-if="finalComplete">
-              EASY<br>
-              Quiz Addition: {{this.quizEasyScore[0]}} / 5<br>
-              Quiz Subtraktion: {{this.quizEasyScore[1]}} / 5<br>
-              Quiz Multiplikation: {{this.quizEasyScore[2]}} / 5<br>
-              Quiz Division: {{this.quizEasyScore[3]}} / 5<br>
-              Quiz Final: {{this.quizFinalScore [0]}} / 10<br>
-              HARD<br>
-              Quiz Addition: {{this.quizHardScore[0]}} / 5<br>
-              Quiz Subtraktion: {{this.quizHardScore[1]}} / 5<br>
-              Quiz Multiplikation: {{this.quizHardScore[2]}} / 5<br>
-              Quiz Division: {{this.quizHardScore[3]}} / 5<br>
-              Quiz Final: {{this.quizFinalScore [1]}} / 10<br>
-            </h1>
+            <div v-if="finalComplete">
+              <h1>Quiz finished!</h1><br>
+              <router-link style="text-decoration: none;" to="/mypage">
+              <button class="quiz-btn">Your statistics</button>
+              </router-link>
+            </div>
 
           </main>
         </div>
@@ -101,11 +93,11 @@ export default {
       quizEasyScore: [0, 0, 0, 0],
       quizHardScore: [0, 0, 0, 0],
       quizFinalScore: [0, 0],
-      showScore: false,
       scoreIndex: 0,
       feedback: '',
       feedbackColor: '',
       passed: false,
+      quizEasyScoreNotStored: true,
     };
   },
   computed: {
@@ -117,41 +109,110 @@ export default {
     },
   },
   methods: {
-    initializeCategory() {
-      this.passed = false;
-      if (this.quizCategoryIndex < 4) {
-        this.category = this.quizCategory[this.quizCategoryIndex];
+    startQuiz() {
+      this.showStart = false;
+      this.initializeCategory();
+      this.fetchQuestions();
+      this.showQuiz = true;
+    },
+    initializeCategory(checkProgressEasy, checkProgressHard) {
+      if (checkProgressEasy) {
+        this.category = 'Final';
+        this.difficulty = 'Final_Easy';
+        this.quizCategoryIndex = 0;
+      } else if (checkProgressHard) {
+        this.category = 'Final';
+        this.difficulty = 'Final_Hard';
+        this.quizCategoryIndex = 0;
+      } else {
+        this.passed = false;
+        if (this.quizCategoryIndex < 4) {
+          this.category = this.quizCategory[this.quizCategoryIndex];
+        }
       }
     },
-    quizFeedback(quizPassed) {
-      if (quizPassed) {
-        this.feedback = 'PASSED :-)';
-        this.feedbackColor = '#0CFA34';
-      } else {
-        this.feedback = 'FAILED :-(';
-        this.feedbackColor = '#FA8F19';
+    checkAnswer: function(event, index) {
+      let question = this.questions[index];
+      if(question.userAnswer === question.correct_answer) {
+        this.userCorrect++;
+      }
+
+      if (question.userAnswer) {
+        if (this.index < this.questions.length - 1) {
+          setTimeout(function() {
+            this.index += 1;
+          }.bind(this), 300);
+        }
+        else {
+          this.complete = true;
+          this.showQuiz = false;
+          let passedQuiz = false;
+          if (this.userCorrect / this.questions.length >= 0) {
+            passedQuiz = true;
+            this.passed = true;
+          }
+          this.quizFeedback(passedQuiz);
+
+          if(passedQuiz) {
+
+            if (this.difficulty === 'Easy') {
+              this.quizEasyProgress[this.quizCategoryIndex] = passedQuiz;
+              this.quizEasyScore[this.quizCategoryIndex] = this.userCorrect;
+              this.quizCategoryIndex++;
+            } else if (this.difficulty === 'Final_Easy') {
+              this.quizFinalProgress[0] = passedQuiz;
+              this.quizFinalScore[0] = this.userCorrect;
+              //send results_easy_final here ?
+              //this.storeUserFinalScore(this.quizFinalScore[0]);
+
+              if (passedQuiz) {
+                this.difficulty = 'Hard';
+                this.initializeCategory();
+              }
+            } else if (this.difficulty === 'Hard') {
+              this.quizHardProgress[this.quizCategoryIndex] = passedQuiz;
+              this.quizHardScore[this.quizCategoryIndex] = this.userCorrect;
+              this.quizCategoryIndex++;
+            } else if (this.difficulty === 'Final_Hard') {
+              this.quizFinalProgress[1] = passedQuiz;
+              this.quizFinalScore[1] = this.userCorrect;
+              //send results_hard_final here ?
+              //this.storeUserFinalScore(this.quizFinalScore[1]);
+
+              //all quiz done
+              if (passedQuiz) {
+                this.category = '';
+                this.finalComplete = true;
+                this.showQuiz = false;
+              }
+            }
+          }
+        }
       }
     },
     nextQuiz() {
       if (this.passed) {
         this.initializeCategory();
-        if (this.quizFinalProgress[0] && !this.quizHardProgress) {
-          this.difficulty = 'Hard';
-        }
-        let checkProgress;
-        if (this.difficulty === 'Easy') {
-          checkProgress = this.quizEasyProgress.every(v => v === true);
-          if (checkProgress) {
-            this.category = 'Final';
-            this.difficulty = 'Final_Easy';
-            this.quizCategoryIndex = 0;
+        let checkProgressEasy = false;
+        let checkProgressHard = false;
+
+        if (this.difficulty === 'Easy' && this.quizEasyScoreNotStored) {
+          checkProgressEasy = this.quizEasyProgress.every(v => v === true);
+          if (checkProgressEasy) {
+            checkProgressEasy = true;
+            this.quizEasyScoreNotStored = false;
+            //sending results_easy
+            this.storeUserScore(checkProgressEasy, checkProgressHard);
+            this.initializeCategory(checkProgressEasy, checkProgressHard);
           }
-        } else if (this.difficulty === 'Hard') {
-          checkProgress = this.quizHardProgress.every(v => v === true);
-          if (checkProgress) {
-            this.category = 'Final';
-            this.difficulty = 'Final_Hard';
-            this.quizCategoryIndex = 0;
+        }
+        else if (this.difficulty === 'Hard' && !this.quizEasyScoreNotStored) {
+          checkProgressHard = this.quizHardProgress.every(v => v === true);
+          if (checkProgressHard) {
+            checkProgressHard = true;
+            //send results_hard here
+            this.storeUserScore(checkProgressEasy, checkProgressHard);
+            this.initializeCategory(checkProgressEasy, checkProgressHard);
           }
         }
       }
@@ -162,11 +223,14 @@ export default {
         this.fetchQuestions();
       }
     },
-    startQuiz() {
-      this.showStart = false;
-      this.initializeCategory();
-      this.fetchQuestions();
-      this.showQuiz = true;
+    quizFeedback(quizPassed) {
+      if (quizPassed) {
+        this.feedback = 'PASSED :-)';
+        this.feedbackColor = '#0CFA34';
+      } else {
+        this.feedback = 'FAILED :-(';
+        this.feedbackColor = '#FA8F19';
+      }
     },
     async fetchQuestions() {
       this.loading = true;
@@ -228,85 +292,40 @@ export default {
       this.questions[index].userAnswer = userAnswer;
       this.checkAnswer(event, index);
     },
-    checkAnswer: function(event, index) {
-      let question = this.questions[index];
-      if(question.userAnswer === question.correct_answer) {
-        this.userCorrect++;
-      }
-
-      if (question.userAnswer) {
-        if (this.index < this.questions.length - 1) {
-          setTimeout(function() {
-                this.index += 1;
-          }.bind(this), 300);
-        }
-        else {
-          this.complete = true;
-          this.showQuiz = false;
-          let passedQuiz = false;
-          if (this.userCorrect / this.questions.length >= 0) {
-            passedQuiz = true;
-            this.passed = true;
-          }
-          this.quizFeedback(passedQuiz);
-
-          if(passedQuiz) {
-
-            if (this.difficulty === 'Easy') {
-              this.quizEasyProgress[this.quizCategoryIndex] = passedQuiz;
-              this.quizEasyScore[this.quizCategoryIndex] = this.userCorrect;
-
-              // skicka easy resultat
-              this.storeUserScore(this.quizEasyScore[this.quizCategoryIndex]);
-              this.quizCategoryIndex++;
-            } else if (this.difficulty === 'Final_Easy') {
-              this.quizFinalProgress[0] = passedQuiz;
-              this.quizFinalScore[0] = this.userCorrect;
-              //skicka final easy resutlat här
-              this.storeUserScore(this.quizFinalScore[0]);
-
-              if (passedQuiz) {
-                this.difficulty = 'Hard';
-                this.initializeCategory();
-              }
-            } else if (this.difficulty === 'Hard') {
-              this.quizHardProgress[this.quizCategoryIndex] = passedQuiz;
-              this.quizHardScore[this.quizCategoryIndex] = this.userCorrect;
-              // skicka hard resultat
-              this.storeUserScore(this.quizHardScore[this.quizCategoryIndex]);
-              this.quizCategoryIndex++;
-            } else if (this.difficulty === 'Final_Hard') {
-              this.quizFinalProgress[1] = passedQuiz;
-              this.quizFinalScore[1] = this.userCorrect;
-              // skicka final hard resultat här
-              this.storeUserScore(this.quizFinalScore[1]);
-
-              //all quiz done
-              if (passedQuiz) {
-                this.category = '';
-                this.finalComplete = true;
-                this.showQuiz = false;
-                this.showScore = true;
-              }
-            }
-          }
-        }
-      }
-    },
-    storeUserScore(score) {
+    storeUserScore(checkProgressEasy, checkProgressHard) {
 
       let token = localStorage.getItem('accessToken');
+      let result;
+      let urlEndpoint;
 
-      let results_easy = {
-        "addition": score,
-        "subtraction": score,
-        "multiplication": score,
-        "division": score,
-        "accessToken": token};
+      if(checkProgressEasy && !checkProgressHard) {
+        let results_easy;
+        urlEndpoint = 'results_easy';
+        results_easy = {
+          "addition": this.quizEasyScore[0],
+          "subtraction": this.quizEasyScore[1],
+          "multiplication": this.quizEasyScore[2],
+          "division": this.quizEasyScore[3],
+          "accessToken": token};
 
-      console.log(results_easy);
+        result = results_easy;
+      } else if (checkProgressHard) {
+        let results_hard;
+        urlEndpoint = 'results_hard';
+        results_hard = {
+          "addition": this.quizHardScore[0],
+          "subtraction": this.quizHardScore[1],
+          "multiplication": this.quizHardScore[2],
+          "division": this.quizHardScore[3],
+          "accessToken": token};
 
-      axios.post('http://localhost:4000/auth/results_easy', results_easy);
+        result = results_hard;
+      }
+
+      axios.post(`http://localhost:4000/auth/${urlEndpoint}`, result);
+    },
+    storeUserFinalScore() {
+
     }
   },
 };
