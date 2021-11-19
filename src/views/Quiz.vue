@@ -171,7 +171,7 @@ export default {
     async fetchQuestions() {
       this.loading = true;
       let response = await fetch(
-          "http://192.168.1.200:4000/auth/quiz");
+          "http://localhost:4000/auth/quiz");
 
       let jsonResponse = await response.json();
 

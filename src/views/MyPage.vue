@@ -217,17 +217,18 @@ export default {
           console.log(user);
           axios.post('http://localhost:4000/auth/login', user)
           .then((response) => {
-          //if  (response.data) {
+        //  if  (response.data) {
               localStorage.setItem('accessToken', response.data.accessToken)
               localStorage.setItem('refreshToken', response.data.refreshToken)
-              swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Your have successfully changed the password!',
-                showConfirmButton: false,
-                timer: 800
-              })
-            //}
+            swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Your have successfully changed the password!',
+              showConfirmButton: false,
+              timer: 800
+              }).then(this.newPassword = '', this.confirmNewPassword = '');
+          })
+          //}
           })
           .catch((error) => {
             if (error.response) {
@@ -242,7 +243,6 @@ export default {
               });
             }
           })
-        })
       }
       else {
         swal.fire({
