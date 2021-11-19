@@ -92,6 +92,14 @@ body {
     color: black;
 }
 
+.available {
+    color: green;
+}
+
+.unavailable {
+    color: red;
+}
+
 p {
     text-align: center;
     font-family: "Red Hat Display", serif;

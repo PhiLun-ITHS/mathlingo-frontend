@@ -1,7 +1,6 @@
 <template>
-  <div v-if="auth && statisticAnswers.length" class="MyPage">
+  <div v-if="auth" class="MyPage">
     <div id="content">
-
       <section class="MyPage">
 
         <article>
@@ -22,11 +21,11 @@
       <main id="subPages">
 
         <div v-if="changePass">
-          <form>
+          <form v-on:submit.prevent="passwordChange">
           <h1 style="text-decoration: underline">Change password</h1>
             <input type="password" placeholder="New Password"  name="psw" required id="newPassword" v-model="newPassword">
             <input type="password" placeholder="Confirm Password"  name="psw" required id="reNewPassword" v-model="confirmNewPassword">
-            <input type="submit" class ="btn" value="Change password" @click="passwordChange">
+            <input type="submit" class ="btn" value="Change password">
           </form>
         </div>
 
@@ -104,7 +103,6 @@
 
     </section>
 
-
     </div>
   </div>
   <div v-else>
@@ -123,16 +121,12 @@ import axios from "axios";
 import jwt_decode from 'jwt-decode';
 
 export default {
-  // beforeMount() {
-  //
-  // },
   name: "MyPage",
   data() {
     let token_info = jwt_decode(localStorage.getItem('accessToken'));
     let name = token_info.name;
     let email = token_info.email;
     return {
-      easyScore: [],
       auth: localStorage.getItem('accessToken'),
       newPassword: '',
       confirmNewPassword: '',
@@ -180,13 +174,15 @@ export default {
         });
   },
   methods: {
+
     removeAccount(){
 
       swal.fire({
         title: 'Are you sure you want to remove account?',
         confirmButtonText: "Yes, delete it!",
         cancelButtonText: "No, cancel!",
-        cancelButtonColor: 'red',
+        cancelButtonColor: 'green',
+        confirmButtonColor: 'red',
         showCancelButton: true
       }).then((result) => {
         if (result['isConfirmed']) {
@@ -194,18 +190,22 @@ export default {
             accessToken: localStorage.getItem('accessToken'),
             refreshToken: localStorage.getItem('refreshToken')
           };
-          console.log(data);
           axios.post('http://localhost:4000/auth/removeAccount', data);
           localStorage.clear();
-          location.reload();
+          swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your account have been successfully removed.',
+            showConfirmButton: false,
+            timer: 1000,
+          }) .then(() => {
+            window.location = ("/");
+          })
 
-        } else{
-            swal.fire('Cancelled');
-          }
 
-
+        }
       })
-      this.$router.push('/login');
+
     },
 
     passwordChange(){
@@ -216,13 +216,52 @@ export default {
           newPassword: this.newPassword
         };
 
-        axios.put('http://localhost:4000/auth/updateUser', data);
+        let email = jwt_decode(localStorage.getItem('accessToken')).email;
 
-        localStorage.clear();
-        this.$router.push('/login');
-      }else
-        alert('Password didnt match!')
-
+        axios.put('http://localhost:4000/auth/updateUser', data)
+        .then(() => {
+          let user = {email : email, password : this.newPassword};
+          console.log("USER:");
+          console.log(user);
+          axios.post('http://localhost:4000/auth/login', user)
+          .then((response) => {
+        //  if  (response.data) {
+              localStorage.setItem('accessToken', response.data.accessToken)
+              localStorage.setItem('refreshToken', response.data.refreshToken)
+            swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Your have successfully changed the password!',
+              showConfirmButton: false,
+              timer: 800
+              }).then(this.newPassword = '', this.confirmNewPassword = '');
+          })
+          //}
+          })
+          .catch((error) => {
+            if (error.response) {
+              swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: "Something went wrong",
+                text: "Refresh the website and try again."
+              }).then(() => {
+                this.password = '';
+                this.newPassword = '';
+              });
+            }
+          })
+      }
+      else {
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'The passwords do not seem to match. Try again!'
+        }).then(() => {
+          this.newPassword = '';
+          this.confirmNewPassword = '';
+        })
+      }
     },
     clickPasswordChange() {
       if (this.removeAcc === true) {
