@@ -148,43 +148,38 @@ export default {
     }
   },
   beforeMount() {
+
     let token = localStorage.getItem('accessToken');
     let url = `http://localhost:4000/auth/results_easy_token/${token}`;
     let statistics = [];
+    //get database
     axios.get(url)
         .then(response => {
           statistics.push(response.data.addition, response.data.subtraction, response.data.multiplication, response.data.division);
-          console.log(statistics.length);
           this.statisticAnswers = statistics;
-
+          //changeStatisticColor
           for (let i = 0; i < statistics.length; i++) {
-            console.log(this.statisticAnswers);
             if (statistics[i] === this.statisticQuestions[i]) {
               this.statisticBoxColor[i] = '#0CFA34';
             } else if (statistics[i] >= 1 && statistics[i] < this.statisticQuestions[i]) {
-              this.statisticBoxColor[i] = '#FA8F19';
+              this.statisticBoxColor[i] = '#FA8F19'; // #FA1947   röd
             } else {
               this.statisticBoxColor[i] = 'white';
             }
-            // #FA1947   röd
           }
+          //CalculateUserProgress (percentage)
+          let totalQuest = 60;
+          let totalAnswer = 0;
+
+          for (let i = 0; i < statistics.length; i++) {
+            totalAnswer = totalAnswer + statistics[i];
+          }
+          let percentage = totalAnswer * 100 / totalQuest;
+          percentage = Math.round((percentage + Number.EPSILON));
+          this.accountCompletion = percentage;
         });
-    // this.calculateUserPercentage();
-
-
   },
   methods: {
-    // calculateUserPercentage() {
-    //   let totalQuest = 60;
-    //   let totalAnswer = 0;
-    //   for (let i = 0; i < this.statisticQuestions.length; i++) {
-    //     totalAnswer = totalAnswer + this.statisticAnswers[i];
-    //   }
-    //   let percentage = totalAnswer * 100 / totalQuest;
-    //   percentage = Math.round((percentage + Number.EPSILON));
-    //   this.accountCompletion = percentage;
-    // },
-
     removeAccount(){
 
       swal.fire({
