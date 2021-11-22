@@ -171,7 +171,6 @@ export default {
           this.quizFeedback(passedQuiz);
 
           if(passedQuiz) {
-
             if (this.difficulty === 'Easy' && this.category !== 'Final') {
               this.quizEasyProgress[this.quizCategoryIndex] = passedQuiz;
               this.quizEasyScore[this.quizCategoryIndex] = this.userCorrect;
@@ -179,8 +178,9 @@ export default {
             } else if (this.difficulty === 'Easy' && this.category === 'Final') {
               this.quizFinalProgress[0] = passedQuiz;
               this.quizFinalScore[0] = this.userCorrect;
-              //send results_easy_final here ?
-              //this.storeUserFinalScore(this.quizFinalScore[0]);
+
+              //send results_final (EASY)
+              this.storeUserFinalEasyScore();
 
               if (passedQuiz) {
                 this.difficulty = 'Hard';
@@ -193,8 +193,8 @@ export default {
             } else if (this.difficulty === 'Hard' && this.category === 'Final') {
               this.quizFinalProgress[1] = passedQuiz;
               this.quizFinalScore[1] = this.userCorrect;
-              //send results_hard_final here ?
-              //this.storeUserFinalScore(this.quizFinalScore[1]);
+              //send results_final (HARD)
+              this.storeUserFinalHardScore();
 
               //all quiz done
               if (passedQuiz) {
@@ -333,9 +333,27 @@ export default {
 
       axios.post(`http://localhost:4000/auth/${urlEndpoint}`, result);
     },
-    storeUserFinalScore() {
+    storeUserFinalEasyScore() {
 
-    }
+      let token = localStorage.getItem('accessToken');
+
+      let result = {
+          "final_easy": this.quizFinalScore[0],
+          "accessToken": token
+      };
+      axios.post(`http://localhost:4000/auth/results_final`, result);
+    },
+    storeUserFinalHardScore() {
+
+      let token = localStorage.getItem('accessToken');
+
+      let result = {
+        "final_hard": this.quizFinalScore[1],
+        "accessToken": token
+      };
+
+      axios.put(`http://localhost:4000/auth/results_final`, result);
+    },
   },
 };
 </script>
