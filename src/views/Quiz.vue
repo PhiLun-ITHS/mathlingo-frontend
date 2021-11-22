@@ -93,11 +93,12 @@ export default {
       quizEasyScore: [0, 0, 0, 0],
       quizHardScore: [0, 0, 0, 0],
       quizFinalScore: [0, 0],
-      scoreIndex: 0,
       feedback: '',
       feedbackColor: '',
       passed: false,
       quizEasyScoreNotStored: true,
+      quizHardScoreNotStored: true,
+      lastClicked: 0,
     };
   },
   computed: {
@@ -118,11 +119,11 @@ export default {
     initializeCategory(checkProgressEasy, checkProgressHard) {
       if (checkProgressEasy) {
         this.category = 'Final';
-        this.difficulty = 'Final_Easy';
+        this.difficulty = 'Easy';
         this.quizCategoryIndex = 0;
       } else if (checkProgressHard) {
         this.category = 'Final';
-        this.difficulty = 'Final_Hard';
+        this.difficulty = 'Hard';
         this.quizCategoryIndex = 0;
       } else {
         this.passed = false;
@@ -131,8 +132,24 @@ export default {
         }
       }
     },
+    handleButtonClick: function(event) {
+      //prevent double-click
+      if (Date.now() - this.lastClicked < 301) return;
+      this.lastClicked = Date.now();
+
+      // user input
+      let index = event.target.getAttribute("index");
+      let pollutedUserAnswer = event.target.innerHTML;
+      let userAnswer = pollutedUserAnswer.replace(/'/, "&#039;");
+
+      this.questions[index].userAnswer = userAnswer;
+      //checking if answer is CORRECT and adding point
+      this.checkAnswer(event, index);
+    },
     checkAnswer: function(event, index) {
+
       let question = this.questions[index];
+
       if(question.userAnswer === question.correct_answer) {
         this.userCorrect++;
       }
@@ -155,11 +172,11 @@ export default {
 
           if(passedQuiz) {
 
-            if (this.difficulty === 'Easy') {
+            if (this.difficulty === 'Easy' && this.category !== 'Final') {
               this.quizEasyProgress[this.quizCategoryIndex] = passedQuiz;
               this.quizEasyScore[this.quizCategoryIndex] = this.userCorrect;
               this.quizCategoryIndex++;
-            } else if (this.difficulty === 'Final_Easy') {
+            } else if (this.difficulty === 'Easy' && this.category === 'Final') {
               this.quizFinalProgress[0] = passedQuiz;
               this.quizFinalScore[0] = this.userCorrect;
               //send results_easy_final here ?
@@ -169,11 +186,11 @@ export default {
                 this.difficulty = 'Hard';
                 this.initializeCategory();
               }
-            } else if (this.difficulty === 'Hard') {
+            } else if (this.difficulty === 'Hard' && this.category !== 'Final') {
               this.quizHardProgress[this.quizCategoryIndex] = passedQuiz;
               this.quizHardScore[this.quizCategoryIndex] = this.userCorrect;
               this.quizCategoryIndex++;
-            } else if (this.difficulty === 'Final_Hard') {
+            } else if (this.difficulty === 'Hard' && this.category === 'Final') {
               this.quizFinalProgress[1] = passedQuiz;
               this.quizFinalScore[1] = this.userCorrect;
               //send results_hard_final here ?
@@ -206,11 +223,12 @@ export default {
             this.initializeCategory(checkProgressEasy, checkProgressHard);
           }
         }
-        else if (this.difficulty === 'Hard' && !this.quizEasyScoreNotStored) {
+        else if (this.difficulty === 'Hard' && this.quizHardScoreNotStored) {
           checkProgressHard = this.quizHardProgress.every(v => v === true);
           if (checkProgressHard) {
             checkProgressHard = true;
-            //send results_hard here
+            this.quizHardScoreNotStored = true;
+            //sending results_hard
             this.storeUserScore(checkProgressEasy, checkProgressHard);
             this.initializeCategory(checkProgressEasy, checkProgressHard);
           }
@@ -282,15 +300,6 @@ export default {
       this.questions = data;
       this.loading = false;
       this.showQuiz = true;
-    },
-    handleButtonClick: function(event) {
-      // user input
-      let index = event.target.getAttribute("index");
-      let pollutedUserAnswer = event.target.innerHTML;
-      let userAnswer = pollutedUserAnswer.replace(/'/, "&#039;");
-
-      this.questions[index].userAnswer = userAnswer;
-      this.checkAnswer(event, index);
     },
     storeUserScore(checkProgressEasy, checkProgressHard) {
 
