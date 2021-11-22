@@ -144,12 +144,26 @@ export default {
   beforeMount() {
 
     let token = localStorage.getItem('accessToken');
-    let url = `http://localhost:4000/auth/results_easy_token/${token}`;
+    let urlEasy = `http://localhost:4000/auth/results_easy_token/${token}`;
+    // let urlHard = `http://localhost:4000/auth/results_hard_token/${token}`;
+    // let urlFinal = `http://localhost:4000/auth/results_final_token/${token}`;
+
     let statistics = [];
-    //get database
-    axios.get(url)
+    //get all database tables
+    axios.get(urlEasy)
         .then(response => {
           statistics.push(response.data.addition, response.data.subtraction, response.data.multiplication, response.data.division);
+
+        // axios.get(urlHard)
+        // .then(response => {
+        //   statistics.push(response.data.addition, response.data.subtraction, response.data.multiplication, response.data.division);
+        //
+        //         axios.get(urlFinal)
+        //         .then(response => {
+        //           statistics.push(response.data.final_easy, response.data.final_hard);
+        //         })
+        //       })
+
           this.statisticAnswers = statistics;
           //changeStatisticColor
           for (let i = 0; i < statistics.length; i++) {
