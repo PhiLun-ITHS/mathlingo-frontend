@@ -47,27 +47,27 @@
     <section class="statistic-container">
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[0]}">{{statisticAnswers[0]}}/{{statisticQuestions[0]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[0]}">{{ boxValue[0] }}</div>
         <p class="statistic-text">Addition</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[1]}">{{statisticAnswers[1]}}/{{statisticQuestions[1]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[1]}">{{ boxValue[1] }}</div>
         <p class="statistic-text">Subtraction</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[2]}">{{statisticAnswers[2]}}/{{statisticQuestions[2]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[2]}">{{ boxValue[2] }}</div>
         <p class="statistic-text">Multiplication</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[3]}">{{statisticAnswers[3]}}/{{statisticQuestions[3]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[3]}">{{ boxValue[3] }}</div>
         <p class="statistic-text">Division</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[4]}">{{statisticAnswers[4]}}/{{statisticQuestions[4]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[4]}">{{ boxValue[4] }}</div>
         <p class="statistic-text">Final</p>
       </article>
 
@@ -77,27 +77,27 @@
     <section class="statistic-container">
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[5]}">{{statisticAnswers[5]}}/{{statisticQuestions[5]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[5]}">{{ boxValue[5] }}</div>
         <p class="statistic-text">Addition</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[6]}">{{statisticAnswers[6]}}/{{statisticQuestions[6]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[6]}">{{ boxValue[6] }}</div>
         <p class="statistic-text">Subtraction</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[7]}">{{statisticAnswers[7]}}/{{statisticQuestions[7]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[7]}">{{ boxValue[7] }}</div>
         <p class="statistic-text">Multiplication</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[8]}">{{statisticAnswers[8]}}/{{statisticQuestions[8]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[8]}">{{ boxValue[8] }}</div>
         <p class="statistic-text">Division</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[9]}">{{statisticAnswers[9]}}/{{statisticQuestions[9]}}</div>
+        <div class="statistic" v-bind:style="{background: statisticBoxColor[9]}"> {{ boxValue[9] }}</div>
         <p class="statistic-text">Final</p>
       </article>
 
@@ -139,40 +139,56 @@ export default {
       statisticAnswers: [],
       statisticQuestions: [5, 5, 5, 5, 10, 5, 5, 5, 5, 10],
       statisticBoxColor: ['', '', '', '', '', '', '', '', '', ''],
+      boxValue: [],
     }
   },
   beforeMount() {
 
     let token = localStorage.getItem('accessToken');
-    let urlEasy = `http://localhost:4000/auth/results_easy_token/${token}`;
-    // let urlHard = `http://localhost:4000/auth/results_hard_token/${token}`;
-    // let urlFinal = `http://localhost:4000/auth/results_final_token/${token}`;
-
-    let statistics = [];
+    let incomingStatistics = [];
     //get all database tables
-    axios.get(urlEasy)
-        .then(response => {
-          statistics.push(response.data.addition, response.data.subtraction, response.data.multiplication, response.data.division);
+    let urlEasy = `http://localhost:4000/auth/results_easy_token/${token}`;
+    let urlHard = `http://localhost:4000/auth/results_hard_token/${token}`;
+    let urlFinal = `http://localhost:4000/auth/results_final_token/${token}`;
 
-        // axios.get(urlHard)
-        // .then(response => {
-        //   statistics.push(response.data.addition, response.data.subtraction, response.data.multiplication, response.data.division);
-        //
-        //         axios.get(urlFinal)
-        //         .then(response => {
-        //           statistics.push(response.data.final_easy, response.data.final_hard);
-        //         })
-        //       })
+    let reqOne = axios.get(urlEasy);
+    let reqTwo = axios.get(urlHard);
+    let reqThree = axios.get(urlFinal);
 
-          this.statisticAnswers = statistics;
-          //changeStatisticColor
-          for (let i = 0; i < statistics.length; i++) {
-            if (statistics[i] === this.statisticQuestions[i]) {
+    axios.all([reqOne, reqTwo, reqThree]).then(axios.spread((...responses) => {
+      let responseOne = responses[0]
+      let responseTwo = responses[1]
+      let responseThree = responses[2]
+
+      incomingStatistics.push(
+          responseOne.data.addition,
+          responseOne.data.subtraction,
+          responseOne.data.multiplication,
+          responseOne.data.division,
+          responseThree.data.final_easy,
+          responseTwo.data.addition,
+          responseTwo.data.subtraction,
+          responseTwo.data.multiplication,
+          responseTwo.data.division,
+          responseThree.data.final_hard);
+
+      // setting every undefined element as 0
+      let statistics = incomingStatistics.map(v => v === undefined ? 0 : v);
+
+      this.statisticAnswers = statistics;
+          //change box colors and values
+          for (let i = 0; i < this.statisticAnswers.length; i++) {
+            if (this.statisticAnswers[i] === this.statisticQuestions[i]) {
               this.statisticBoxColor[i] = '#0CFA34';
-            } else if (statistics[i] >= 1 && statistics[i] < this.statisticQuestions[i]) {
+              this.boxValue[i] = this.statisticAnswers[i]  + '/' + this.statisticQuestions[i];
+            } else if (this.statisticAnswers[i] >= 1 && this.statisticAnswers[i] < this.statisticQuestions[i]) {
               this.statisticBoxColor[i] = '#FA8F19'; // #FA1947   röd
+              this.boxValue[i] = this.statisticAnswers[i] + '/' + this.statisticQuestions[i];
             } else {
               this.statisticBoxColor[i] = 'white';
+              if (this.statisticAnswers[i] === 0) {
+                this.boxValue[i] = 'lock';
+              }
             }
           }
           //CalculateUserProgress (percentage)
@@ -185,7 +201,7 @@ export default {
           let percentage = totalAnswer * 100 / totalQuest;
           percentage = Math.round((percentage + Number.EPSILON));
           this.accountCompletion = percentage;
-        });
+    }));
   },
   methods: {
 
