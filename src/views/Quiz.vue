@@ -164,7 +164,7 @@ export default {
           this.complete = true;
           this.showQuiz = false;
           let passedQuiz = false;
-          if (this.userCorrect / this.questions.length >= 0) {
+          if (this.userCorrect / this.questions.length >= 0.1) {
             passedQuiz = true;
             this.passed = true;
           }
