@@ -339,6 +339,7 @@ export default {
 
       let result = {
           "final_easy": this.quizFinalScore[0],
+          "final_hard": 0,
           "accessToken": token
       };
       axios.post(`http://localhost:4000/auth/results_final`, result);
@@ -347,12 +348,20 @@ export default {
 
       let token = localStorage.getItem('accessToken');
 
-      let result = {
-        "final_hard": this.quizFinalScore[1],
-        "accessToken": token
-      };
+      // get user final_easy score from DB
+      axios.get(`http://localhost:4000/auth/results_final_token/${token}`)
+      .then(response => {
+        let finalEasyScore = response.data.final_easy;
 
-      axios.put(`http://localhost:4000/auth/results_final`, result);
+        // post final_hard and old final_easy score
+        let result = {
+          "final_hard": this.quizFinalScore[1],
+           "final_easy": finalEasyScore,
+          "accessToken": token
+        };
+
+        axios.post(`http://localhost:4000/auth/results_final`, result);
+      });
     },
   },
 };
