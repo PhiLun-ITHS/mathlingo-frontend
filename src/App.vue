@@ -9,7 +9,7 @@
      <router-link class="a" to="/quiz" v-if="accessToken">Quiz</router-link>
      <router-link class="a" to="/mypage" v-if="accessToken">My page</router-link>
      <router-link class="a" to="/" v-if="!accessToken">Home</router-link>
-     <router-link class="a" to="/about" v-if="!accessToken">About</router-link>
+     <router-link class="a" to="/about">About</router-link>
      <router-link class="a" to="/login" v-if="!accessToken">Login</router-link>
      <a class="a" id="logout" v-on:click="logout" v-if="accessToken">Logout</a>
    
