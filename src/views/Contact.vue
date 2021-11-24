@@ -30,6 +30,7 @@
 <script>
 
 import emailjs from 'emailjs-com'
+import swal from "sweetalert2";
 
 
 export default {
@@ -42,13 +43,20 @@ export default {
   message: ''
 }
 },
+
   methods: {
   sendEmail(e) {
   try {
   emailjs.sendForm("service_tvhngis","template_fhsa8jj", e.target,
   'user_bnBXIIaeuVCqOyhwxRJ5I', {
   name: this.name, email: this.email, topic: this.topic, message: this.message
-})
+}).then(()=>
+    swal.fire({
+      title: 'Email sent Successfully!',
+      icon: 'success',
+      time: 800
+    })
+  )
 
 } catch(error) {
   console.log({error})

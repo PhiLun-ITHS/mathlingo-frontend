@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div v-if="!auth" class="login">
     <div id="content">
 
     <section class="grid-container" >
@@ -12,13 +12,17 @@
           <input type="text" id='email' placeholder="Email" v-model="email">
           <input type="password" id='psw' placeholder="Password" v-model="password" >
           <input type="submit" class ="btn" id="" value="Log in">
-          <p>No account? <router-link class=a-signUp to="/signup">Signup</router-link></p>
+          <p>No account? <router-link class=a-signUp to="/">Signup</router-link></p>
         </form>
       </main>
     </section>
     </div>
   </div>
-
+  <div v-else>
+    <section>
+      <button class="btn" @click.prevent="notAuth" >You are already logged in</button>
+    </section>
+    </div>
 </template>
 
 <script>
@@ -30,11 +34,15 @@ export default {
   name: "Login",
   data(){
     return{
+      auth: window.localStorage.getItem('accessToken'),
       email:'',
       password:''
     }
   },
   methods:{
+    notAuth(){
+      this.$router.push('/myPage');
+    },
     loginForm(){
       let user = {email : this.email, password : this.password};
       axios.post('http://localhost:4000/auth/login', user)
@@ -50,7 +58,8 @@ export default {
                 timer: 800
               })
               .then(() => {
-                window.location = ("/");
+                window.location = ("/#/quiz");
+                location.reload();
               })
             }
           })

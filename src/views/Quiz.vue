@@ -1,5 +1,5 @@
 <template>
-  <div class="quiz">
+  <div v-if="auth" class="quiz">
     <div id="content">
 
 
@@ -66,6 +66,11 @@
 
     </div>
   </div>
+  <div v-else>
+    <section>
+      <button class="btn" @click.prevent="notAuth" >You are not logged in, try to login!</button>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -75,6 +80,7 @@ export default {
   name: "Quiz",
   data() {
     return {
+      auth: localStorage.getItem('accessToken'),
       questions: [],
       index: 0,
       complete: false,
@@ -110,6 +116,10 @@ export default {
     },
   },
   methods: {
+    notAuth(){
+      this.$router.push('/login');
+    },
+
     startQuiz() {
       this.showStart = false;
       this.initializeCategory();

@@ -2,14 +2,16 @@
  <div id="app">
 
    <header>
-   <div><router-link to="/"><img src="../src/assets/logo.png"></router-link></div>
+   <div v-if="!accessToken" ><router-link to="/"><img src="../src/assets/logo.png"></router-link></div>
+     <div v-else><router-link  to="/quiz"><img src="../src/assets/logo.png"></router-link></div>
    <nav>
-     <router-link class="a" to="/">Home</router-link>
+
      <router-link class="a" to="/quiz" v-if="accessToken">Quiz</router-link>
      <router-link class="a" to="/mypage" v-if="accessToken">My page</router-link>
-     <router-link class="a" to="/signup" v-if="accessToken===null">Sign up</router-link>
-     <router-link class="a" to="/login" v-if="accessToken===null">Login</router-link>
-     <a class="a" id="logout" v-on:click="logout" v-if="accessToken !== null">Logout</a>
+     <router-link class="a" to="/" v-if="!accessToken">Home</router-link>
+     <router-link class="a" to="/about" v-if="!accessToken">About</router-link>
+     <router-link class="a" to="/login" v-if="!accessToken">Login</router-link>
+     <a class="a" id="logout" v-on:click="logout" v-if="accessToken">Logout</a>
    
    </nav>
    </header>
@@ -17,8 +19,7 @@
 
    <footer>
      <div id="copyright">
-       <router-link to="/contact" style="margin-right: 3px">Contact</router-link>
-       <router-link to="/about" style="margin-left: 3px">About</router-link><br>
+       <router-link to="/contact" style="margin-right: 3px">Contact</router-link><br>
        &copy; 2021 Mathlingo
      </div>
    </footer>

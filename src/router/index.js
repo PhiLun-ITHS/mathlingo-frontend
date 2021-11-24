@@ -22,12 +22,7 @@ const routes = [
 
     component: () => import('../views/Login')
   },
-  {
-    path: '/signup',
-    name: 'Signup',
 
-    component: () => import('../views/Signup')
-  },
   {
     path: '/contact',
     name: 'Contact',

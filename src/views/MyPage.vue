@@ -1,5 +1,5 @@
 <template>
-  <div v-if="auth" class="MyPage">
+  <div v-if="remove" class="MyPage">
     <div id="content">
       <section class="MyPage">
 
@@ -127,7 +127,6 @@ export default {
     let name = token_info.name;
     let email = token_info.email;
     return {
-      auth: localStorage.getItem('accessToken'),
       newPassword: '',
       confirmNewPassword: '',
       changePass: false,
@@ -298,15 +297,6 @@ export default {
         this.removeAcc = false;
       }
       this.changePass = this.changePass !== true;
-    },
-    clickRemoveAccount() {
-     //  let data = {accessToken : localStorage.getItem('accessToken'), refreshToken : localStorage.getItem('refreshToken')};
-     // let answer = axios.post('http://localhost:4000/auth/removeAccount', data)
-     //  console.log(answer);
-      if (this.changePass === true) {
-        this.changePass = false;
-      }
-      this.removeAcc = this.removeAcc !== true;
     },
 
     notAuth(){
