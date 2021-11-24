@@ -41,33 +41,58 @@
       </main>
       </section>
 
-      <h1 class="myPage-title">Statistik</h1>
+      <h1 class="myPage-title">Statistics</h1>
       <h1 class="statistic-title">Easy</h1>
 
     <section class="statistic-container">
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[0]}">{{ boxValue[0] }}</div>
+        <div class="statistic"
+             v-bind:style="{background: statisticBoxColor[0], color: textColor[0]}">
+          <div v-if="isLocked[0]" class="lock"></div>
+          <div v-else-if="isUnlocked[0]" class="unlock"></div>
+          <div v-else>{{ boxValue[0] }}</div>
+        </div>
         <p class="statistic-text">Addition</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[1]}">{{ boxValue[1] }}</div>
+        <div class="statistic"
+             v-bind:style="{background: statisticBoxColor[1], color: textColor[1]}">
+          <div v-if="isLocked[1]" class="lock"></div>
+          <div v-else-if="isUnlocked[1]" class="unlock"></div>
+          <div v-else>{{ boxValue[1] }}</div>
+        </div>
         <p class="statistic-text">Subtraction</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[2]}">{{ boxValue[2] }}</div>
+        <div class="statistic"
+             v-bind:style="{background: statisticBoxColor[2], color: textColor[2]}">
+          <div v-if="isLocked[2]" class="lock"></div>
+          <div v-else-if="isUnlocked[2]" class="unlock"></div>
+          <div v-else>{{ boxValue[2] }}</div>
+        </div>
         <p class="statistic-text">Multiplication</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[3]}">{{ boxValue[3] }}</div>
+        <div class="statistic"
+             v-bind:style="{background: statisticBoxColor[3], color: textColor[3]}">
+          <div v-if="isLocked[3]" class="lock"></div>
+          <div v-else-if="isUnlocked[3]" class="unlock"></div>
+          <div v-else>{{ boxValue[3] }}</div>
+        </div>
         <p class="statistic-text">Division</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[4]}">{{ boxValue[4] }}</div>
+        <div class="statistic"
+             v-bind:style="{background: statisticBoxColor[4], color: textColor[4]}">
+          <div v-if="isLocked[4]" class="lock"></div>
+          <div v-else-if="isUnlocked[4]" class="unlock"></div>
+          <div v-else>{{ boxValue[4] }}</div>
+        </div>
         <p class="statistic-text">Final</p>
       </article>
 
@@ -77,27 +102,52 @@
     <section class="statistic-container">
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[5]}">{{ boxValue[5] }}</div>
+        <div class="statistic"
+             v-bind:style="{background: statisticBoxColor[5], color: textColor[5]}">
+          <div v-if="isLocked[5]" class="lock"></div>
+          <div v-else-if="isUnlocked[5]" class="unlock"></div>
+          <div v-else>{{ boxValue[5] }}</div>
+        </div>
         <p class="statistic-text">Addition</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[6]}">{{ boxValue[6] }}</div>
+        <div class="statistic"
+             v-bind:style="{background: statisticBoxColor[6], color: textColor[6]}">
+          <div v-if="isLocked[6]" class="lock"></div>
+          <div v-else-if="isUnlocked[6]" class="unlock"></div>
+          <div v-else>{{ boxValue[6] }}</div>
+        </div>
         <p class="statistic-text">Subtraction</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[7]}">{{ boxValue[7] }}</div>
+        <div class="statistic"
+             v-bind:style="{background: statisticBoxColor[7], color: textColor[7]}">
+          <div v-if="isLocked[7]" class="lock"></div>
+          <div v-else-if="isUnlocked[7]" class="unlock"></div>
+          <div v-else>{{ boxValue[7] }}</div>
+        </div>
         <p class="statistic-text">Multiplication</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[8]}">{{ boxValue[8] }}</div>
+        <div class="statistic"
+             v-bind:style="{background: statisticBoxColor[8], color: textColor[8]}">
+          <div v-if="isLocked[8]" class="lock"></div>
+          <div v-else-if="isUnlocked[8]" class="unlock"></div>
+          <div v-else>{{ boxValue[8] }}</div>
+        </div>
         <p class="statistic-text">Division</p>
       </article>
 
       <article>
-        <div class="statistic" v-bind:style="{background: statisticBoxColor[9]}"> {{ boxValue[9] }}</div>
+        <div class="statistic"
+             v-bind:style="{background: statisticBoxColor[9], color: textColor[9]}">
+          <div v-if="isLocked[9]" class="lock"></div>
+          <div v-else-if="isUnlocked[9]" class="unlock"></div>
+          <div v-else>{{ boxValue[9] }}</div>
+        </div>
         <p class="statistic-text">Final</p>
       </article>
 
@@ -137,8 +187,11 @@ export default {
       remove: localStorage.getItem('accessToken'),
       statisticAnswers: [],
       statisticQuestions: [5, 5, 5, 5, 10, 5, 5, 5, 5, 10],
-      statisticBoxColor: ['', '', '', '', '', '', '', '', '', ''],
+      statisticBoxColor: [],
       boxValue: [],
+      isLocked: [],
+      isUnlocked: [],
+      textColor: [],
     }
   },
   beforeMount() {
@@ -160,33 +213,46 @@ export default {
       let responseThree = responses[2]
 
       incomingStatistics.push(
+          //quiz easy
           responseOne.data.addition,
           responseOne.data.subtraction,
           responseOne.data.multiplication,
           responseOne.data.division,
+          //quiz final_easy
           responseThree.data.final_easy,
+          //quiz hard
           responseTwo.data.addition,
           responseTwo.data.subtraction,
           responseTwo.data.multiplication,
           responseTwo.data.division,
+          //quiz final_hard
           responseThree.data.final_hard);
 
       // setting every undefined element as 0
       let statistics = incomingStatistics.map(v => v === undefined ? 0 : v);
-
+      // first 0 value i db tables
+      let findUnlockedQuiz = statistics.indexOf(0);
       this.statisticAnswers = statistics;
           //change box colors and values
           for (let i = 0; i < this.statisticAnswers.length; i++) {
-            if (this.statisticAnswers[i] === this.statisticQuestions[i]) {
-              this.statisticBoxColor[i] = '#0CFA34';
+            if (this.statisticAnswers[i] === this.statisticQuestions[i] || this.statisticAnswers[i] / this.statisticQuestions[i] >= 0.8) {
+              this.statisticBoxColor[i] = 'rgba(0,0,0,0.75)';
               this.boxValue[i] = this.statisticAnswers[i]  + '/' + this.statisticQuestions[i];
+              this.textColor[i] = 'rgba(1,250,182,0.8995973389355743)';
             } else if (this.statisticAnswers[i] >= 1 && this.statisticAnswers[i] < this.statisticQuestions[i]) {
-              this.statisticBoxColor[i] = '#FA8F19'; // #FA1947   röd
+              this.statisticBoxColor[i] = 'rgba(0,0,0,0.75)'; // #FA1947   röd
               this.boxValue[i] = this.statisticAnswers[i] + '/' + this.statisticQuestions[i];
+              this.textColor[i] = '#FA8F19';
             } else {
-              this.statisticBoxColor[i] = 'white';
+              this.statisticBoxColor[i] = 'rgba(0,0,0,0.75)';
               if (this.statisticAnswers[i] === 0) {
-                this.boxValue[i] = 'lock';
+                this.isLocked[i] = true;
+              }
+              let checkPreviousQuizIndex = findUnlockedQuiz - 1;
+              let checkPreviousQuiz = this.statisticAnswers[checkPreviousQuizIndex] / this.statisticQuestions[checkPreviousQuizIndex];
+              if (checkPreviousQuiz >= 0.8) {
+                this.isUnlocked[findUnlockedQuiz] = true;
+                this.isLocked[findUnlockedQuiz] = false;
               }
             }
           }
@@ -230,8 +296,6 @@ export default {
           }) .then(() => {
             window.location = ("/");
           })
-
-
         }
       })
 

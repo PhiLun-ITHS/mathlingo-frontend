@@ -185,7 +185,7 @@ section.grid-container {
 .statistic {
     background: white;
     border: solid 1px black;
-    border-radius: 25px;
+    border-radius: 20px;
     width: 100px;
     height: 100px;
     font-size: 42px;
@@ -213,14 +213,15 @@ section.grid-container {
     font-family: "Red Hat Display", serif;
     font-size: 20px;
     margin-bottom: 10px;
-    width: 250px;
+    width: 200px;
     height: 30px;
     vertical-align: middle;
     line-height: 30px;
-    background: white;
+    background: rgba(0,0,0,0.75);
+    color: rgba(1,250,182,0.8995973389355743);
     text-align: center;
     border: solid 1px black;
-    border-radius: 25px;
+    border-radius: 5px;
 }
 
 .settings:hover {
@@ -278,6 +279,65 @@ nav {
     cursor: pointer;
 }
 
+.lock {
+    background: rgba(1,250,182,0.8995973389355743);
+    border-radius: 3px;
+    width: 25px;
+    height: 20px;
+    margin-top: 45px;
+    margin-left: 38px;
+    position: relative;
+}
+
+.lock:before {
+    content: "";
+    display: block;
+    position: absolute;
+    border-top: 3px solid rgba(1,250,182,0.8995973389355743);
+    border-left: 3px solid rgba(1,250,182,0.8995973389355743);
+    border-right: 3px solid rgba(1,250,182,0.8995973389355743);
+    top: -14px;
+    left: 2.3px;
+    width: 15px;
+    height: 12px;
+    border-radius: 35px 35px 0 0;
+}
+
+.unlock {
+    background: rgba(11,227,108, 1);
+    border-radius: 3px;
+    width: 25px;
+    height: 20px;
+    margin-top: 45px;
+    margin-left: 38px;
+    position: relative;
+}
+
+.unlock:before {
+    content: "";
+    display: block;
+    position: absolute;
+    border-top: 3px solid rgba(11,227,108,1);
+    border-left: 3px solid rgba(11,227,108,1);
+    border-right: 3px solid rgba(11,227,108,1);
+    top: -14px;
+    left: 18px;
+    /*left: 12px;*/
+    width: 15px;
+    height: 12px;
+    border-radius: 35px 35px 0 0;
+}
+/*.lock:before {*/
+/*    content: "";*/
+/*    display: block;*/
+/*    position: absolute;*/
+/*    border:3px solid rgba(1,250,182,0.8995973389355743);*/
+/*    top: -14px;*/
+/*    left: 2.3px;*/
+/*    width: 15px;*/
+/*    height: 27px;*/
+/*    border-radius: 35px 35px 0 0;*/
+/*}*/
 
 .a:hover {
     background-color: rgba(14, 186, 125, 0.32);
@@ -319,6 +379,7 @@ main {
  */
 
 .home-btn {
+    cursor: pointer;
     font-size: 50px;
     height: 110px;
     width: 185px;
@@ -340,7 +401,6 @@ footer {
 }
 
 #quizBackground {
-    background: white;
     width: 90%;
     max-width: 350px;
     height: 320px;
@@ -362,13 +422,39 @@ footer {
 }
 
 .quiz-btn {
+    cursor: pointer;
     font-size: 20px;
     padding: 30px;
     color: black;
+    border: 2px solid rgba(0, 0, 0, 0.75);
     font-family: "Red Hat Display", serif;
     font-weight: bold;
     border-radius: 25px;
     background: linear-gradient(120deg, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%);
+}
+
+.round-time-bar {
+    margin: 1rem;
+    overflow: hidden;
+    width: 200px;
+}
+.round-time-bar div {
+    height: 5px;
+    animation: roundtime calc(var(--duration) * 1s) steps(var(--duration))
+    forwards;
+    transform-origin: revert;
+    background: linear-gradient(to bottom, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322));
+}
+
+.round-time-bar[data-style="smooth"] div {
+    animation: roundtime calc(var(--duration) * 1s) linear forwards;
+}
+
+@keyframes roundtime {
+    to {
+        /* More performant than `width` */
+        transform: scaleX(0);
+    }
 }
 
 /* Tablet */
@@ -449,6 +535,10 @@ footer {
 
     #copyright {
         font-size: 16px;
+    }
+
+    .round-time-bar {
+        width: 300px;
     }
 }
 
@@ -538,5 +628,9 @@ footer {
 
     #copyright {
         font-size: 16px;
+    }
+
+    .round-time-bar {
+        width: 400px;
     }
 }
