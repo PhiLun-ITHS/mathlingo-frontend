@@ -379,6 +379,7 @@ main {
  */
 
 .home-btn {
+    cursor: pointer;
     font-size: 50px;
     height: 110px;
     width: 185px;
@@ -400,7 +401,6 @@ footer {
 }
 
 #quizBackground {
-    background: white;
     width: 90%;
     max-width: 350px;
     height: 320px;
@@ -422,13 +422,39 @@ footer {
 }
 
 .quiz-btn {
+    cursor: pointer;
     font-size: 20px;
     padding: 30px;
     color: black;
+    border: 2px solid rgba(0, 0, 0, 0.75);
     font-family: "Red Hat Display", serif;
     font-weight: bold;
     border-radius: 25px;
     background: linear-gradient(120deg, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%);
+}
+
+.round-time-bar {
+    margin: 1rem;
+    overflow: hidden;
+    width: 200px;
+}
+.round-time-bar div {
+    height: 5px;
+    animation: roundtime calc(var(--duration) * 1s) steps(var(--duration))
+    forwards;
+    transform-origin: revert;
+    background: linear-gradient(to bottom, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322));
+}
+
+.round-time-bar[data-style="smooth"] div {
+    animation: roundtime calc(var(--duration) * 1s) linear forwards;
+}
+
+@keyframes roundtime {
+    to {
+        /* More performant than `width` */
+        transform: scaleX(0);
+    }
 }
 
 /* Tablet */
@@ -509,6 +535,10 @@ footer {
 
     #copyright {
         font-size: 16px;
+    }
+
+    .round-time-bar {
+        width: 300px;
     }
 }
 
@@ -598,5 +628,9 @@ footer {
 
     #copyright {
         font-size: 16px;
+    }
+
+    .round-time-bar {
+        width: 400px;
     }
 }

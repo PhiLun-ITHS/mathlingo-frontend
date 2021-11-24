@@ -5,7 +5,7 @@
 
       <h1>QUIZ</h1>
 
-      <div v-if="showStart || complete">
+      <div v-if="showStart || complete || showQuizStartingInfo">
       <section class="grid-container">
         <div id="homeBackground">
           <main id="subPages">
@@ -19,16 +19,36 @@
 
             <article v-if="showStart">
               <button class="quiz-btn"
-              @click="startQuiz">START QUIZ
+              @click="startQuiz">START
               </button>
             </article>
 
-            <h1 v-if="complete && !finalComplete" style="font-size: 26px">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
-            <h1 v-if="complete && !finalComplete" style="font-size: 30px" v-bind:style="{color: feedbackColor}">{{ this.feedback }}</h1>
+
+            <article v-if="showQuizStartingInfo && !allQuizCompleted">
+              <div>
+              <h2 style="font-size: 28px; text-decoration: underline">Next quiz</h2>
+              <h2 style="font-size: 28px; color: rgba(1,250,182,0.8995973389355743);text-shadow: 2px 2px rgba(0,0,0,0.75)">{{this.category}}</h2>
+              </div>
+              <div style="padding-top: 5px">
+              <h2 style="font-size: 28px; text-decoration: underline;">Difficulty</h2>
+              <h2 style="font-size: 28px; color: rgba(1,250,182,0.8995973389355743); text-shadow: 2px 2px rgba(0,0,0,0.75)">{{this.difficulty}}</h2>
+              </div>
+              <div class="round-time-bar" data-style="smooth" style="--duration: 2;">
+                <div></div>
+              </div>
+            </article>
+
+            <h1 v-if="complete && !finalComplete && !showQuizStartingInfo" style="font-size: 26px">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
+            <h1 v-if="complete && !finalComplete && !showQuizStartingInfo" style="font-size: 30px" v-bind:style="{color: feedbackColor}">{{ this.feedback }}</h1>
             <article v-if="complete && !finalComplete">
-              <button class="home-btn"
+              <button v-if="checkIfPassed"
+                      class="home-btn"
                       @click="nextQuiz"
               >Next</button>
+              <button v-else
+                      class="home-btn"
+                      @click="nextQuiz"
+              >Again</button>
             </article>
 
             <div v-if="finalComplete">
@@ -44,7 +64,7 @@
       </div>
 
     <div v-if="showQuiz">
-    <div id="quizBackground">
+    <div id="quizBackground" v-bind:style="{background: quizBackgroundColorSwitch}">
       <p v-if="!finalComplete" style="font-size: 16px;">{{ this.category }} - {{ this.difficulty }} - {{ index + 1 }} of {{ questions.length }}</p>
 
       <h1 v-if="!finalComplete && !loading" style="font-size: 30px">What is {{currentQuestion.question}}?</h1>
@@ -85,6 +105,7 @@ export default {
       loading: true,
       showStart: true,
       showQuiz: false,
+      showQuizStartingInfo: false,
       category: '',
       difficulty: '',
       quizCategory: ['Addition', 'Subtraction', 'Multiplication', 'Division'],
@@ -103,6 +124,8 @@ export default {
       lastClicked: 0,
       startFinal: false,
       allQuizCompleted: false,
+      quizBackgroundColorSwitch: 'white',
+      checkIfPassed: false,
     };
   },
   beforeMount() {
@@ -171,9 +194,8 @@ export default {
   },
   methods: {
     startQuiz() {
-      console.log(this.passed);
-      console.log(this.quizCategoryIndex);
       this.showStart = false;
+      this.showQuizStartingInfo = true;
       let checkProgressEasy = this.quizEasyProgress.every(v => v === true);
       let checkProgressHard = this.quizHardProgress.every(v => v === true);
       let checkProgressFinal = this.quizFinalProgress.every(v => v === true);
@@ -208,7 +230,6 @@ export default {
       } else {
         this.initializeCategory();
         this.fetchQuestions();
-        this.showQuiz = true;
       }
     },
     initializeCategory(checkProgressEasy, checkProgressHard) {
@@ -231,6 +252,12 @@ export default {
       //prevent double-click
       if (Date.now() - this.lastClicked < 301) return;
       this.lastClicked = Date.now();
+
+      // user clicks get feedback background-color
+      this.quizBackgroundColorSwitch = 'aliceblue';
+      setTimeout(function (){
+        this.quizBackgroundColorSwitch = 'white';
+      }.bind(this), 100);
 
       // user input
       let index = event.target.getAttribute("index");
@@ -256,13 +283,17 @@ export default {
           }.bind(this), 300);
         }
         else {
-          this.complete = true;
-          this.showQuiz = false;
+          setTimeout(function (){
+            this.complete = true;
+            this.showQuiz = false;
+          }.bind(this), 300);
+          // this.complete = true;
           let passedQuiz = false;
           if (this.userCorrect / this.questions.length >= 0.8) {
             passedQuiz = true;
             this.passed = true;
           }
+          this.checkIfPassed = this.passed;
           this.quizFeedback(passedQuiz);
             if (this.difficulty === 'Easy' && this.quizEasyScoreNotStored[this.quizCategoryIndex] && this.category !== 'Final') {
               this.quizEasyScoreNotStored[this.quizCategoryIndex] = false;
@@ -297,28 +328,26 @@ export default {
 
               //all quiz done
               if (passedQuiz) {
-                this.category = '';
-                this.finalComplete = true;
-                this.showQuiz = false;
-                this.allQuizCompleted = true;
+                setTimeout(function () {
+                  this.category = '';
+                  this.finalComplete = true;
+                  this.showQuiz = false;
+                  this.allQuizCompleted = true;
+                }.bind(this), 300);
               }
             }
         }
       }
     },
     nextQuiz() {
-        console.log(this.passed);
         if (this.passed) {
           this.quizCategoryIndex++;
         }
-        console.log(this.quizCategoryIndex);
         let checkProgressEasy = false;
         let checkProgressHard = false;
 
         checkProgressEasy = this.quizEasyProgress.every(v => v === true);
         checkProgressHard = this.quizHardProgress.every(v => v === true);
-        console.log(checkProgressEasy);
-        console.log(checkProgressHard);
         if (checkProgressEasy && !this.quizFinalProgress[0]) {
           this.initializeCategory(checkProgressEasy, checkProgressHard);
         } else if (checkProgressHard) {
@@ -332,6 +361,12 @@ export default {
         this.complete = false;
         this.userCorrect = 0;
         this.index = 0;
+        if(this.checkIfPassed) {
+          this.showQuizStartingInfo = true;
+          this.quizBackgroundColorSwitch = 'white';
+        } else {
+          this.showQuiz = true;
+        }
         this.fetchQuestions();
       }
     },
@@ -393,7 +428,14 @@ export default {
       });
       this.questions = data;
       this.loading = false;
-      this.showQuiz = true;
+
+      // shows showQuizStartingInfo for timeout duration. then shows quiz
+      if (this.showQuizStartingInfo) {
+        setTimeout(function () {
+          this.showQuizStartingInfo = false;
+          this.showQuiz = true;
+        }.bind(this), 2000);
+      }
     },
     storeUserScoreEasy() {
       let token = localStorage.getItem('accessToken');
@@ -408,7 +450,6 @@ export default {
           axios.post(`http://localhost:4000/auth/results_easy`, result);
 
       } else {
-        console.log(this.quizCategoryIndex);
         let userProgress = [];
         axios.get(`http://localhost:4000/auth/results_easy_token/${token}`)
             .then(response => {
@@ -422,8 +463,6 @@ export default {
               for (let i = 0; i < userProgress.length; i++) {
                 if (this.quizCategoryIndex === i)  {
                   userProgress[i] = this.quizEasyScore[i];
-                  console.log(userProgress[i]);
-                  console.log(this.quizEasyScore[i]);
                 } else {
                   result[i] = userProgress[i];
                 }
