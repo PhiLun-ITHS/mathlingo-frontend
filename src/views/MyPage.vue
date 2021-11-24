@@ -249,7 +249,9 @@ export default {
               if (this.statisticAnswers[i] === 0) {
                 this.isLocked[i] = true;
               }
-              if (findUnlockedQuiz) {
+              let checkPreviousQuizIndex = findUnlockedQuiz - 1;
+              let checkPreviousQuiz = this.statisticAnswers[checkPreviousQuizIndex] / this.statisticQuestions[checkPreviousQuizIndex];
+              if (checkPreviousQuiz >= 0.8) {
                 this.isUnlocked[findUnlockedQuiz] = true;
                 this.isLocked[findUnlockedQuiz] = false;
               }
