@@ -38,8 +38,8 @@
               </div>
             </article>
 
-            <h1 v-if="complete && !finalComplete && !showQuizStartingInfo" style="font-size: 26px">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
-            <h1 v-if="complete && !finalComplete && !showQuizStartingInfo" style="font-size: 30px" v-bind:style="{color: feedbackColor}">{{ this.feedback }}</h1>
+            <h1 v-if="complete && !showQuizStartingInfo" style="font-size: 26px">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
+            <h1 v-if="complete && !showQuizStartingInfo" style="font-size: 30px" v-bind:style="{color: feedbackColor}">{{ this.feedback }}</h1>
             <article v-if="complete && !finalComplete">
               <button v-if="checkIfPassed"
                       class="home-btn"
