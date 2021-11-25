@@ -17,53 +17,6 @@ body {
     font-size: 14px;
 }
 
-.logout-btn {
-    position: center;
-    display: inline-flex;
-    width: 140px;
-    height: 50px;
-    perspective: 10000px;
-}
-
-.logout-btn a {
-    font-size: 25px;
-    transform-style: preserve-3d;
-    transform: translateZ(-25px);
-    transition: transform .500s;
-    font-family: cursive;
-}
-
-.logout-btn a:before,
-.logout-btn a:after {
-    position: absolute;
-    content: "My page";
-    height: 50px;
-    width: 140px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.logout-btn a:before {
-    color: BLACK;
-    font-size: 22px;
-    background: linear-gradient(to left top, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%) fixed;
-    transform: translateZ(25px);
-}
-
-.logout-btn a:after {
-    font-size: 22px;
-    border: none;
-    color: black;
-    background: linear-gradient(to left top, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%) fixed;
-    content: 'Log out';
-    transform: rotateX(90deg) translateZ(25px);
-}
-
-.logout-btn a:hover {
-    transform: translateZ(-25px) rotateX(-90deg);
-}
-
 .home-btn {
     font-size: 42px;
     height: 120px;
@@ -139,14 +92,15 @@ textarea {
 }
 
 .btn{
-    margin-top: 25px;
-    padding: 16px 45px;
-    background-color: white;
-    color: black;
-    border: none;
-    outline: none;
+    cursor: pointer;
     font-size: 20px;
-    border-radius: 5px;
+    padding: 15px;
+    background: rgba(0,0,0,0.75);
+    color: rgba(1,250,182,0.8995973389355743);
+    border: 2px solid rgba(0, 0, 0, 0.75);
+    font-family: "Red Hat Display", serif;
+    font-weight: bold;
+    border-radius: 10px;
 }
 
 .btn:hover{
@@ -425,12 +379,16 @@ footer {
     cursor: pointer;
     font-size: 20px;
     padding: 30px;
-    color: black;
+    background: #00402F;
+    color: rgba(1,250,182,0.8995973389355743);
     border: 2px solid rgba(0, 0, 0, 0.75);
     font-family: "Red Hat Display", serif;
     font-weight: bold;
     border-radius: 25px;
-    background: linear-gradient(120deg, rgba(11,225,226,0.4514180672268907) 0%, rgba(1,250,182,0.8995973389355743) 42%, rgba(11,227,108,0.4458158263305322) 100%);
+}
+.quiz-btn:hover{
+    background-color: rgba(186,186,186,0.9);
+    cursor: pointer;
 }
 
 .round-time-bar {
