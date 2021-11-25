@@ -204,6 +204,8 @@ export default {
     },
 
     startQuiz() {
+
+      this.initializeTables();
       this.showStart = false;
       this.showQuizStartingInfo = true;
       let checkProgressEasy = this.quizEasyProgress.every(v => v === true);
@@ -306,7 +308,9 @@ export default {
           this.checkIfPassed = this.passed;
           this.quizFeedback(passedQuiz);
             if (this.difficulty === 'Easy' && this.quizEasyScoreNotStored[this.quizCategoryIndex] && this.category !== 'Final') {
-              this.quizEasyScoreNotStored[this.quizCategoryIndex] = false;
+              if (passedQuiz) {
+                this.quizEasyScoreNotStored[this.quizCategoryIndex] = false;
+              }
               this.quizEasyProgress[this.quizCategoryIndex] = passedQuiz;
               this.quizEasyScore[this.quizCategoryIndex] = this.userCorrect;
               this.storeUserScoreEasy();
@@ -324,7 +328,9 @@ export default {
                 this.initializeCategory();
               }
             } else if (this.difficulty === 'Hard' && this.quizHardScoreNotStored[this.quizCategoryIndex] && this.category !== 'Final') {
-              this.quizHardScoreNotStored[this.quizCategoryIndex] = false;
+              if(passedQuiz) {
+                this.quizHardScoreNotStored[this.quizCategoryIndex] = false;
+              }
               this.quizHardProgress[this.quizCategoryIndex] = passedQuiz;
               this.quizHardScore[this.quizCategoryIndex] = this.userCorrect;
               //sending results_hard
@@ -447,118 +453,144 @@ export default {
         }.bind(this), 2000);
       }
     },
+    initializeTables() {
+      let token = localStorage.getItem('accessToken');
+
+      axios.get(`http://localhost:4000/auth/results_easy_token/${token}`)
+      .then(response => {
+        let res = response.data.addition;
+        if (res === undefined) {
+          console.log('Creating tables');
+          let resultEasy = {
+            "addition": 0,
+            "subtraction": 0,
+            "multiplication": 0,
+            "division": 0,
+            "accessToken": token
+          };
+          let resultHard = {
+            "addition": 0,
+            "subtraction": 0,
+            "multiplication": 0,
+            "division": 0,
+            "accessToken": token
+          };
+          let resultFinal = {
+            "final_easy": 0,
+            "final_hard": 0,
+            "accessToken": token
+          };
+          axios.post(`http://localhost:4000/auth/results_easy`, resultEasy);
+          axios.post(`http://localhost:4000/auth/results_hard`, resultHard);
+          axios.post(`http://localhost:4000/auth/results_final`, resultFinal);
+        } else {
+          console.log('Tables exists');
+        }
+      });
+    },
     storeUserScoreEasy() {
       let token = localStorage.getItem('accessToken');
       let result = [];
-      if (this.quizCategoryIndex === 0) {
-        result = {
-              "addition": this.quizEasyScore[0],
-              "subtraction": this.quizEasyScore[1],
-              "multiplication": this.quizEasyScore[2],
-              "division": this.quizEasyScore[3],
-              "accessToken": token};
-          axios.post(`http://localhost:4000/auth/results_easy`, result);
+      let userProgress = [];
 
-      } else {
-        let userProgress = [];
-        axios.get(`http://localhost:4000/auth/results_easy_token/${token}`)
-            .then(response => {
+      axios.get(`http://localhost:4000/auth/results_easy_token/${token}`)
+          .then(response => {
 
-              userProgress.push(
-                  response.data.addition,
-                  response.data.subtraction,
-                  response.data.multiplication,
-                  response.data.division);
+          userProgress.push(
+              response.data.addition,
+              response.data.subtraction,
+              response.data.multiplication,
+              response.data.division);
 
-              for (let i = 0; i < userProgress.length; i++) {
-                if (this.quizCategoryIndex === i)  {
-                  userProgress[i] = this.quizEasyScore[i];
-                } else {
-                  result[i] = userProgress[i];
-                }
-                result = {
-                  "addition": userProgress[0],
-                  "subtraction": userProgress[1],
-                  "multiplication": userProgress[2],
-                  "division": userProgress[3],
-                  "accessToken": token
-                };
+            for (let i = 0; i < userProgress.length; i++) {
+              //checking for matching index and if new value is higher than DB
+              if (this.quizCategoryIndex === i && this.quizEasyScore[i] > userProgress[i])  {
+                userProgress[i] = this.quizEasyScore[i];
+              } else {
+                result[i] = userProgress[i];
               }
-              axios.post(`http://localhost:4000/auth/results_easy`, result);
-
-            });
-      }
+              result = {
+                "addition": userProgress[0],
+                "subtraction": userProgress[1],
+                "multiplication": userProgress[2],
+                "division": userProgress[3],
+                "accessToken": token
+              };
+            }
+          axios.post(`http://localhost:4000/auth/results_easy`, result);
+        });
     },
     storeUserScoreHard() {
       let token = localStorage.getItem('accessToken');
       let result = [];
-      if (this.quizCategoryIndex === 0) {
-        result = {
-          "addition": this.quizHardScore[0],
-          "subtraction": this.quizHardScore[1],
-          "multiplication": this.quizHardScore[2],
-          "division": this.quizHardScore[3],
-          "accessToken": token};
-        axios.post(`http://localhost:4000/auth/results_hard`, result);
+      let userProgress = [];
 
-      } else {
+      axios.get(`http://localhost:4000/auth/results_hard_token/${token}`)
+          .then(response => {
 
-        let userProgress = [];
-        axios.get(`http://localhost:4000/auth/results_hard_token/${token}`)
-            .then(response => {
+            userProgress.push(
+                response.data.addition,
+                response.data.subtraction,
+                response.data.multiplication,
+                response.data.division);
 
-              userProgress.push(
-                  response.data.addition,
-                  response.data.subtraction,
-                  response.data.multiplication,
-                  response.data.division);
-
-              for (let i = 0; i < userProgress.length; i++) {
-                if (this.quizCategoryIndex === i)  {
-                  userProgress[i] = this.quizHardScore[i];
-                } else {
-                  result[i] = userProgress[i];
-                }
-                result = {
-                  "addition": userProgress[0],
-                  "subtraction": userProgress[1],
-                  "multiplication": userProgress[2],
-                  "division": userProgress[3],
-                  "accessToken": token
-                };
+            for (let i = 0; i < userProgress.length; i++) {
+              //checking for matching index and if new value is higher than DB
+              if (this.quizCategoryIndex === i && this.quizHardScore[i] > userProgress[i])  {
+                userProgress[i] = this.quizHardScore[i];
+              } else {
+                result[i] = userProgress[i];
               }
-              axios.post(`http://localhost:4000/auth/results_hard`, result);
-
-            });
-      }
+              result = {
+                "addition": userProgress[0],
+                "subtraction": userProgress[1],
+                "multiplication": userProgress[2],
+                "division": userProgress[3],
+                "accessToken": token
+              };
+            }
+            axios.post(`http://localhost:4000/auth/results_hard`, result);
+          });
     },
     storeUserFinalEasyScore() {
-
       let token = localStorage.getItem('accessToken');
 
-      let result = {
-          "final_easy": this.quizFinalScore[0],
-          "final_hard": 0,
-          "accessToken": token
-      };
-      axios.post(`http://localhost:4000/auth/results_final`, result);
-    },
-    storeUserFinalHardScore() {
-
-      let token = localStorage.getItem('accessToken');
-
-      // get user final_easy score from DB
       axios.get(`http://localhost:4000/auth/results_final_token/${token}`)
       .then(response => {
-        let finalEasyScore = response.data.final_easy;
+        let getFinalEasy = response.data.final_easy;
+        let finalEasyScore;
+        if (getFinalEasy > this.quizFinalScore[0]) {
+          finalEasyScore = getFinalEasy;
+        } else {
+          finalEasyScore = this.quizFinalScore[0];
+        }
 
-        // post final_hard and old final_easy score
         let result = {
-          "final_hard": this.quizFinalScore[1],
-           "final_easy": finalEasyScore,
+          "final_easy": finalEasyScore,
+          "final_hard": 0,
           "accessToken": token
         };
+        axios.post(`http://localhost:4000/auth/results_final`, result);
+      });
+    },
+    storeUserFinalHardScore() {
+      let token = localStorage.getItem('accessToken');
 
+      axios.get(`http://localhost:4000/auth/results_final_token/${token}`)
+      .then(response => {
+        let getFinalEasyScore = response.data.final_easy;
+        let getFinalHardScore = response.data.final_hard;
+        let finalHardScore;
+        if (getFinalHardScore > this.quizFinalScore[1]) {
+          finalHardScore = getFinalHardScore;
+        } else {
+          finalHardScore = this.quizFinalScore[1];
+        }
+        let result = {
+          "final_easy": getFinalEasyScore,
+          "final_hard": finalHardScore,
+          "accessToken": token
+        };
         axios.post(`http://localhost:4000/auth/results_final`, result);
       });
     },
