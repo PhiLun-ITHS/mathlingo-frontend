@@ -2,12 +2,9 @@
   <div v-if="auth" class="quiz">
     <div id="content">
 
-
-      <h1>QUIZ</h1>
-
       <div v-if="showStart || complete || showQuizStartingInfo">
-      <section class="grid-container">
-        <div id="homeBackground">
+      <section class="grid-container" style="padding-top: 50px">
+        <div class="quizBackground">
           <main id="subPages">
 
             <div v-if="showStart">
@@ -26,12 +23,12 @@
 
             <article v-if="showQuizStartingInfo && !allQuizCompleted">
               <div>
-              <h2 style="font-size: 28px; text-decoration: underline">Next quiz</h2>
-              <h2 style="font-size: 28px; color: rgba(1,250,182,0.8995973389355743);text-shadow: 2px 2px rgba(0,0,0,0.75)">{{this.category}}</h2>
+              <h2 style="font-size: 28px; text-decoration: underline">Next Quiz</h2>
+              <h2 style="font-size: 28px; color: rgba(1,250,182,0.8995973389355743);text-shadow: 2px 2px #00402F">{{this.category}}</h2>
               </div>
               <div style="padding-top: 5px">
               <h2 style="font-size: 28px; text-decoration: underline;">Difficulty</h2>
-              <h2 style="font-size: 28px; color: rgba(1,250,182,0.8995973389355743); text-shadow: 2px 2px rgba(0,0,0,0.75)">{{this.difficulty}}</h2>
+              <h2 style="font-size: 28px; color: rgba(1,250,182,0.8995973389355743); text-shadow: 2px 2px #00402F">{{this.difficulty}}</h2>
               </div>
               <div class="round-time-bar" data-style="smooth" style="--duration: 2;">
                 <div></div>
@@ -39,16 +36,16 @@
             </article>
 
             <h1 v-if="complete && !showQuizStartingInfo" style="font-size: 26px">Correct {{ userCorrect }} of {{ this.questions.length }}</h1>
-            <h1 v-if="complete && !showQuizStartingInfo" style="font-size: 30px" v-bind:style="{color: feedbackColor}">{{ this.feedback }}</h1>
+            <h1 v-if="complete && !showQuizStartingInfo" style="font-size: 30px" v-bind:style="{color: feedbackColor, textShadow: feedbackShadow}">{{ this.feedback }}</h1>
             <article v-if="complete && !finalComplete">
               <button v-if="checkIfPassed"
-                      class="home-btn"
+                      class="quiz-btn"
                       @click="nextQuiz"
-              >Next</button>
+              >Next Quiz</button>
               <button v-else
-                      class="home-btn"
+                      class="quiz-btn"
                       @click="nextQuiz"
-              >Again</button>
+              >Retry Quiz</button>
             </article>
 
             <div v-if="finalComplete">
@@ -64,8 +61,11 @@
       </div>
 
     <div v-if="showQuiz">
-    <div id="quizBackground" v-bind:style="{background: quizBackgroundColorSwitch}">
-      <p v-if="!finalComplete" style="font-size: 16px;">{{ this.category }} - {{ this.difficulty }} - {{ index + 1 }} of {{ questions.length }}</p>
+    <section class="grid-container" style="padding-top: 50px">
+    <div class="quizBackground" v-bind:style="{background: quizBackgroundColorSwitch}" >
+
+      <p v-if="!finalComplete" style="font-size: 18px;">Question {{ index + 1 }} of {{ questions.length }}</p>
+      <p v-if="!finalComplete" style="font-size: 18px;">{{ this.category }} - {{ this.difficulty }}</p><hr>
 
       <h1 v-if="!finalComplete && !loading" style="font-size: 30px">What is {{currentQuestion.question}}?</h1>
 
@@ -84,6 +84,7 @@
       </div>
 
     </div>
+    </section>
     </div>
 
     </div>
@@ -132,6 +133,8 @@ export default {
       allQuizCompleted: false,
       quizBackgroundColorSwitch: 'white',
       checkIfPassed: false,
+      padding: '50px',
+      feedbackShadow: '2px 2px #00402F',
     };
   },
   beforeMount() {
@@ -172,7 +175,6 @@ export default {
           responseThree.data.final_hard
       );
 
-      // setting every undefined element as 0
       for (let i = 0; i < checkEasyDatabaseProgress.length; i++) {
         if (checkEasyDatabaseProgress[i] >= 4) {
           this.quizEasyProgress[i] = true;
@@ -388,10 +390,10 @@ export default {
     },
     quizFeedback(quizPassed) {
       if (quizPassed) {
-        this.feedback = 'PASSED :-)';
+        this.feedback = 'PASSED';
         this.feedbackColor = '#0CFA34';
       } else {
-        this.feedback = 'FAILED :-(';
+        this.feedback = 'FAILED';
         this.feedbackColor = '#FA8F19';
       }
     },
