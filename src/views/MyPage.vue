@@ -25,16 +25,7 @@
           <h1 style="text-decoration: underline">Change password</h1>
             <input type="password" placeholder="New Password"  name="psw" required id="newPassword" v-model="newPassword">
             <input type="password" placeholder="Confirm Password"  name="psw" required id="reNewPassword" v-model="confirmNewPassword">
-            <input type="submit" class ="btn" value="Change password">
-          </form>
-        </div>
-
-        <div v-if="removeAcc">
-          <form>
-          <h1 style="text-decoration: underline">Remove account</h1>
-          <p class="account-info">Enter your password to confirm</p>
-          <input type="password" id='psw' placeholder="Password">
-          <input type="submit" class ="btn" value="Remove account" @click="removeAcc=false">
+            <input type="submit" class="btn" value="Confirm">
           </form>
         </div>
 
