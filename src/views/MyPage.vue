@@ -344,6 +344,7 @@ export default {
               });
             }
           })
+        this.changePass = false;
       }
       else {
         swal.fire({
