@@ -65,7 +65,7 @@
     <div class="quizBackground" v-bind:style="{background: quizBackgroundColorSwitch}" >
 
       <p v-if="!finalComplete" style="font-size: 18px;">Question {{ index + 1 }} of {{ questions.length }}</p>
-      <p v-if="!finalComplete" style="font-size: 18px;">{{ this.category }} - {{ this.difficulty }}</p><hr>
+      <p v-if="!finalComplete" style="font-size: 18px; color: darkblue">{{ this.category }} - {{ this.difficulty }}</p><hr>
 
       <h1 v-if="!finalComplete && !loading" style="font-size: 30px">What is {{currentQuestion.question}}?</h1>
 
