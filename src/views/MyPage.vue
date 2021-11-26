@@ -4,14 +4,14 @@
       <section class="MyPage">
 
         <article>
-          <h1 style="text-decoration: underline">Account info</h1>
+          <h1 style="border-bottom: 1px solid black">Account information</h1>
           <div class="account-info">Username: <div style="float:right">{{ accountName }}</div></div>
           <div class="account-info">E-mail: <div style="float:right; margin-left: 20px">{{ accountEmail }}</div></div>
           <div class="account-info">Completion: <div style="float: right">{{ accountCompletion }}%</div></div>
         </article>
 
         <article>
-          <h1 style="text-decoration: underline">Settings</h1>
+          <h1 style="border-bottom: 1px solid black">Account settings</h1>
           <div class="settings" @click="clickPasswordChange">Change password</div>
           <div class="settings"  @click.prevent="removeAccount">Remove Account</div>
         </article>
